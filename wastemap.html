@@ -17,6 +17,11 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 
+  <!-- Gesture Handling Plugin -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" />
+  <script src="https://unpkg.com/leaflet-gesture-handling"></script>
+
+
   
   <script>
     tailwind.config = {
@@ -89,6 +94,15 @@
       border-radius: 50%;
       animation: fall 3s linear infinite;
     }
+
+    .leaflet-control-gesture-handling-warning {
+      background: rgba(255,255,255,0.95);
+      color: #333;
+      font-size: 14px;
+      padding: 0.5em;
+      border-radius: 0.5em;
+    }
+
     
     @keyframes fall {
       0% {
@@ -148,7 +162,7 @@
     </div>
   </nav>
 
-  <main class="pt-32 pb-16 min-h-[calc(100vh-250px)]">
+  <main class="pt-[5.5rem] pb-16 min-h-[calc(100vh-250px)] z-10 relative">
     <section class="container mx-auto px-4 text-center animate-fade-in">
       <h1 class="text-5xl md:text-6xl font-black text-dark-green mb-6 leading-tight">Peta Titik waste map</h1>
       <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed">
@@ -269,7 +283,9 @@
       observer.observe(section);
     });
 
-    const map = L.map('map').setView([-6.2, 106.8], 11);
+    const map = L.map('map', {
+      gestureHandling: true
+    }).setView([-6.2, 106.8], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
