@@ -139,7 +139,29 @@
       animation: wiggle 3s ease-in-out infinite;
     }
 
-    /* Logo kiri hanya saat layar kecil */
+    @keyframes slideDown {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-slide-down {
+      animation: slideDown 0.3s ease-out forwards;
+    }
+
+    #mobile-menu-wrapper.show {
+      max-height: 150px;
+    }
+
+    #menu.fade-in {
+      opacity: 1;
+      transition-delay: 0.25s; /* Tunggu animasi background selesai */
+    }
+
+    #menu.fade-out {
+      opacity: 0;
+      transition-delay: 0s;
+    }
+
     @media (max-width: 639px) {
       .logo-wrapper {
         display: flex;
@@ -147,11 +169,8 @@
         width: 100%;
         margin-bottom: 0.5rem; /* agar ada jarak dengan menu */
       }
-      .logo-wrapper img {
-        margin-left: 0.5rem; /* kasih jarak dari pinggir */
-        height: 2rem;
-      }
     }
+
   </style>
 </head>
 <body class="bg-gradient-to-b from-light-green to-cream min-h-screen">
@@ -168,24 +187,43 @@
   <!-- Navigation -->
   <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-lg border-b-2 border-primary-orange/20 z-50">
     <div class="container mx-auto px-4 py-3">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-        
+      <div class="flex items-center justify-between">
         <!-- Logo -->
         <div class="logo-wrapper">
-          <img src="MuDu logo.png" alt="MuDu Logo" class="h-10">
+          <img src="MuDu logo.png" alt="MuDu Logo" class="h-8 sm:h-10" />
         </div>
 
-        <!-- Navigation Links -->
-        <div class="flex justify-center sm:justify-end space-x-4 sm:space-x-8">
-          <a href="index.html" class="font-bold underline underline-offset-4 text-[#E98728] hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Home</a>
-          <a href="education.html" class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Education</a>
-          <a href="wastemap.html" class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Waste Map</a>
-          <a href="challenge.html" class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Challenge</a>
-        </div>
+        <!-- Hamburger Button (mobile only) -->
+        <button id="menu-toggle" class="sm:hidden text-[#E98728] text-2xl focus:outline-none">
+          <i class="fas fa-bars"></i>
+        </button>
 
+        <!-- Desktop Menu -->
+        <div class="hidden sm:flex items-center space-x-8">
+          <a href="index.html" class="font-bold underline underline-offset-4 text-[#E98728]">Home</a>
+          <a href="education.html" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Education</a>
+          <a href="wastemap.html" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Waste Map</a>
+          <a href="challenge.html" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Challenge</a>
+        </div>
       </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden sm:hidden flex justify-center sm:justify-end space-x-4 sm:space-x-8">
+        <a href="index.html" class="font-bold underline underline-offset-4 text-[#E98728] hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Home</a>
+        <a href="education.html" class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Education</a>
+        <a href="wastemap.html" class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Waste Map</a>
+        <a href="challenge.html" class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Challenge</a>
+      </div>
+
+
+
+
+
     </div>
   </nav>
+
+
+
 
 
   <!-- Hero Section -->
@@ -317,7 +355,7 @@
           <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:animate-bounce transform hover:scale-110 transition-all duration-300 organic-shape">
             <i class="fas fa-map-marked-alt text-3xl text-white"></i>
           </div>
-          <h5 class="text-xl font-bold text-dark-green mb-3 group-hover:text-[#E98728] transition-colors">Peta waste map</h5>
+          <h5 class="text-xl font-bold text-dark-green mb-3 group-hover:text-[#E98728] transition-colors">Peta waste map dan tracking truck</h5>
           <p class="text-gray-600">Temukan lokasi terdekat untuk menyalurkan sampah organik Anda</p>
         </div>
         
@@ -334,12 +372,12 @@
     </div>
   </section>
 
-  <!-- Enhanced JRC Pesanggrahan Banner -->
+  <!-- Enhanced Gem House Banner -->
 <section id="wastemap" class="py-16 relative overflow-hidden">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16 animate-slide-up">
         <h2 class="text-5xl font-black text-dark-green mb-4 text-glow">Pilot Project MuDu</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Langkah awal MuDu dalam menerapkan sistem pengelolaan food waste terpadu di wilayah Jakarta Selatan</p>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Langkah awal MuDu dalam menerapkan sistem pengelolaan food waste terpadu di wilayah Jakarta Timur</p>
       </div>
       
       <div class="max-w-6xl mx-auto">
@@ -390,7 +428,7 @@
         </div>
 
         <div class="mt-16 text-center animate-slide-up">
-          <h3 class="text-3xl font-bold text-dark-green mb-6">Kegiatan di JRC Pesanggrahan</h3>
+          <h3 class="text-3xl font-bold text-dark-green mb-6">Kegiatan di Gem House</h3>
         </div>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -544,6 +582,11 @@
     // Observe elements for animation
     document.querySelectorAll('section').forEach(section => {
       observer.observe(section);
+    });
+    
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
     });
   </script>
 </body>
