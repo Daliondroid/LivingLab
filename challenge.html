@@ -541,46 +541,49 @@
 
             <!-- Filters -->
             <div class="leaderboard-filters">
-                <button class="filter-btn active" onclick="switchLeaderboard('rt')">🏘️ Ranking RT/RW</button>
-                <button class="filter-btn" onclick="switchLeaderboard('individual')">👤 Individual</button>
+                <button class="filter-btn active" onclick="switchLeaderboard('individual')">👤 Individual</button>
                 <button class="filter-btn" onclick="switchLeaderboard('weekly')">📅 Mingguan</button>
                 <button class="filter-btn" onclick="switchLeaderboard('monthly')">📊 Bulanan</button>
-                <button class="filter-btn" onclick="switchLeaderboard('co2')">💚 CO₂ Heroes</button>
+                <button class="filter-btn" onclick="switchLeaderboard('compost')">💚 Compost Heroes</button>
+                <button class="filter-btn" onclick="switchLeaderboard('rt')">🏘️ Ranking RT/RW</button>
             </div>
 
-            <!-- Leaderboard Layout -->
-            <div class="leaderboard-grid">
-                <!-- Main Leaderboard -->
-                <div class="main-leaderboard">
-                    <h2 class="text-dark-green mb-8 text-center text-3xl font-bold">🏘️ Top RT/RW Jakarta</h2>
 
-                    <!-- Podium -->
-                    <div class="podium">
+            <!-- Container untuk semua leaderboard -->
+            <div id="leaderboard-container">
+            
+                <!-- Individual -->
+                <div id="leaderboard-individual">
+                    <div class="main-leaderboard">
+                        <h2 class="text-dark-green mb-8 text-center text-3xl font-bold">👤 Top Individu Jakarta</h2>
+
+                        <!-- Podium -->
+                        <div class="podium">
                         <div class="podium-place podium-2">
                             <div class="podium-rank">2</div>
-                            <div class="podium-avatar">RT03</div>
-                            <div class="podium-name">RT 03 Menteng</div>
-                            <div class="podium-score">742.5 kg</div>
+                            <div class="podium-avatar">RA</div>
+                            <div class="podium-name">Rizki Ananda</div>
+                            <div class="podium-score">103.2 kg</div>
                         </div>
                         <div class="podium-place podium-1">
                             <div class="podium-rank">1</div>
-                            <div class="podium-avatar">RT05</div>
-                            <div class="podium-name">RT 05 Kemang</div>
-                            <div class="podium-score">856.2 kg</div>
+                            <div class="podium-avatar">AT</div>
+                            <div class="podium-name">Ayu Triana</div>
+                            <div class="podium-score">118.6 kg</div>
                         </div>
                         <div class="podium-place podium-3">
                             <div class="podium-rank">3</div>
-                            <div class="podium-avatar">RT07</div>
-                            <div class="podium-name">RT 07 Fatmawati</div>
-                            <div class="podium-score">698.1 kg</div>
+                            <div class="podium-avatar">FS</div>
+                            <div class="podium-name">Fajar Siregar</div>
+                            <div class="podium-score">97.8 kg</div>
                         </div>
-                    </div>
+                        </div>
 
-                    <!-- Table -->
-                    <div class="leaderboard-table">
+                        <!-- Tabel -->
+                        <div class="leaderboard-table">
                         <div class="table-header">
                             <div>Rank</div>
-                            <div>RT/RW</div>
+                            <div>Nama</div>
                             <div>Sampah Diolah</div>
                             <div>Trend</div>
                         </div>
@@ -588,193 +591,346 @@
                         <div class="table-row">
                             <div class="rank-number">4</div>
                             <div class="participant-info">
-                                <div class="participant-avatar">RT02</div>
-                                <div class="participant-details">
-                                    <h4>RT 02 Senayan</h4>
-                                    <div class="location">Kec. Kebayoran Baru</div>
-                                </div>
+                            <div class="participant-avatar">DN</div>
+                            <div class="participant-details">
+                                <h4>Dina Nurhaliza</h4>
+                                <div class="location">RT 02 Senayan</div>
                             </div>
-                            <div class="score-value">634.7 kg</div>
-                            <div class="trend-indicator trend-up">↗️ +2</div>
+                            </div>
+                            <div class="score-value">91.4 kg</div>
+                            <div class="trend-indicator trend-up">↗️ +1</div>
                         </div>
 
                         <div class="table-row">
                             <div class="rank-number">5</div>
                             <div class="participant-info">
-                                <div class="participant-avatar">RT04</div>
-                                <div class="participant-details">
-                                    <h4>RT 04 Kuningan</h4>
-                                    <div class="location">Kec. Setiabudi</div>
-                                </div>
+                            <div class="participant-avatar">BH</div>
+                            <div class="participant-details">
+                                <h4>Budi Hartono</h4>
+                                <div class="location">RT 05 Kemang</div>
                             </div>
-                            <div class="score-value">589.3 kg</div>
+                            </div>
+                            <div class="score-value">88.9 kg</div>
                             <div class="trend-indicator trend-stable">— 0</div>
                         </div>
 
                         <div class="table-row">
                             <div class="rank-number">6</div>
                             <div class="participant-info">
-                                <div class="participant-avatar">RT08</div>
-                                <div class="participant-details">
-                                    <h4>RT 08 Pancoran</h4>
-                                    <div class="location">Kec. Pancoran</div>
-                                </div>
+                            <div class="participant-avatar">LR</div>
+                            <div class="participant-details">
+                                <h4>Laras Rahma</h4>
+                                <div class="location">RT 08 Tebet</div>
                             </div>
-                            <div class="score-value">523.9 kg</div>
-                            <div class="trend-indicator trend-down">↘️ -1</div>
+                            </div>
+                            <div class="score-value">84.3 kg</div>
+                            <div class="trend-indicator trend-down">↘️ -2</div>
                         </div>
 
                         <div class="table-row">
                             <div class="rank-number">7</div>
                             <div class="participant-info">
-                                <div class="participant-avatar">RT01</div>
-                                <div class="participant-details">
-                                    <h4>RT 01 Cikini</h4>
-                                    <div class="location">Kec. Menteng</div>
-                                </div>
+                            <div class="participant-avatar">TS</div>
+                            <div class="participant-details">
+                                <h4>Teguh Saputra</h4>
+                                <div class="location">RT 07 Fatmawati</div>
                             </div>
-                            <div class="score-value">489.2 kg</div>
-                            <div class="trend-indicator trend-up">↗️ +3</div>
+                            </div>
+                            <div class="score-value">80.0 kg</div>
+                            <div class="trend-indicator trend-up">↗️ +2</div>
                         </div>
 
                         <div class="table-row">
                             <div class="rank-number">8</div>
                             <div class="participant-info">
-                                <div class="participant-avatar">RT09</div>
-                                <div class="participant-details">
-                                    <h4>RT 09 Tebet</h4>
-                                    <div class="location">Kec. Tebet</div>
-                                </div>
+                            <div class="participant-avatar">NI</div>
+                            <div class="participant-details">
+                                <h4>Nina Indah</h4>
+                                <div class="location">RT 12 Cipete</div>
                             </div>
-                            <div class="score-value">467.5 kg</div>
+                            </div>
+                            <div class="score-value">78.6 kg</div>
                             <div class="trend-indicator trend-up">↗️ +1</div>
                         </div>
 
                         <div class="table-row">
                             <div class="rank-number">9</div>
                             <div class="participant-info">
-                                <div class="participant-avatar">RT06</div>
-                                <div class="participant-details">
-                                    <h4>RT 06 Kalibata</h4>
-                                    <div class="location">Kec. Pancoran</div>
-                                </div>
+                            <div class="participant-avatar">AD</div>
+                            <div class="participant-details">
+                                <h4>Agus Darmawan</h4>
+                                <div class="location">RT 06 Kalibata</div>
                             </div>
-                            <div class="score-value">445.8 kg</div>
+                            </div>
+                            <div class="score-value">74.2 kg</div>
                             <div class="trend-indicator trend-stable">— 0</div>
                         </div>
 
                         <div class="table-row">
                             <div class="rank-number">10</div>
                             <div class="participant-info">
-                                <div class="participant-avatar">RT12</div>
-                                <div class="participant-details">
-                                    <h4>RT 12 Cipete</h4>
-                                    <div class="location">Kec. Kebayoran Baru</div>
-                                </div>
+                            <div class="participant-avatar">VM</div>
+                            <div class="participant-details">
+                                <h4>Vina Melati</h4>
+                                <div class="location">RT 03 Menteng</div>
                             </div>
-                            <div class="score-value">423.1 kg</div>
-                            <div class="trend-indicator trend-down">↘️ -2</div>
+                            </div>
+                            <div class="score-value">71.0 kg</div>
+                            <div class="trend-indicator trend-down">↘️ -3</div>
+                        </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Sidebar -->
-                <div class="leaderboard-sidebar">
-                    <!-- Quick Stats -->
-                    <div class="widget">
-                        <h3 class="text-dark-green">⚡ Statistik Cepat</h3>
-                        <div class="flex justify-between mb-4">
-                            <span>Total Peserta</span>
-                            <strong class="text-primary-green">156 RT</strong>
-                        </div>
-                        <div class="flex justify-between mb-4">
-                            <span>Kompetisi Aktif</span>
-                            <strong class="text-[#E98728]">8</strong>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Total Reward</span>
-                            <strong class="text-blue-500">Rp 50 Juta</strong>
-                        </div>
-                    </div>
+                <!-- Weekly -->
+                <div id="leaderboard-weekly" class="hidden">
+                    <!-- konten leaderboard mingguan -->
+                </div>
 
-                    <!-- Achievements -->
-                    <div class="widget">
-                        <h3 class="text-dark-green">🏆 Achievements Anda</h3>
-                        <div class="achievements-grid">
-                            <div class="achievement-badge">
-                                <div class="badge-icon">🥉</div>
-                                <div>Bronze Rank</div>
-                            </div>
-                            <div class="achievement-badge">
-                                <div class="badge-icon">📈</div>
-                                <div>Trend Naik</div>
-                            </div>
-                            <div class="achievement-badge">
-                                <div class="badge-icon">💚</div>
-                                <div>CO₂ Saver</div>
-                            </div>
-                            <div class="achievement-badge">
-                                <div class="badge-icon">🔥</div>
-                                <div>30-Day Streak</div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Monthly -->
+                <div id="leaderboard-monthly" class="hidden">
+                    <!-- konten leaderboard bulanan -->
+                </div>
 
-                    <!-- Competition Progress -->
-                    <div class="widget">
-                        <h3 class="text-dark-green">📊 Progress Kompetisi</h3>
-                        <div class="mb-6">
-                            <div class="flex justify-between mb-2">
-                                <span>Target Bulanan</span>
-                                <span>73%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 73%;"></div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>Posisi Target</span>
-                                <span>Top 10</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 80%;"></div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Compost -->
+                <div id="leaderboard-compost" class="hidden">
+                    <!-- konten compost heroes -->
+                </div>
 
-                    <!-- Nearest Competitors -->
-                    <div class="widget">
-                        <h3 class="text-dark-green">🎯 Kompetitor Terdekat</h3>
-                        <div class="mb-4 p-4 bg-cream rounded-lg">
-                            <div class="flex justify-between items-center">
+                <!-- RT/RW -->
+                <div id="leaderboard-rt" class="hidden">
+                    <!-- Leaderboard Layout -->
+                    <div class="leaderboard-grid">
+                        <!-- Main Leaderboard -->
+                        <div class="main-leaderboard">
+                            <h2 class="text-dark-green mb-8 text-center text-3xl font-bold">🏘️ Top RT/RW Jakarta</h2>
+
+                            <!-- Podium -->
+                            <div class="podium">
+                                <div class="podium-place podium-2">
+                                    <div class="podium-rank">2</div>
+                                    <div class="podium-avatar">RT03</div>
+                                    <div class="podium-name">RT 03 Menteng</div>
+                                    <div class="podium-score">742.5 kg</div>
+                                </div>
+                                <div class="podium-place podium-1">
+                                    <div class="podium-rank">1</div>
+                                    <div class="podium-avatar">RT05</div>
+                                    <div class="podium-name">RT 05 Kemang</div>
+                                    <div class="podium-score">856.2 kg</div>
+                                </div>
+                                <div class="podium-place podium-3">
+                                    <div class="podium-rank">3</div>
+                                    <div class="podium-avatar">RT07</div>
+                                    <div class="podium-name">RT 07 Fatmawati</div>
+                                    <div class="podium-score">698.1 kg</div>
+                                </div>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="leaderboard-table">
+                                <div class="table-header">
+                                    <div>Rank</div>
+                                    <div>RT/RW</div>
+                                    <div>Sampah Diolah</div>
+                                    <div>Trend</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="rank-number">4</div>
+                                    <div class="participant-info">
+                                        <div class="participant-avatar">RT02</div>
+                                        <div class="participant-details">
+                                            <h4>RT 02 Senayan</h4>
+                                            <div class="location">Kec. Kebayoran Baru</div>
+                                        </div>
+                                    </div>
+                                    <div class="score-value">634.7 kg</div>
+                                    <div class="trend-indicator trend-up">↗️ +2</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="rank-number">5</div>
+                                    <div class="participant-info">
+                                        <div class="participant-avatar">RT04</div>
+                                        <div class="participant-details">
+                                            <h4>RT 04 Kuningan</h4>
+                                            <div class="location">Kec. Setiabudi</div>
+                                        </div>
+                                    </div>
+                                    <div class="score-value">589.3 kg</div>
+                                    <div class="trend-indicator trend-stable">— 0</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="rank-number">6</div>
+                                    <div class="participant-info">
+                                        <div class="participant-avatar">RT08</div>
+                                        <div class="participant-details">
+                                            <h4>RT 08 Pancoran</h4>
+                                            <div class="location">Kec. Pancoran</div>
+                                        </div>
+                                    </div>
+                                    <div class="score-value">523.9 kg</div>
+                                    <div class="trend-indicator trend-down">↘️ -1</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="rank-number">7</div>
+                                    <div class="participant-info">
+                                        <div class="participant-avatar">RT01</div>
+                                        <div class="participant-details">
+                                            <h4>RT 01 Cikini</h4>
+                                            <div class="location">Kec. Menteng</div>
+                                        </div>
+                                    </div>
+                                    <div class="score-value">489.2 kg</div>
+                                    <div class="trend-indicator trend-up">↗️ +3</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="rank-number">8</div>
+                                    <div class="participant-info">
+                                        <div class="participant-avatar">RT09</div>
+                                        <div class="participant-details">
+                                            <h4>RT 09 Tebet</h4>
+                                            <div class="location">Kec. Tebet</div>
+                                        </div>
+                                    </div>
+                                    <div class="score-value">467.5 kg</div>
+                                    <div class="trend-indicator trend-up">↗️ +1</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="rank-number">9</div>
+                                    <div class="participant-info">
+                                        <div class="participant-avatar">RT06</div>
+                                        <div class="participant-details">
+                                            <h4>RT 06 Kalibata</h4>
+                                            <div class="location">Kec. Pancoran</div>
+                                        </div>
+                                    </div>
+                                    <div class="score-value">445.8 kg</div>
+                                    <div class="trend-indicator trend-stable">— 0</div>
+                                </div>
+
+                                <div class="table-row">
+                                    <div class="rank-number">10</div>
+                                    <div class="participant-info">
+                                        <div class="participant-avatar">RT12</div>
+                                        <div class="participant-details">
+                                            <h4>RT 12 Cipete</h4>
+                                            <div class="location">Kec. Kebayoran Baru</div>
+                                        </div>
+                                    </div>
+                                    <div class="score-value">423.1 kg</div>
+                                    <div class="trend-indicator trend-down">↘️ -2</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar -->
+                        <div class="leaderboard-sidebar">
+                            <!-- Quick Stats -->
+                            <div class="widget">
+                                <h3 class="text-dark-green">⚡ Statistik Cepat</h3>
+                                <div class="flex justify-between mb-4">
+                                    <span>Total Peserta</span>
+                                    <strong class="text-primary-green">156 RT</strong>
+                                </div>
+                                <div class="flex justify-between mb-4">
+                                    <span>Kompetisi Aktif</span>
+                                    <strong class="text-[#E98728]">8</strong>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Total Reward</span>
+                                    <strong class="text-blue-500">Rp 50 Juta</strong>
+                                </div>
+                            </div>
+
+                            <!-- Achievements -->
+                            <div class="widget">
+                                <h3 class="text-dark-green">🏆 Achievements Anda</h3>
+                                <div class="achievements-grid">
+                                    <div class="achievement-badge">
+                                        <div class="badge-icon">🥉</div>
+                                        <div>Bronze Rank</div>
+                                    </div>
+                                    <div class="achievement-badge">
+                                        <div class="badge-icon">📈</div>
+                                        <div>Trend Naik</div>
+                                    </div>
+                                    <div class="achievement-badge">
+                                        <div class="badge-icon">💚</div>
+                                        <div>CO₂ Saver</div>
+                                    </div>
+                                    <div class="achievement-badge">
+                                        <div class="badge-icon">🔥</div>
+                                        <div>30-Day Streak</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Competition Progress -->
+                            <div class="widget">
+                                <h3 class="text-dark-green">📊 Progress Kompetisi</h3>
+                                <div class="mb-6">
+                                    <div class="flex justify-between mb-2">
+                                        <span>Target Bulanan</span>
+                                        <span>73%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 73%;"></div>
+                                    </div>
+                                </div>
+                                
                                 <div>
-                                    <strong>RT 11 Kemang</strong>
-                                    <div class="text-sm text-gray-600">Rank #11</div>
-                                </div>
-                                <div class="text-right">
-                                    <div class="text-primary-green font-bold">189.3 kg</div>
-                                    <div class="text-sm text-gray-600">-33.5 kg</div>
+                                    <div class="flex justify-between mb-2">
+                                        <span>Posisi Target</span>
+                                        <span>Top 10</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 80%;"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="p-4 bg-cream rounded-lg">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <strong>RT 13 Blok M</strong>
-                                    <div class="text-sm text-gray-600">Rank #13</div>
+
+                            <!-- Nearest Competitors -->
+                            <div class="widget">
+                                <h3 class="text-dark-green">🎯 Kompetitor Terdekat</h3>
+                                <div class="mb-4 p-4 bg-cream rounded-lg">
+                                    <div class="flex justify-between items-center">
+                                        <div>
+                                            <strong>RT 11 Kemang</strong>
+                                            <div class="text-sm text-gray-600">Rank #11</div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-primary-green font-bold">189.3 kg</div>
+                                            <div class="text-sm text-gray-600">-33.5 kg</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="text-right">
-                                    <div class="text-primary-green font-bold">142.7 kg</div>
-                                    <div class="text-sm text-primary-green">+14.1 kg</div>
+                                
+                                <div class="p-4 bg-cream rounded-lg">
+                                    <div class="flex justify-between items-center">
+                                        <div>
+                                            <strong>RT 13 Blok M</strong>
+                                            <div class="text-sm text-gray-600">Rank #13</div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-primary-green font-bold">142.7 kg</div>
+                                            <div class="text-sm text-primary-green">+14.1 kg</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            
         </div>
     </section>
 
@@ -955,6 +1111,23 @@
 
             // You would typically update the content of the leaderboard table and podium here
             // based on the selected filter.
+        }
+
+
+
+        function switchLeaderboard(type) {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        document.querySelector(`.filter-btn[onclick*="${type}"]`).classList.add('active');
+
+        const types = ['individual', 'weekly', 'monthly', 'compost', 'rt'];
+        types.forEach(t => {
+            const div = document.getElementById(`leaderboard-${t}`);
+            if (div) div.classList.add('hidden');
+        });
+
+        const activeDiv = document.getElementById(`leaderboard-${type}`);
+        if (activeDiv) activeDiv.classList.remove('hidden');
         }
     </script>
 </body>
