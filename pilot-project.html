@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MuDu - Smart Environment Solution</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-green': '#62a64a',
+            'primary-orange': '#ec7c0c',
+            'light-green': '#d7ebcd',
+            'cream': '#faf9e6',
+            'dark-green': '#28361c',
+            'text-gray': '#445a3b',
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'bounce-slow': 'bounce 2s infinite',
+            'wiggle': 'wiggle 1s ease-in-out infinite',
+            'pulse-glow': 'pulse-glow 2s ease-in-out infinite alternate',
+            'rotate-slow': 'rotate-slow 8s linear infinite',
+            'slide-up': 'slide-up 0.8s ease-out',
+            'fade-in': 'fade-in 1s ease-out',
+            'scale-bounce': 'scale-bounce 0.5s ease-out',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            wiggle: {
+              '0%, 100%': { transform: 'rotate(-3deg)' },
+              '50%': { transform: 'rotate(3deg)' },
+            },
+            'pulse-glow': {
+              '0%': { boxShadow: '0 0 20px rgba(236, 124, 12, 0.4)' },
+              '100%': { boxShadow: '0 0 40px rgba(236, 124, 12, 0.8)' },
+            },
+            'rotate-slow': {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
+            },
+            'slide-up': {
+              '0%': { transform: 'translateY(50px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+            'fade-in': {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            'scale-bounce': {
+              '0%': { transform: 'scale(0.8)' },
+              '50%': { transform: 'scale(1.1)' },
+              '100%': { transform: 'scale(1)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .food-waste-particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #ff6b35;
+      border-radius: 50%;
+      animation: fall 3s linear infinite;
+    }
+    
+    @keyframes fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    .composting-steam {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      animation: steam 2s ease-in-out infinite;
+    }
+    
+    @keyframes steam {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-40px) scale(0);
+        opacity: 0;
+      }
+    }
+    
+    .leaf-float {
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    .text-glow {
+      text-shadow: 0 0 20px rgba(236, 124, 12, 0.6);
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .organic-shape {
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      animation: wiggle 3s ease-in-out infinite;
+    }
+
+    @keyframes slideDown {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-slide-down {
+      animation: slideDown 0.3s ease-out forwards;
+    }
+
+    #mobile-menu-wrapper.show {
+      max-height: 150px;
+    }
+
+    #menu.fade-in {
+      opacity: 1;
+      transition-delay: 0.25s; /* Tunggu animasi background selesai */
+    }
+
+    #menu.fade-out {
+      opacity: 0;
+      transition-delay: 0s;
+    }
+
+    @media (max-width: 639px) {
+      .logo-wrapper {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+        margin-bottom: 0.5rem; /* agar ada jarak dengan menu */
+      }
+    }
+
+  </style>
+</head>
+<body class="bg-gradient-to-b from-light-green to-cream min-h-screen">
+  <!-- Floating Food Waste Particles -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="food-waste-particle" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="food-waste-particle" style="left: 25%; animation-delay: 1s;"></div>
+    <div class="food-waste-particle" style="left: 40%; animation-delay: 2s;"></div>
+    <div class="food-waste-particle" style="left: 60%; animation-delay: 0.5s;"></div>
+    <div class="food-waste-particle" style="left: 80%; animation-delay: 1.5s;"></div>
+    <div class="food-waste-particle" style="left: 90%; animation-delay: 2.5s;"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-lg border-b-2 border-primary-orange/20 z-50">
+    <div class="container mx-auto px-4 py-3">
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <div class="logo-wrapper">
+          <img src="MuDu logo.png" alt="MuDu Logo" class="h-8 sm:h-10" />
+        </div>
+
+        <!-- Hamburger Button (mobile only) -->
+        <button id="menu-toggle" class="sm:hidden text-[#E98728] text-2xl focus:outline-none">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Desktop Menu -->
+        <div class="hidden sm:flex items-center space-x-8">
+          <a href="index.html" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Home</a>
+          <a href="education.html" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Education</a>
+          <a href="wastemap.html" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Waste Map</a>
+          <a href="challenge.html" class="font-bold underline underline-offset-4 text-[#E98728]">Challenge</a>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden sm:hidden flex justify-center sm:justify-end space-x-4 sm:space-x-8">
+        <a href="index.html" class="font-bold underline underline-offset-4 text-[#E98728] hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Home</a>
+        <a href="education.html" class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Education</a>
+        <a href="wastemap.html" class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Waste Map</a>
+        <a href="challenge.html" class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Challenge</a>
+      </div>
+
+    </div>
+  </nav>
+
+
+  <!-- Form Multi-Halaman MuDu Pilot Project -->
+  <section class="pt-32 pb-20 bg-gradient-to-b from-light-green to-cream">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-dark-green mb-6 text-center">📋 Pendaftaran Challenge MuDu Pilot Project</h2>
+
+        <form id="pilotForm" class="space-y-6">
+          <!-- Step 1 -->
+          <div class="form-step" id="step-1">
+            <input type="hidden" id="timestamp" name="timestamp" />
+
+            <div>
+              <label for="name" class="block text-sm font-semibold text-text-gray mb-2">Nama Lengkap</label>
+              <input type="text" id="name" name="name" required class="w-full border border-gray-300 rounded-lg px-4 py-3">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="city" class="block text-sm font-semibold text-text-gray mb-2">Kota</label>
+                <select id="city" name="city" required class="w-full border border-gray-300 rounded-lg px-4 py-3">
+                  <option value="">-- Pilih Kota --</option>
+                  <option value="Jakarta Pusat">Jakarta Pusat</option>
+                  <option value="Jakarta Utara">Jakarta Utara</option>
+                  <option value="Jakarta Barat">Jakarta Barat</option>
+                  <option value="Jakarta Selatan">Jakarta Selatan</option>
+                  <option value="Jakarta Timur">Jakarta Timur</option>
+                  <option value="Kepulauan Seribu">Kepulauan Seribu</option>
+                </select>
+              </div>
+              <div>
+                <label for="district" class="block text-sm font-semibold text-text-gray mb-2">Kecamatan</label>
+                <select id="district" name="district" required class="w-full border border-gray-300 rounded-lg px-4 py-3">
+                  <option value="">-- Pilih Kecamatan --</option>
+                </select>
+              </div>
+              <div>
+                <label for="subdistrict" class="block text-sm font-semibold text-text-gray mb-2">Kelurahan</label>
+                <select id="subdistrict" name="subdistrict" required class="w-full border border-gray-300 rounded-lg px-4 py-3">
+                  <option value="">-- Pilih Kelurahan --</option>
+                </select>
+              </div>
+              <div>
+                <label for="age" class="block text-sm font-semibold text-text-gray mb-2">Umur</label>
+                <input type="number" id="age" name="age" required class="w-full border border-gray-300 rounded-lg px-4 py-3">
+              </div>
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-semibold text-text-gray mb-2">Email</label>
+              <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded-lg px-4 py-3">
+            </div>
+
+            <div class="text-right">
+              <button type="button" onclick="nextStep(2)" class="bg-primary-orange hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-full">Lanjut</button>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="form-step hidden" id="step-2">
+            <p class="text-text-gray mb-4">
+              ikuti tantangan memilah dan/atau mengolah sampah sisa makanan dengan membuat kompos dalam pot (edukasi ada di website MuDu), sampah sisa makanan dikumpul dalam satu tempat dalam kurun waktu 3 hari berturut-turut. Pendaftaran dibuka 9-10 Juli, dan pengumpulan hasil dilakukan 11-12 Juli, disertai foto dan data lengkap. 
+              <br><br>
+              Peserta dinilai berdasarkan foto yang dikirimkan dan akan mendapatkan badge dan ala-ala spotify wrap yang bisa dibagikan di instagram stories, jangan lupa tag @mudumulaidulu yah!
+            </p>
+
+            <div class="mb-6">
+              <label class="inline-flex items-center">
+                <input type="checkbox" required class="form-checkbox text-primary-orange mr-2">
+                <span class="text-sm text-text-gray">Saya memahami dan menyetujui mekanisme challenge ini</span>
+              </label>
+            </div>
+
+            <div class="flex justify-between">
+              <button type="button" onclick="prevStep(1)" class="text-primary-orange font-semibold">Kembali</button>
+              <button type="button" onclick="nextStep(3)" class="bg-primary-orange hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-full">Lanjut</button>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="form-step hidden" id="step-3">
+            <div class="mb-6">
+              <label for="photo" class="block text-sm font-semibold text-text-gray mb-2">Unggah Foto Kantong Plastik Kosong</label>
+              <input type="file" id="photo" name="photo" accept="image/*" required class="w-full">
+            </div>
+
+            <div class="mb-4">
+              <label class="inline-flex items-center">
+                <input type="checkbox" required class="form-checkbox text-primary-orange mr-2">
+                <span class="text-sm text-text-gray">Foto yang dilampirkan adalah benar dan menandakan saya mengikuti dan mengawali challenge</span>
+              </label>
+            </div>
+
+            <div class="mb-6">
+              <label class="inline-flex items-center">
+                <input type="checkbox" required class="form-checkbox text-primary-orange mr-2">
+                <span class="text-sm text-text-gray">Saya setuju dengan kebijakan MuDu</span>
+              </label>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <button type="button" onclick="prevStep(2)" class="text-primary-orange font-semibold">Kembali</button>
+              <button onclick="submitForm()" type="button" class="bg-primary-orange hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-full">Kirim Pendaftaran</button>
+            </div>
+          </div>
+        </form>
+
+        <div id="successMessage" class="hidden mt-6 text-center text-green-600 font-semibold">
+          ✅ Pendaftaran berhasil! Nama Anda telah terdaftar dalam tantangan MuDu Pilot Project.
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <!-- Enhanced Footer -->
+  <footer class="bg-dark-green text-gray-300 border-t-4 border-primary-orange py-16 relative overflow-hidden">
+    <!-- Background Animation -->
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-8 left-8 text-6xl animate-float">🌿</div>
+      <div class="absolute bottom-16 right-16 text-8xl animate-rotate-slow">♻️</div>
+      <div class="absolute top-1/2 left-1/3 text-4xl animate-wiggle">🍃</div>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="grid lg:grid-cols-3 gap-12">
+        <!-- Contact Information -->
+        <div class="lg:col-span-2 animate-slide-up">
+          <h6 class="text-gray-300 font-black text-lg uppercase tracking-wider mb-6">Contact Us</h6>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <a href="tel:+6281224017980" class="flex items-center text-[#E98728] hover:text-orange-400 transition-colors group">
+                <i class="fas fa-phone w-5 mr-3 group-hover:animate-wiggle"></i>
+                +62 812-2401-7980
+              </a>
+              <a href="mailto:info@mudumulolion.id" class="flex items-center text-[#E98728] hover:text-orange-400 transition-colors group">
+                <i class="fas fa-envelope w-5 mr-3 group-hover:animate-bounce"></i>
+                INFO@MUDUMULOLION.ID
+              </a>
+            </div>
+            <div>
+              <div class="flex items-start text-[#E98728]">
+                <i class="fas fa-map-marker-alt w-5 mr-3 mt-1"></i>
+                <span>Jl. Gempol 1 No.40B, RT.6/RW.2, Ceger, Kec. Cipayung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13820</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Social Media -->
+        <div class="animate-slide-up" style="animation-delay: 0.2s;">
+          <h6 class="text-gray-300 font-black text-lg uppercase tracking-wider mb-6">Follow Us</h6>
+          <div class="space-y-3">
+            <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
+              <i class="fab fa-facebook w-5 mr-3 group-hover:animate-bounce"></i>Facebook
+            </a>
+            <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
+              <i class="fab fa-twitter w-5 mr-3 group-hover:animate-wiggle"></i>Twitter
+            </a>
+            <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
+              <i class="fab fa-instagram w-5 mr-3 group-hover:animate-pulse"></i>Instagram
+            </a>
+            <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
+              <i class="fab fa-linkedin w-5 mr-3 group-hover:animate-bounce-slow"></i>LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Copyright -->
+      <div class="text-center mt-12 pt-8 border-t border-gray-600 animate-fade-in">
+        <p class="text-sm font-black uppercase tracking-wider">
+          © 2025 MuDu — Leading The Future Of Sustainable Food Waste Management
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // --- PETA KOTA ‑ KECAMATAN ---
+    const cityDistrictMap = {
+      "Jakarta Pusat": ["Cempaka Putih","Gambir","Johar Baru","Kemayoran","Menteng","Sawah Besar","Senen","Tanah Abang"],
+      "Jakarta Utara": ["Cilincing","Kelapa Gading","Koja","Pademangan","Penjaringan","Tanjung Priok"],
+      "Jakarta Barat": ["Cengkareng","Grogol Petamburan","Kalideres","Kebon Jeruk","Kembangan","Palmerah","Taman Sari","Tambora"],
+      "Jakarta Selatan": ["Cilandak","Jagakarsa","Kebayoran Baru","Kebayoran Lama","Mampang Prapatan","Pancoran","Pasar Minggu","Pesanggrahan","Setiabudi","Tebet"],
+      "Jakarta Timur": ["Cakung","Cipayung","Ciracas","Duren Sawit","Jatinegara","Kramat Jati","Makasar","Matraman","Pasar Rebo","Pulo Gadung"],
+      "Kepulauan Seribu": ["Kepulauan Seribu Utara","Kepulauan Seribu Selatan"]
+    };
+
+    const districtSubdistrictMap = {
+      // Jakarta Pusat
+      "Cempaka Putih": ["Cempaka Putih Barat", "Cempaka Putih Timur", "Rawasari"],
+      "Gambir": ["Cideng", "Duri Pulo", "Gambir", "Kebon Kelapa", "Petojo Selatan", "Petojo Utara"],
+      "Johar Baru": ["Galur", "Johar Baru", "Kampung Rawa", "Tanah Tinggi"],
+      "Kemayoran": ["Gunung Sahari Selatan", "Harapan Mulya", "Kebon Kosong", "Kemayoran", "Serdang", "Sumur Batu", "Utan Panjang"],
+      "Menteng": ["Cikini", "Gondangdia", "Kebon Sirih", "Menteng", "Pegangsaan"],
+      "Sawah Besar": ["Gunung Sahari Utara", "Karang Anyar", "Kartini", "Mangga Dua Selatan", "Pasar Baru"],
+      "Senen": ["Bungur", "Kramat", "Kenari", "Kwitang", "Paseban", "Senen"],
+      "Tanah Abang": ["Bendungan Hilir", "Gelora", "Kampung Bali", "Karet Tengsin", "Kebon Kacang", "Kebon Melati", "Petamburan", "Tanah Abang"],
+
+      // Jakarta Utara
+      "Cilincing": ["Cilincing", "Kalibaru", "Marunda", "Rorotan", "Semper Barat", "Semper Timur"],
+      "Kelapa Gading": ["Kelapa Gading Barat", "Kelapa Gading Timur", "Pegangsaan Dua"],
+      "Koja": ["Koja", "Lagoa", "Rawa Badak Selatan", "Rawa Badak Utara", "Tugu Selatan", "Tugu Utara"],
+      "Pademangan": ["Ancol", "Pademangan Barat", "Pademangan Timur"],
+      "Penjaringan": ["Kamal Muara", "Kapuk Muara", "Pejagalan", "Penjaringan", "Pluit"],
+      "Tanjung Priok": ["Kebon Bawang", "Papanggo", "Sungai Bambu", "Sunter Agung", "Sunter Jaya", "Tanjung Priok", "Warakas"],
+
+      // Jakarta Barat
+      "Cengkareng": ["Cengkareng Barat", "Cengkareng Timur", "Duri Kosambi", "Kapuk", "Kedaung Kali Angke", "Rawa Buaya"],
+      "Grogol Petamburan": ["Grogol", "Jelambar", "Jelambar Baru", "Tanjung Duren Selatan", "Tanjung Duren Utara", "Tomang"],
+      "Kalideres": ["Kalideres", "Kamal", "Pegadungan", "Semanan", "Tegal Alur"],
+      "Kebon Jeruk": ["Duri Kepa", "Kebon Jeruk", "Kelapa Dua", "Kedoya Selatan", "Kedoya Utara", "Sukabumi Selatan", "Sukabumi Utara"],
+      "Kembangan": ["Joglo", "Kembangan Selatan", "Kembangan Utara", "Meruya Selatan", "Meruya Utara"],
+      "Palmerah": ["Gelora", "Jatipulo", "Kemanggisan", "Kota Bambu Selatan", "Kota Bambu Utara", "Slipi"],
+      "Taman Sari": ["Glodok", "Keagungan", "Krukut", "Maphar", "Mangga Besar", "Pinangsia", "Tamansari", "Tangki"],
+      "Tambora": ["Angke", "Duri Selatan", "Duri Utara", "Jembatan Besi", "Jembatan Lima", "Kali Anyar", "Krendang", "Pekojan", "Roa Malaka", "Tanah Sereal"],
+
+      // Jakarta Selatan
+      "Cilandak": ["Cilandak Barat", "Cipete Selatan", "Gandaria Selatan", "Lebak Bulus", "Pondok Labu"],
+      "Jagakarsa": ["Ciganjur", "Cipedak", "Jagakarsa", "Lenteng Agung", "Srengseng Sawah", "Tanjung Barat"],
+      "Kebayoran Baru": ["Cipete Utara", "Gandaria Utara", "Gunung", "Kramat Pela", "Melawai", "Petogogan", "Pulo", "Rawa Barat", "Selong", "Senayan"],
+      "Kebayoran Lama": ["Cipulir", "Grogol Selatan", "Grogol Utara", "Kebayoran Lama Selatan", "Kebayoran Lama Utara", "Pondok Pinang"],
+      "Mampang Prapatan": ["Bangka", "Kuningan Barat", "Mampang Prapatan", "Pela Mampang", "Tegal Parang"],
+      "Pancoran": ["Cikoko", "Duren Tiga", "Kalibata", "Pancoran", "Rawa Jati"],
+      "Pasar Minggu": ["Cilandak Timur", "Jati Padang", "Kebagusan", "Pasar Minggu", "Pejaten Barat", "Pejaten Timur", "Ragunan"],
+      "Pesanggrahan": ["Bintaro", "Petukangan Selatan", "Petukangan Utara", "Pesanggrahan", "Ulujami"],
+      "Setiabudi": ["Guntur", "Karet", "Karet Kuningan", "Karet Semanggi", "Menteng Atas", "Pasar Manggis", "Setiabudi"],
+      "Tebet": ["Bukit Duri", "Kebon Baru", "Manggarai", "Manggarai Selatan", "Tebet Barat", "Tebet Timur"],
+
+      // Jakarta Timur
+      "Cakung": ["Cakung Barat", "Cakung Timur", "Jatinegara", "Penggilingan", "Pulo Gebang", "Rawa Terate", "Ujung Menteng"],
+      "Cipayung": ["Bambu Apus", "Ceger", "Cilangkap", "Cipayung", "Lubang Buaya", "Munjul", "Pondok Ranggon", "Setu"],
+      "Ciracas": ["Cibubur", "Ciracas", "Kelapa Dua Wetan", "Susukan"],
+      "Duren Sawit": ["Duren Sawit", "Klender", "Malaka Jaya", "Malaka Sari", "Pondok Bambu", "Pondok Kelapa"],
+      "Jatinegara": ["Bali Mester", "Bidaracina", "Cipinang Besar Selatan", "Cipinang Besar Utara", "Cipinang Cempedak", "Cipinang Muara", "Kayu Manis", "Pisangan Baru", "Rawa Bunga"],
+      "Kramat Jati": ["Batu Ampar", "Cawang", "Cililitan", "Dukuh", "Kampung Tengah", "Kramat Jati"],
+      "Makasar": ["Cipinang Melayu", "Halim Perdana Kusuma", "Kebon Pala", "Makasar"],
+      "Mampang Prapatan": ["Bangka", "Kuningan Barat", "Mampang Prapatan", "Pela Mampang", "Tegal Parang"],
+      "Matraman": ["Kayu Manis", "Pal Meriam", "Pisangan Baru", "Utan Kayu Selatan", "Utan Kayu Utara"],
+      "Pasar Rebo": ["Baru", "Cijantung", "Gedong", "Kalisari", "Pekayon"],
+      "Pulo Gadung": ["Jati", "Kayu Putih", "Pisangan Timur", "Pulogadung", "Rawamangun", "Utan Kayu Selatan"],
+
+      // Kepulauan Seribu
+      "Kepulauan Seribu Utara": ["Pulau Harapan", "Pulau Kelapa", "Pulau Panggang"],
+      "Kepulauan Seribu Selatan": ["Pulau Pari", "Pulau Tidung", "Pulau Untung Jawa"]
+    };
+
+
+    // --- AMBIL ELEMEN SELECT ---
+    const citySelect     = document.getElementById('city');
+    const districtSelect = document.getElementById('district');
+    const subdistrictSelect = document.getElementById('subdistrict');
+
+
+    // --- FILTER KECAMATAN BERDASARKAN KOTA ---
+    citySelect.addEventListener('change', () => {
+      const selectedCity = citySelect.value;
+      const districts = cityDistrictMap[selectedCity] || [];
+
+      districtSelect.innerHTML = '<option value="">-- Pilih Kecamatan --</option>';
+      subdistrictSelect.innerHTML = '<option value="">-- Pilih Kelurahan --</option>';
+
+      districts.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d;
+        opt.textContent = d;
+        districtSelect.appendChild(opt);
+      });
+    });
+
+
+    // --- FILTER KELURAHAN BERDASARKAN KECAMATAN ---
+    districtSelect.addEventListener('change', () => {
+      const selectedDistrict = districtSelect.value;
+      const subdistricts = districtSubdistrictMap[selectedDistrict] || [];
+
+      subdistrictSelect.innerHTML = '<option value="">-- Pilih Kelurahan --</option>';
+
+      subdistricts.forEach(kel => {
+        const opt = document.createElement('option');
+        opt.value = kel;
+        opt.textContent = kel;
+        subdistrictSelect.appendChild(opt);
+      });
+    });
+
+
+
+    // --- CEGAH USER MEMILIH KECAMATAN TANPA KOTA ---
+    districtSelect.addEventListener('mousedown', (e) => {
+      if (!citySelect.value) {
+        e.preventDefault(); // cegah dropdown muncul
+        citySelect.setCustomValidity("Silakan pilih Kota terlebih dahulu.");
+        citySelect.reportValidity(); // tampilkan alert HTML5
+        setTimeout(() => citySelect.setCustomValidity(""), 2000); // reset validasi
+      }
+    });
+
+
+    // --- CEGAH USER MEMILIH KELURAHAN TANPA KECAMATAN ---
+    subdistrictSelect.addEventListener('mousedown', (e) => {
+      if (!districtSelect.value) {
+        e.preventDefault();
+        districtSelect.setCustomValidity("Silakan pilih Kecamatan terlebih dahulu.");
+        districtSelect.reportValidity();
+        setTimeout(() => districtSelect.setCustomValidity(""), 2000);
+      }
+    });
+
+
+  </script>
+
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Enhanced navbar background on scroll
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('nav');
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-white/98', 'shadow-lg');
+        navbar.classList.remove('bg-white/95');
+      } else {
+        navbar.classList.remove('bg-white/98', 'shadow-lg');
+        navbar.classList.add('bg-white/95');
+      }
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-slide-up');
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for animation
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+    
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+
+  document.getElementById("timestamp").value = new Date().toISOString();
+
+
+  function nextStep(step) {
+    const currentStep = document.querySelector(`.form-step:not(.hidden)`);
+    const inputs = currentStep.querySelectorAll('input, select, textarea');
+
+    for (let input of inputs) {
+      if (!input.checkValidity()) {
+        input.reportValidity();
+        return;
+      }
+    }
+
+    // Jika semua valid
+    document.querySelectorAll('.form-step').forEach(el => el.classList.add('hidden'));
+    document.getElementById(`step-${step}`).classList.remove('hidden');
+  }
+
+
+
+
+  function prevStep(step) {
+    document.querySelectorAll('.form-step').forEach(el => el.classList.add('hidden'));
+    document.getElementById(`step-${step}`).classList.remove('hidden');
+  }
+
+  document.getElementById('pilotForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const data = {
+      timestamp: document.getElementById('timestamp').value,
+      name: document.getElementById('name').value,
+      city: document.getElementById('city').value,
+      district: document.getElementById('district').value,
+      subdistrict: document.getElementById('subdistrict').value,
+      age: document.getElementById('age').value,
+      email: document.getElementById('email').value,
+      mechanism_agree: document.querySelector('#step-2 input[type=checkbox]').checked ? "Ya" : "Tidak",
+      photo_url: document.getElementById('photo').value,
+      photo_agree: document.querySelectorAll('#step-3 input[type=checkbox]')[0].checked ? "Ya" : "Tidak",
+      policy_agree: document.querySelectorAll('#step-3 input[type=checkbox]')[1].checked ? "Ya" : "Tidak"
+    };
+
+    // Kirim ke Google Apps Script (ganti URL di bawah ini!)
+    fetch("https://script.google.com/macros/s/AKfycbxtZncs0lzAm0oUoIuVw9t_2CZ9AqLLaTh9Ez2leZG0Te-7RyB9qM59XFBC1Kj6gteZ2A/exec", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(() => {
+      document.getElementById('pilotForm').classList.add('hidden');
+      document.getElementById('successMessage').classList.remove('hidden');
+    })
+    .catch(err => {
+      alert('Gagal mengirim data. Coba lagi nanti.');
+      console.error(err);
+    });
+  });
+
+  function submitForm() {
+    const form = document.getElementById('pilotForm');
+
+    // Step 3: Validasi sebelum submit
+    const photo = document.getElementById('photo');
+    const checkboxes = document.querySelectorAll('#step-3 input[type="checkbox"]');
+
+    if (!photo.files.length) {
+      photo.setCustomValidity("Silakan unggah foto terlebih dahulu.");
+      photo.reportValidity();
+      setTimeout(() => photo.setCustomValidity(""), 2000);
+      return;
+    }
+
+    for (let cb of checkboxes) {
+      if (!cb.checked) {
+        cb.setCustomValidity("Silakan centang semua persetujuan sebelum mengirim.");
+        cb.reportValidity();
+        setTimeout(() => cb.setCustomValidity(""), 2000);
+        return;
+      }
+    }
+
+    // ✅ Lanjut submit jika semua valid
+    const formData = new FormData(form);
+
+    // Tambahkan data manual
+    formData.append('mechanism_agree', checkboxes[0].checked ? "Ya" : "Tidak");
+    formData.append('photo_agree', checkboxes[1].checked ? "Ya" : "Tidak");
+    formData.append('policy_agree', checkboxes[2].checked ? "Ya" : "Tidak");
+
+    fetch("https://script.google.com/macros/s/AKfycbxtZncs0lzAm0uOuloVw9t_2CZ9AqLLaTh9Ez2leZG0Te-7RyB9qM59XFBC1Kj6g/exec", {
+      method: "POST",
+      body: formData
+    })
+      .then(() => {
+        form.classList.add('hidden');
+        document.getElementById('successMessage').classList.remove('hidden');
+      })
+      .catch(err => {
+        alert('Gagal mengirim data. Coba lagi nanti.');
+        console.error(err);
+      });
+  }
+
+
+  </script>
+</body>
+</html>
