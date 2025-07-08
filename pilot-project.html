@@ -97,78 +97,18 @@
       }
     }
     
-    .composting-steam {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.7);
+    .loading-spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #ec7c0c;
       border-radius: 50%;
-      animation: steam 2s ease-in-out infinite;
-    }
-    
-    @keyframes steam {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.7;
-      }
-      100% {
-        transform: translateY(-40px) scale(0);
-        opacity: 0;
-      }
-    }
-    
-    .leaf-float {
-      animation: float 4s ease-in-out infinite;
-    }
-    
-    .text-glow {
-      text-shadow: 0 0 20px rgba(236, 124, 12, 0.6);
-    }
-    
-    .card-hover {
-      transition: all 0.3s ease;
-    }
-    
-    .card-hover:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-    
-    .organic-shape {
-      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-      animation: wiggle 3s ease-in-out infinite;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
     }
 
-    @keyframes slideDown {
-      0% { opacity: 0; transform: translateY(-10px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .animate-slide-down {
-      animation: slideDown 0.3s ease-out forwards;
-    }
-
-    #mobile-menu-wrapper.show {
-      max-height: 150px;
-    }
-
-    #menu.fade-in {
-      opacity: 1;
-      transition-delay: 0.25s; /* Tunggu animasi background selesai */
-    }
-
-    #menu.fade-out {
-      opacity: 0;
-      transition-delay: 0s;
-    }
-
-    @media (max-width: 639px) {
-      .logo-wrapper {
-        display: flex;
-        justify-content: flex-start;
-        width: 100%;
-        margin-bottom: 0.5rem; /* agar ada jarak dengan menu */
-      }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
   </style>
@@ -225,20 +165,20 @@
       <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8">
         <h2 class="text-3xl font-bold text-dark-green mb-6 text-center">📋 Pendaftaran Challenge MuDu Pilot Project</h2>
 
-        <form id="pilotForm" class="space-y-6">
+        <form id="pilotForm" class="space-y-6" enctype="multipart/form-data" method="post">
           <!-- Step 1 -->
           <div class="form-step" id="step-1">
             <input type="hidden" id="timestamp" name="timestamp" />
 
             <div>
               <label for="name" class="block text-sm font-semibold text-text-gray mb-2">Nama Lengkap</label>
-              <input type="text" id="name" name="name" required class="w-full border border-gray-300 rounded-lg px-4 py-3">
+              <input type="text" id="name" name="name" required class="w-full border border-gray-300 rounded-lg px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E98728] transition" placeholder="Masukkan Nama Lengkap Anda">
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
               <div>
                 <label for="city" class="block text-sm font-semibold text-text-gray mb-2">Kota</label>
-                <select id="city" name="city" required class="w-full border border-gray-300 rounded-lg px-4 py-3">
+                <select id="city" name="city" required class="w-full border border-gray-300 rounded-lg px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E98728] transition">
                   <option value="">-- Pilih Kota --</option>
                   <option value="Jakarta Pusat">Jakarta Pusat</option>
                   <option value="Jakarta Utara">Jakarta Utara</option>
@@ -250,114 +190,165 @@
               </div>
               <div>
                 <label for="district" class="block text-sm font-semibold text-text-gray mb-2">Kecamatan</label>
-                <select id="district" name="district" required class="w-full border border-gray-300 rounded-lg px-4 py-3">
+                <select id="district" name="district" required class="w-full border border-gray-300 rounded-lg px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E98728] transition">
                   <option value="">-- Pilih Kecamatan --</option>
                 </select>
               </div>
               <div>
                 <label for="subdistrict" class="block text-sm font-semibold text-text-gray mb-2">Kelurahan</label>
-                <select id="subdistrict" name="subdistrict" required class="w-full border border-gray-300 rounded-lg px-4 py-3">
+                <select id="subdistrict" name="subdistrict" required class="w-full border border-gray-300 rounded-lg px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E98728] transition">
                   <option value="">-- Pilih Kelurahan --</option>
                 </select>
               </div>
               <div>
                 <label for="age" class="block text-sm font-semibold text-text-gray mb-2">Umur</label>
-                <input type="number" id="age" name="age" required class="w-full border border-gray-300 rounded-lg px-4 py-3">
+                <input type="number" id="age" name="age" required min="15" max="100" class="w-full border border-gray-300 rounded-lg px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E98728] transition" placeholder="Masukan Umur Anda">
               </div>
             </div>
 
-            <div>
+            <div class="mt-4">
               <label for="email" class="block text-sm font-semibold text-text-gray mb-2">Email</label>
-              <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded-lg px-4 py-3">
+              <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded-lg px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E98728] transition" placeholder="email@example.com">
             </div>
 
-            <div class="text-right">
-              <button type="button" onclick="nextStep(2)" class="bg-primary-orange hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-full">Lanjut</button>
+            <div class="pt-6 flex justify-between" >
+              <button type="button" onclick="window.history.back();" class="text-[#E98728] font-semibold hover:underline">Kembali</button>
+              <button type="button" onclick="nextStep(2)" class="bg-primary-orange hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105">Lanjut</button>
             </div>
           </div>
 
           <!-- Step 2 -->
           <div class="form-step hidden" id="step-2">
-            <p class="text-text-gray mb-4">
-              ikuti tantangan memilah dan/atau mengolah sampah sisa makanan dengan membuat kompos dalam pot (edukasi ada di website MuDu), sampah sisa makanan dikumpul dalam satu tempat dalam kurun waktu 3 hari berturut-turut. Pendaftaran dibuka 9-10 Juli, dan pengumpulan hasil dilakukan 11-12 Juli, disertai foto dan data lengkap. 
-              <br><br>
-              Peserta dinilai berdasarkan foto yang dikirimkan dan akan mendapatkan badge dan ala-ala spotify wrap yang bisa dibagikan di instagram stories, jangan lupa tag @mudumulaidulu yah!
-            </p>
+            <div class="bg-gradient-to-r from-light-green to-cream p-6 rounded-lg mb-6">
+              <h3 class="text-lg font-bold text-dark-green mb-3">🌱 Mekanisme Challenge MuDu</h3>
+              <p class="text-text-gray mb-4">
+                Ikuti tantangan memilah dan/atau mengolah sampah sisa makanan dengan membuat kompos dalam pot (edukasi ada di website MuDu), sampah sisa makanan dikumpul dalam satu tempat dalam kurun waktu 3 hari berturut-turut. 
+                <br><br>
+                <strong>📅 Timeline:</strong><br>
+                • Pendaftaran: 9-10 Juli<br>
+                • Pengumpulan hasil: 11-12 Juli<br>
+                • Upload foto dan data lengkap
+                <br><br>
+                Peserta dinilai berdasarkan foto yang dikirimkan dan akan mendapatkan badge dan ala-ala spotify wrap yang bisa dibagikan di instagram stories, jangan lupa tag <strong>@mudumulaidulu</strong> yah!
+              </p>
+            </div>
 
             <div class="mb-6">
-              <label class="inline-flex items-center">
-                <input type="checkbox" required class="form-checkbox text-primary-orange mr-2">
+              <label class="inline-flex items-start">
+                <input type="checkbox" id="mechanism_agree" name="mechanism_agree" required class="form-checkbox text-primary-orange mt-1 mr-3">
                 <span class="text-sm text-text-gray">Saya memahami dan menyetujui mekanisme challenge ini</span>
               </label>
             </div>
 
             <div class="flex justify-between">
-              <button type="button" onclick="prevStep(1)" class="text-primary-orange font-semibold">Kembali</button>
-              <button type="button" onclick="nextStep(3)" class="bg-primary-orange hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-full">Lanjut</button>
+              <button type="button" onclick="prevStep(1)" class="text-[#E98728] font-semibold hover:underline">Kembali</button>
+              <button type="button" onclick="nextStep(3)" class="bg-primary-orange hover:bg-[#E98728] text-white font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105">Lanjut</button>
             </div>
           </div>
 
           <!-- Step 3 -->
           <div class="form-step hidden" id="step-3">
-            <div class="mb-6">
-              <label for="photo" class="block text-sm font-semibold text-text-gray mb-2">Unggah Foto Kantong Plastik Kosong</label>
-              <input type="file" id="photo" name="photo" accept="image/*" required class="w-full">
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                </div>
+                <div class="ml-3">
+                  <p class="text-sm text-yellow-700">
+                    <strong>Penting:</strong> Upload foto kantong plastik kosong sebagai tanda Anda memulai challenge. Foto ini menandakan komitmen Anda untuk mengikuti program MuDu.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div class="mb-4">
-              <label class="inline-flex items-center">
-                <input type="checkbox" required class="form-checkbox text-primary-orange mr-2">
+            <div class="mb-6">
+              <label for="photo" class="block text-sm font-semibold text-text-gray mb-2">📸 Unggah Foto Kantong Plastik Kosong</label>
+              <input type="file" id="photo" name="photo" accept="image/*" required class="w-full border border-gray-300 rounded-lg px-4 py-3">
+              <p class="text-xs text-gray-500 mt-1">Format: JPG, PNG, atau GIF. Maksimal 5MB.</p>
+            </div>
+
+            <div class="space-y-4 mb-6">
+              <label class="inline-flex items-start">
+                <input type="checkbox" id="photo_agree" name="photo_agree" required class="form-checkbox text-primary-orange mt-1 mr-3">
                 <span class="text-sm text-text-gray">Foto yang dilampirkan adalah benar dan menandakan saya mengikuti dan mengawali challenge</span>
               </label>
-            </div>
 
-            <div class="mb-6">
-              <label class="inline-flex items-center">
-                <input type="checkbox" required class="form-checkbox text-primary-orange mr-2">
-                <span class="text-sm text-text-gray">Saya setuju dengan kebijakan MuDu</span>
+              <label class="inline-flex items-start">
+                <input type="checkbox" id="policy_agree" name="policy_agree" required class="form-checkbox text-primary-orange mt-1 mr-3">
+                <span class="text-sm text-text-gray">Saya setuju dengan kebijakan MuDu dan memberikan izin untuk menggunakan data saya untuk keperluan program ini</span>
               </label>
             </div>
 
             <div class="flex justify-between items-center">
-              <button type="button" onclick="prevStep(2)" class="text-primary-orange font-semibold">Kembali</button>
-              <button onclick="submitForm()" type="button" class="bg-primary-orange hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-full">Kirim Pendaftaran</button>
+              <button type="button" onclick="prevStep(2)" class="text-[#E98728] font-semibold hover:underline">Kembali</button>
+              <button id="submitBtn" type="button" onclick="submitForm()" class="bg-primary-orange hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 flex items-center">
+                <span id="submitText">Kirim Pendaftaran</span>
+                <div id="submitSpinner" class="loading-spinner ml-2 hidden"></div>
+              </button>
             </div>
           </div>
         </form>
 
-        <div id="successMessage" class="hidden mt-6 text-center text-green-600 font-semibold">
-          ✅ Pendaftaran berhasil! Nama Anda telah terdaftar dalam tantangan MuDu Pilot Project.
+        <!-- Success Message -->
+        <div id="successMessage" class="hidden mt-6 text-center">
+          <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+            <div class="flex items-center justify-center mb-4">
+              <div class="bg-green-100 rounded-full p-2">
+                <i class="fas fa-check text-green-600 text-2xl"></i>
+              </div>
+            </div>
+            <h3 class="text-lg font-bold text-green-800 mb-2">🎉 Pendaftaran Berhasil!</h3>
+            <p class="text-green-700 mb-4">Terima kasih telah bergabung dengan MuDu Challenge!</p>
+            <div class="bg-white rounded-lg p-4 text-left">
+              <h4 class="font-semibold text-green-800 mb-2">Langkah Selanjutnya:</h4>
+              <ul class="text-sm text-green-700 space-y-1">
+                <li>✅ Cek email untuk konfirmasi pendaftaran</li>
+                <li>📱 Follow @mudumulaidulu di Instagram</li>
+                <li>🗑️ Mulai kumpulkan sisa makanan selama 3 hari</li>
+                <li>📸 Siap-siap upload hasil di 11-12 Juli</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="hidden mt-6">
+          <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <i class="fas fa-exclamation-circle text-red-400"></i>
+              </div>
+              <div class="ml-3">
+                <h3 class="text-sm font-medium text-red-800">Terjadi Kesalahan</h3>
+                <div class="mt-2 text-sm text-red-700">
+                  <p id="errorText">Gagal mengirim data. Silakan coba lagi nanti.</p>
+                </div>
+                <div class="mt-4">
+                  <button onclick="hideError()" class="bg-red-100 px-3 py-1 text-sm text-red-800 rounded hover:bg-red-200">Tutup</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-
-
-
-
   <!-- Enhanced Footer -->
   <footer class="bg-dark-green text-gray-300 border-t-4 border-primary-orange py-16 relative overflow-hidden">
-    <!-- Background Animation -->
-    <div class="absolute inset-0 opacity-5">
-      <div class="absolute top-8 left-8 text-6xl animate-float">🌿</div>
-      <div class="absolute bottom-16 right-16 text-8xl animate-rotate-slow">♻️</div>
-      <div class="absolute top-1/2 left-1/3 text-4xl animate-wiggle">🍃</div>
-    </div>
-    
     <div class="container mx-auto px-4 relative z-10">
       <div class="grid lg:grid-cols-3 gap-12">
         <!-- Contact Information -->
-        <div class="lg:col-span-2 animate-slide-up">
+        <div class="lg:col-span-2">
           <h6 class="text-gray-300 font-black text-lg uppercase tracking-wider mb-6">Contact Us</h6>
           <div class="grid md:grid-cols-2 gap-6">
             <div class="space-y-4">
               <a href="tel:+6281224017980" class="flex items-center text-[#E98728] hover:text-orange-400 transition-colors group">
-                <i class="fas fa-phone w-5 mr-3 group-hover:animate-wiggle"></i>
+                <i class="fas fa-phone w-5 mr-3"></i>
                 +62 812-2401-7980
               </a>
               <a href="mailto:info@mudumulolion.id" class="flex items-center text-[#E98728] hover:text-orange-400 transition-colors group">
-                <i class="fas fa-envelope w-5 mr-3 group-hover:animate-bounce"></i>
+                <i class="fas fa-envelope w-5 mr-3"></i>
                 INFO@MUDUMULOLION.ID
               </a>
             </div>
@@ -371,27 +362,27 @@
         </div>
         
         <!-- Social Media -->
-        <div class="animate-slide-up" style="animation-delay: 0.2s;">
+        <div>
           <h6 class="text-gray-300 font-black text-lg uppercase tracking-wider mb-6">Follow Us</h6>
           <div class="space-y-3">
             <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
-              <i class="fab fa-facebook w-5 mr-3 group-hover:animate-bounce"></i>Facebook
+              <i class="fab fa-facebook w-5 mr-3"></i>Facebook
             </a>
             <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
-              <i class="fab fa-twitter w-5 mr-3 group-hover:animate-wiggle"></i>Twitter
+              <i class="fab fa-twitter w-5 mr-3"></i>Twitter
             </a>
             <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
-              <i class="fab fa-instagram w-5 mr-3 group-hover:animate-pulse"></i>Instagram
+              <i class="fab fa-instagram w-5 mr-3"></i>Instagram
             </a>
             <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
-              <i class="fab fa-linkedin w-5 mr-3 group-hover:animate-bounce-slow"></i>LinkedIn
+              <i class="fab fa-linkedin w-5 mr-3"></i>LinkedIn
             </a>
           </div>
         </div>
       </div>
       
       <!-- Copyright -->
-      <div class="text-center mt-12 pt-8 border-t border-gray-600 animate-fade-in">
+      <div class="text-center mt-12 pt-8 border-t border-gray-600">
         <p class="text-sm font-black uppercase tracking-wider">
           © 2025 MuDu — Leading The Future Of Sustainable Food Waste Management
         </p>
@@ -400,7 +391,10 @@
   </footer>
 
   <script>
-    // --- PETA KOTA ‑ KECAMATAN ---
+    // ========== ✅ APPS SCRIPT URL - SUDAH DIKONFIGURASI! ==========
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz7zXSGaAWUi8OPtDVsLq6FRVUcRXGPCCi_kTlDLmBraWc9MYJysEpWClcvlP7-rz_z/exec';
+
+    // ========== CITY-DISTRICT MAPPING ==========
     const cityDistrictMap = {
       "Jakarta Pusat": ["Cempaka Putih","Gambir","Johar Baru","Kemayoran","Menteng","Sawah Besar","Senen","Tanah Abang"],
       "Jakarta Utara": ["Cilincing","Kelapa Gading","Koja","Pademangan","Penjaringan","Tanjung Priok"],
@@ -459,7 +453,6 @@
       "Jatinegara": ["Bali Mester", "Bidaracina", "Cipinang Besar Selatan", "Cipinang Besar Utara", "Cipinang Cempedak", "Cipinang Muara", "Kayu Manis", "Pisangan Baru", "Rawa Bunga"],
       "Kramat Jati": ["Batu Ampar", "Cawang", "Cililitan", "Dukuh", "Kampung Tengah", "Kramat Jati"],
       "Makasar": ["Cipinang Melayu", "Halim Perdana Kusuma", "Kebon Pala", "Makasar"],
-      "Mampang Prapatan": ["Bangka", "Kuningan Barat", "Mampang Prapatan", "Pela Mampang", "Tegal Parang"],
       "Matraman": ["Kayu Manis", "Pal Meriam", "Pisangan Baru", "Utan Kayu Selatan", "Utan Kayu Utara"],
       "Pasar Rebo": ["Baru", "Cijantung", "Gedong", "Kalisari", "Pekayon"],
       "Pulo Gadung": ["Jati", "Kayu Putih", "Pisangan Timur", "Pulogadung", "Rawamangun", "Utan Kayu Selatan"],
@@ -469,14 +462,12 @@
       "Kepulauan Seribu Selatan": ["Pulau Pari", "Pulau Tidung", "Pulau Untung Jawa"]
     };
 
-
-    // --- AMBIL ELEMEN SELECT ---
-    const citySelect     = document.getElementById('city');
+    // ========== DOM ELEMENTS ==========
+    const citySelect = document.getElementById('city');
     const districtSelect = document.getElementById('district');
     const subdistrictSelect = document.getElementById('subdistrict');
 
-
-    // --- FILTER KECAMATAN BERDASARKAN KOTA ---
+    // ========== LOCATION FILTERING ==========
     citySelect.addEventListener('change', () => {
       const selectedCity = citySelect.value;
       const districts = cityDistrictMap[selectedCity] || [];
@@ -492,8 +483,6 @@
       });
     });
 
-
-    // --- FILTER KELURAHAN BERDASARKAN KECAMATAN ---
     districtSelect.addEventListener('change', () => {
       const selectedDistrict = districtSelect.value;
       const subdistricts = districtSubdistrictMap[selectedDistrict] || [];
@@ -508,48 +497,233 @@
       });
     });
 
-
-
-    // --- CEGAH USER MEMILIH KECAMATAN TANPA KOTA ---
+    // Prevent selecting without proper selection
     districtSelect.addEventListener('mousedown', (e) => {
       if (!citySelect.value) {
-        e.preventDefault(); // cegah dropdown muncul
-        citySelect.setCustomValidity("Silakan pilih Kota terlebih dahulu.");
-        citySelect.reportValidity(); // tampilkan alert HTML5
-        setTimeout(() => citySelect.setCustomValidity(""), 2000); // reset validasi
+        e.preventDefault();
+        showError("Silakan pilih Kota terlebih dahulu.");
+        citySelect.focus();
       }
     });
 
-
-    // --- CEGAH USER MEMILIH KELURAHAN TANPA KECAMATAN ---
     subdistrictSelect.addEventListener('mousedown', (e) => {
       if (!districtSelect.value) {
         e.preventDefault();
-        districtSelect.setCustomValidity("Silakan pilih Kecamatan terlebih dahulu.");
-        districtSelect.reportValidity();
-        setTimeout(() => districtSelect.setCustomValidity(""), 2000);
+        showError("Silakan pilih Kecamatan terlebih dahulu.");
+        districtSelect.focus();
       }
     });
 
+    // ========== FORM NAVIGATION ==========
+    function nextStep(step) {
+      const currentStep = document.querySelector('.form-step:not(.hidden)');
+      const inputs = currentStep.querySelectorAll('input[required], select[required]');
+      let isValid = true;
 
-  </script>
-
-  <script>
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+      // Validate all required fields
+      for (let input of inputs) {
+        if (input.type === 'checkbox') {
+          if (!input.checked) {
+            showError(`${input.labels[0].textContent} harus dicentang.`);
+            input.focus();
+            isValid = false;
+            break;
+          }
+        } else if (!input.value.trim()) {
+          showError(`${input.labels[0].textContent} wajib diisi.`);
+          input.focus();
+          isValid = false;
+          break;
         }
+      }
+
+      // Additional validations for step 1
+      if (step === 2 && isValid) {
+        const email = document.getElementById('email').value;
+        const age = parseInt(document.getElementById('age').value);
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          showError('Format email tidak valid.');
+          document.getElementById('email').focus();
+          isValid = false;
+        }
+
+        // Age validation
+        if (age < 15 || age > 100) {
+          showError('Umur harus antara 15-100 tahun.');
+          document.getElementById('age').focus();
+          isValid = false;
+        }
+      }
+
+      // Additional validation for step 3 (photo)
+      if (step === 'submit' && isValid) {
+        const photoInput = document.getElementById('photo');
+        if (photoInput.files.length === 0) {
+          showError('Foto kantong plastik kosong wajib diupload.');
+          photoInput.focus();
+          isValid = false;
+        } else {
+          const file = photoInput.files[0];
+          const maxSize = 5 * 1024 * 1024; // 5MB
+          const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+          
+          if (file.size > maxSize) {
+            showError('Ukuran foto terlalu besar. Maksimal 5MB.');
+            photoInput.focus();
+            isValid = false;
+          } else if (!allowedTypes.includes(file.type)) {
+            showError('Format foto tidak didukung. Gunakan JPEG, PNG, atau GIF.');
+            photoInput.focus();
+            isValid = false;
+          }
+        }
+      }
+
+      // If all valid, proceed to next step
+      if (isValid) {
+        hideError();
+        document.querySelectorAll('.form-step').forEach(el => el.classList.add('hidden'));
+        if (step !== 'submit') {
+          document.getElementById(`step-${step}`).classList.remove('hidden');
+        }
+      }
+
+      return isValid;
+    }
+
+    function prevStep(step) {
+      hideError();
+      document.querySelectorAll('.form-step').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`step-${step}`).classList.remove('hidden');
+    }
+
+    // ========== FORM SUBMISSION ==========
+    async function submitForm() {
+      // Final validation
+      if (!nextStep('submit')) {
+        return;
+      }
+
+      // Show loading state
+      const submitBtn = document.getElementById('submitBtn');
+      const submitText = document.getElementById('submitText');
+      const submitSpinner = document.getElementById('submitSpinner');
+      
+      submitBtn.disabled = true;
+      submitText.textContent = 'Mengirim...';
+      submitSpinner.classList.remove('hidden');
+
+      try {
+        // Prepare form data
+        const formData = new FormData();
+
+        // Add all form fields
+        formData.append('timestamp', new Date().toISOString());
+        formData.append('name', document.getElementById('name').value.trim());
+        formData.append('city', document.getElementById('city').value);
+        formData.append('district', document.getElementById('district').value);
+        formData.append('subdistrict', document.getElementById('subdistrict').value);
+        formData.append('age', document.getElementById('age').value);
+        formData.append('email', document.getElementById('email').value.trim().toLowerCase());
+        
+        // Checkbox values
+        formData.append('mechanism_agree', document.getElementById('mechanism_agree').checked.toString());
+        formData.append('photo_agree', document.getElementById('photo_agree').checked.toString());
+        formData.append('policy_agree', document.getElementById('policy_agree').checked.toString());
+
+        // Photo file
+        const photoFile = document.getElementById('photo').files[0];
+        if (photoFile) {
+          formData.append('photo', photoFile);
+        }
+
+        console.log('🚀 Submitting to:', APPS_SCRIPT_URL);
+
+        // Submit to Google Apps Script
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          body: formData,
+          mode: 'cors'
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log('✅ Response:', result);
+
+        if (result.success) {
+          // Hide form and show success message
+          document.getElementById('pilotForm').classList.add('hidden');
+          document.getElementById('successMessage').classList.remove('hidden');
+          
+          // Scroll to success message
+          document.getElementById('successMessage').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+          });
+
+        } else {
+          throw new Error(result.message || 'Gagal mengirim data');
+        }
+
+      } catch (error) {
+        console.error('❌ Submission error:', error);
+        
+        let errorMessage = 'Gagal mengirim pendaftaran. ';
+        
+        if (error.message.includes('Failed to fetch')) {
+          errorMessage += 'Periksa koneksi internet dan coba lagi.';
+        } else if (error.message.includes('405')) {
+          errorMessage += 'URL Google Apps Script tidak benar. Pastikan sudah deploy sebagai Web App.';
+        } else if (error.message.includes('CORS')) {
+          errorMessage += 'Masalah konfigurasi. Hubungi administrator.';
+        } else {
+          errorMessage += error.message;
+        }
+        
+        showError(errorMessage);
+
+        // Reset button state
+        submitBtn.disabled = false;
+        submitText.textContent = 'Kirim Pendaftaran';
+        submitSpinner.classList.add('hidden');
+      }
+    }
+
+    // ========== ERROR HANDLING ==========
+    function showError(message) {
+      const errorElement = document.getElementById('errorMessage');
+      const errorText = document.getElementById('errorText');
+      
+      errorText.textContent = message;
+      errorElement.classList.remove('hidden');
+      
+      // Scroll to error
+      errorElement.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
       });
+
+      // Auto hide after 8 seconds
+      setTimeout(hideError, 8000);
+    }
+
+    function hideError() {
+      document.getElementById('errorMessage').classList.add('hidden');
+    }
+
+    // ========== MOBILE MENU ==========
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
     });
 
-    // Enhanced navbar background on scroll
+    // ========== NAVBAR SCROLL EFFECT ==========
     window.addEventListener('scroll', function() {
       const navbar = document.querySelector('nav');
       if (window.scrollY > 50) {
@@ -561,137 +735,69 @@
       }
     });
 
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+    // ========== INITIALIZATION ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set timestamp when page loads
+      document.getElementById("timestamp").value = new Date().toISOString();
+      
+      // Hide loading spinner initially
+      document.getElementById('submitSpinner').classList.add('hidden');
+      
+      // Focus on first input
+      document.getElementById('name').focus();
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-slide-up');
-        }
-      });
-    }, observerOptions);
-
-    // Observe elements for animation
-    document.querySelectorAll('section').forEach(section => {
-      observer.observe(section);
+      console.log('🌱 MuDu Challenge form initialized');
+      console.log('🔗 Apps Script URL:', APPS_SCRIPT_URL);
+      console.log('✅ Form ready to submit!');
     });
+
+    // ========== REAL-TIME VALIDATION ==========
     
-    document.getElementById('menu-toggle').addEventListener('click', function () {
-      const mobileMenu = document.getElementById('mobile-menu');
-      mobileMenu.classList.toggle('hidden');
+    // Email validation
+    document.getElementById('email').addEventListener('blur', function() {
+      const email = this.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if (email && !emailRegex.test(email)) {
+        this.style.borderColor = '#ef4444';
+      } else {
+        this.style.borderColor = '#d1d5db';
+      }
     });
 
-  document.getElementById("timestamp").value = new Date().toISOString();
-
-
-  function nextStep(step) {
-    const currentStep = document.querySelector(`.form-step:not(.hidden)`);
-    const inputs = currentStep.querySelectorAll('input, select, textarea');
-
-    for (let input of inputs) {
-      if (!input.checkValidity()) {
-        input.reportValidity();
-        return;
+    // Age validation
+    document.getElementById('age').addEventListener('blur', function() {
+      const age = parseInt(this.value);
+      
+      if (this.value && (age < 15 || age > 100)) {
+        this.style.borderColor = '#ef4444';
+      } else {
+        this.style.borderColor = '#d1d5db';
       }
-    }
-
-    // Jika semua valid
-    document.querySelectorAll('.form-step').forEach(el => el.classList.add('hidden'));
-    document.getElementById(`step-${step}`).classList.remove('hidden');
-  }
-
-
-
-
-  function prevStep(step) {
-    document.querySelectorAll('.form-step').forEach(el => el.classList.add('hidden'));
-    document.getElementById(`step-${step}`).classList.remove('hidden');
-  }
-
-  document.getElementById('pilotForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const data = {
-      timestamp: document.getElementById('timestamp').value,
-      name: document.getElementById('name').value,
-      city: document.getElementById('city').value,
-      district: document.getElementById('district').value,
-      subdistrict: document.getElementById('subdistrict').value,
-      age: document.getElementById('age').value,
-      email: document.getElementById('email').value,
-      mechanism_agree: document.querySelector('#step-2 input[type=checkbox]').checked ? "Ya" : "Tidak",
-      photo_url: document.getElementById('photo').value,
-      photo_agree: document.querySelectorAll('#step-3 input[type=checkbox]')[0].checked ? "Ya" : "Tidak",
-      policy_agree: document.querySelectorAll('#step-3 input[type=checkbox]')[1].checked ? "Ya" : "Tidak"
-    };
-
-    // Kirim ke Google Apps Script (ganti URL di bawah ini!)
-    fetch("https://script.google.com/macros/s/AKfycbxtZncs0lzAm0oUoIuVw9t_2CZ9AqLLaTh9Ez2leZG0Te-7RyB9qM59XFBC1Kj6gteZ2A/exec", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(() => {
-      document.getElementById('pilotForm').classList.add('hidden');
-      document.getElementById('successMessage').classList.remove('hidden');
-    })
-    .catch(err => {
-      alert('Gagal mengirim data. Coba lagi nanti.');
-      console.error(err);
     });
-  });
 
-  function submitForm() {
-    const form = document.getElementById('pilotForm');
-
-    // Step 3: Validasi sebelum submit
-    const photo = document.getElementById('photo');
-    const checkboxes = document.querySelectorAll('#step-3 input[type="checkbox"]');
-
-    if (!photo.files.length) {
-      photo.setCustomValidity("Silakan unggah foto terlebih dahulu.");
-      photo.reportValidity();
-      setTimeout(() => photo.setCustomValidity(""), 2000);
-      return;
-    }
-
-    for (let cb of checkboxes) {
-      if (!cb.checked) {
-        cb.setCustomValidity("Silakan centang semua persetujuan sebelum mengirim.");
-        cb.reportValidity();
-        setTimeout(() => cb.setCustomValidity(""), 2000);
-        return;
+    // Photo validation
+    document.getElementById('photo').addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+        
+        if (file.size > maxSize) {
+          this.style.borderColor = '#ef4444';
+          this.value = '';
+          showError('Ukuran foto terlalu besar. Maksimal 5MB.');
+        } else if (!allowedTypes.includes(file.type)) {
+          this.style.borderColor = '#ef4444';
+          this.value = '';
+          showError('Format foto tidak didukung. Gunakan JPEG, PNG, atau GIF.');
+        } else {
+          this.style.borderColor = '#22c55e';
+          hideError();
+          console.log('📸 Photo selected:', file.name, (file.size / 1024 / 1024).toFixed(2) + 'MB');
+        }
       }
-    }
-
-    // ✅ Lanjut submit jika semua valid
-    const formData = new FormData(form);
-
-    // Tambahkan data manual
-    formData.append('mechanism_agree', checkboxes[0].checked ? "Ya" : "Tidak");
-    formData.append('photo_agree', checkboxes[1].checked ? "Ya" : "Tidak");
-    formData.append('policy_agree', checkboxes[2].checked ? "Ya" : "Tidak");
-
-    fetch("https://script.google.com/macros/s/AKfycbxtZncs0lzAm0uOuloVw9t_2CZ9AqLLaTh9Ez2leZG0Te-7RyB9qM59XFBC1Kj6g/exec", {
-      method: "POST",
-      body: formData
-    })
-      .then(() => {
-        form.classList.add('hidden');
-        document.getElementById('successMessage').classList.remove('hidden');
-      })
-      .catch(err => {
-        alert('Gagal mengirim data. Coba lagi nanti.');
-        console.error(err);
-      });
-  }
-
+    });
 
   </script>
 </body>
