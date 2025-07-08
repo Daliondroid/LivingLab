@@ -1,0 +1,187 @@
+function doPost(e) {
+  const SPREADSHEET_ID = '1D810OFpV0fdBru3b_7zpAs8fHYiPCLNmH83MydbT8Ec'; // Ini ID Spreadsheet Anda
+  const SHEET_NAME = 'Sheet1'; // Ini nama Sheet Anda
+
+  let sheet;
+  try {
+    sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
+    if (!sheet) {
+      throw new Error('Sheet with name "' + SHEET_NAME + '" not found in spreadsheet ID: ' + SPREADSHEET_ID);
+    }
+  } catch (error) {
+    console.error('🔥 Error accessing spreadsheet or sheet:', error.message);
+    return ContentService.createTextOutput(JSON.stringify({ success: false, message: 'Server error: Could not access spreadsheet/sheet.' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  console.log('🚀 New submission (from HTML Form)');
+  console.log('⏰ Timestamp:', new Date().toISOString());
+  console.log('Event object keys:', Object.keys(e)); // Log kunci-kunci objek event untuk debugging
+  console.log('Event parameters (e.parameter):', JSON.stringify(e.parameter)); // Log semua parameter yang diterima
+
+  try {
+    const params = e.parameter;
+
+    // Validasi dasar, pastikan beberapa field penting ada
+    if (!params.name || !params.city || !params.email) {
+        console.error("❌ Missing required form parameters.");
+        return ContentService.createTextOutput(JSON.stringify({ success: false, message: "Missing required form parameters." }))
+            .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    const timestamp = params.timestamp;
+    const name = params.name;
+    const city = params.city;
+    const district = params.district;
+    const subdistrict = params.subdistrict;
+    const age = params.age;
+    const email = params.email;
+    const mechanism_agree = params.mechanism_agree;
+    const photo_agree = params.photo_agree;
+    const policy_agree = params.policy_agree;
+
+    // Ambil photo_url dari params. Jika tidak ada, gunakan "No photo received"
+    const photo_url = params.photo_url || 'No photo received'; 
+
+    const status = 'Pending'; // Nilai default untuk kolom Status
+
+    sheet.appendRow([
+      timestamp,
+      name,
+      city,
+      district,
+      subdistrict,
+      age,
+      email,
+      mechanism_agree,
+      photo_agree,
+      policy_agree,
+      photo_url,
+      status
+    ]);
+
+    console.log('✅ Data successfully appended to sheet.');
+
+    return ContentService.createTextOutput(JSON.stringify({ success: true, message: 'Data berhasil disimpan!' }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    console.error('🔥 Error in doPost execution:', error.message);
+    return ContentService.createTextOutput(JSON.stringify({ success: false, message: 'Server processing error: ' + error.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput('Hello from Apps Script! Use POST to submit data. [v' + new Date().toLocaleTimeString() + ']');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function doPost(e) {
+  const SPREADSHEET_ID = '1D810OFpV0fdBru3b_7zpAs8fHYiPCLNmH83MydbT8Ec'; // Ini ID Spreadsheet Anda
+  const SHEET_NAME = 'Sheet1'; // Ini nama Sheet Anda
+
+  let sheet;
+  try {
+    sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
+    if (!sheet) {
+      throw new Error('Sheet with name "' + SHEET_NAME + '" not found in spreadsheet ID: ' + SPREADSHEET_ID);
+    }
+  } catch (error) {
+    console.error('🔥 Error accessing spreadsheet or sheet:', error.message);
+    return ContentService.createTextOutput(JSON.stringify({ success: false, message: 'Server error: Could not access spreadsheet/sheet.' }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  console.log('🚀 New submission (from HTML Form)');
+  console.log('⏰ Timestamp:', new Date().toISOString());
+  console.log('Event object (e):', JSON.stringify(e)); // Log seluruh objek event untuk debugging
+
+  try {
+    // PERIKSA: apakah e.postData ada dan memiliki properti type?
+    const contentType = e.postData?.type || 'unknown'; // Gunakan optional chaining (?.) untuk menghindari error jika postData undefined
+    console.log('📦 Content-Type:', contentType);
+
+    if (contentType.includes('multipart/form-data')) {
+      console.log('🔄 Processing as multipart/form-data...');
+      const params = e.parameter;
+      console.log('📝 Parameters received:', JSON.stringify(params)); // Log parameter yang diterima
+
+      // Pastikan semua parameter ada sebelum mencoba mengaksesnya
+      if (!params.name || !params.city || !params.email) { // Contoh validasi sederhana
+          throw new Error("Missing required form parameters.");
+      }
+
+      const timestamp = params.timestamp;
+      const name = params.name;
+      const city = params.city;
+      const district = params.district;
+      const subdistrict = params.subdistrict;
+      const age = params.age;
+      const email = params.email;
+      const mechanism_agree = params.mechanism_agree;
+      const photo_agree = params.photo_agree;
+      const policy_agree = params.policy_agree;
+      const photo_url = params.photo_url || ''; // Beri nilai default jika photo_url kosong
+
+      const status = 'Pending'; // Nilai default untuk kolom Status
+
+      // Tambahkan baris baru ke spreadsheet sesuai urutan kolom Anda
+      sheet.appendRow([
+        timestamp,
+        name,
+        city,
+        district,
+        subdistrict,
+        age,
+        email,
+        mechanism_agree,
+        photo_agree,
+        policy_agree,
+        photo_url,
+        status
+      ]);
+
+      console.log('✅ Data successfully appended to sheet.');
+
+      return ContentService.createTextOutput(JSON.stringify({ success: true, message: 'Data berhasil disimpan!' }))
+        .setMimeType(ContentService.MimeType.JSON);
+
+    } else {
+      console.log('❌ Unexpected Content-Type. Not multipart/form-data:', contentType);
+      return ContentService.createTextOutput(JSON.stringify({ success: false, message: 'Unsupported content type. Expected multipart/form-data.' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+  } catch (error) {
+    console.error('🔥 Error in doPost execution:', error.message);
+    return ContentService.createTextOutput(JSON.stringify({ success: false, message: 'Server processing error: ' + error.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput('Hello from Apps Script! Use POST to submit data. [v' + new Date().toLocaleTimeString() + ']');
+}

@@ -168,7 +168,6 @@
         <form id="pilotForm" class="space-y-6" enctype="multipart/form-data" method="post">
           <!-- Step 1 -->
           <div class="form-step" id="step-1">
-            <input type="hidden" id="timestamp" name="timestamp" />
 
             <div>
               <label for="name" class="block text-sm font-semibold text-text-gray mb-2">Nama Lengkap</label>
@@ -392,7 +391,7 @@
 
   <script>
     // ========== ✅ APPS SCRIPT URL - SUDAH DIKONFIGURASI! ==========
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz7zXSGaAWUi8OPtDVsLq6FRVUcRXGPCCi_kTlDLmBraWc9MYJysEpWClcvlP7-rz_z/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyp_1HJknKfJGFxf-lB5n_IyV0oHKTHWVMYWLjoSFRK0RPXsQK5A6A3gUKFndwnSwrgiw/exec';
 
     // ========== CITY-DISTRICT MAPPING ==========
     const cityDistrictMap = {
@@ -602,47 +601,79 @@
 
     // ========== FORM SUBMISSION ==========
     async function submitForm() {
-      // Final validation
       if (!nextStep('submit')) {
         return;
       }
 
-      // Show loading state
       const submitBtn = document.getElementById('submitBtn');
       const submitText = document.getElementById('submitText');
       const submitSpinner = document.getElementById('submitSpinner');
-      
+
       submitBtn.disabled = true;
       submitText.textContent = 'Mengirim...';
       submitSpinner.classList.remove('hidden');
 
       try {
-        // Prepare form data
-        const formData = new FormData();
+        const formData = new FormData(); // FormData kosong di awal
 
-        // Add all form fields
-        formData.append('timestamp', new Date().toISOString());
+        // Add all form fields (ini sama seperti sebelumnya)
+
         formData.append('name', document.getElementById('name').value.trim());
         formData.append('city', document.getElementById('city').value);
         formData.append('district', document.getElementById('district').value);
         formData.append('subdistrict', document.getElementById('subdistrict').value);
         formData.append('age', document.getElementById('age').value);
         formData.append('email', document.getElementById('email').value.trim().toLowerCase());
-        
+
         // Checkbox values
         formData.append('mechanism_agree', document.getElementById('mechanism_agree').checked.toString());
         formData.append('photo_agree', document.getElementById('photo_agree').checked.toString());
         formData.append('policy_agree', document.getElementById('policy_agree').checked.toString());
 
-        // Photo file
-        const photoFile = document.getElementById('photo').files[0];
+        // --- Logic Baru untuk Mengelola Upload Foto (Base64) ---
+        const photoInput = document.getElementById('photo');
+        const photoFile = photoInput.files[0]; // Dapatkan file dari input
+
         if (photoFile) {
-          formData.append('photo', photoFile);
+            // Validasi ukuran file di sisi klien
+            const maxSize = 5 * 1024 * 1024; // Maksimal 5MB sesuai validasi Anda
+            if (photoFile.size > maxSize) {
+                showError('Ukuran foto terlalu besar. Maksimal 5MB.');
+                submitBtn.disabled = false;
+                submitText.textContent = 'Kirim Pendaftaran';
+                submitSpinner.classList.add('hidden');
+                return; // Berhenti jika file terlalu besar
+            }
+
+            const reader = new FileReader();
+
+            // Kembalikan Promise agar bisa menggunakan await
+            const base64Data = await new Promise((resolve, reject) => {
+                reader.onload = function(event) {
+                    resolve(event.target.result.split(',')[1]); // Ambil hanya bagian Base64
+                };
+                reader.onerror = function(error) {
+                    reject(error);
+                };
+                reader.readAsDataURL(photoFile); // Baca file sebagai Data URL (Base64)
+            });
+
+            formData.append("media_base64", base64Data); // Kirim data Base64 dengan nama field 'media_base64'
+            formData.append("media_filename", photoFile.name); // Kirim juga nama file asli
+            formData.append("media_mimetype", photoFile.type); // Kirim juga tipe MIME
+            console.log('HTML Debug: File dikonversi ke Base64 dan ditambahkan ke FormData. Ukuran Base64:', base64Data.length);
+
+        } else {
+            formData.append("media_base64", ""); // Kirim string kosong jika tidak ada file
+            formData.append("media_filename", "");
+            formData.append("media_mimetype", "");
+            console.log('HTML Debug: Tidak ada file foto yang dipilih.');
         }
+        // --- Akhir Logic Baru untuk Upload Foto ---
 
-        console.log('🚀 Submitting to:', APPS_SCRIPT_URL);
+        console.log('🚀 Submitting to Apps Script:', APPS_SCRIPT_URL);
 
-        // Submit to Google Apps Script
+        // Submit ke Google Apps Script
         const response = await fetch(APPS_SCRIPT_URL, {
           method: 'POST',
           body: formData,
@@ -656,11 +687,11 @@
         const result = await response.json();
         console.log('✅ Response:', result);
 
-        if (result.success) {
+        if (result.result === 'success') { // Perhatikan: hasil dari Apps Script contoh pakai 'result' bukan 'success'
           // Hide form and show success message
           document.getElementById('pilotForm').classList.add('hidden');
           document.getElementById('successMessage').classList.remove('hidden');
-          
+
           // Scroll to success message
           document.getElementById('successMessage').scrollIntoView({ 
             behavior: 'smooth', 
@@ -668,14 +699,15 @@
           });
 
         } else {
-          throw new Error(result.message || 'Gagal mengirim data');
+          // Perhatikan: hasil error dari Apps Script contoh pakai 'error' bukan 'message'
+          throw new Error(result.error || 'Gagal mengirim data'); 
         }
 
       } catch (error) {
         console.error('❌ Submission error:', error);
-        
+
         let errorMessage = 'Gagal mengirim pendaftaran. ';
-        
+
         if (error.message.includes('Failed to fetch')) {
           errorMessage += 'Periksa koneksi internet dan coba lagi.';
         } else if (error.message.includes('405')) {
@@ -685,7 +717,7 @@
         } else {
           errorMessage += error.message;
         }
-        
+
         showError(errorMessage);
 
         // Reset button state
@@ -694,6 +726,13 @@
         submitSpinner.classList.add('hidden');
       }
     }
+
+
+
+
+
+
+
 
     // ========== ERROR HANDLING ==========
     function showError(message) {
@@ -737,8 +776,7 @@
 
     // ========== INITIALIZATION ==========
     document.addEventListener('DOMContentLoaded', function() {
-      // Set timestamp when page loads
-      document.getElementById("timestamp").value = new Date().toISOString();
+
       
       // Hide loading spinner initially
       document.getElementById('submitSpinner').classList.add('hidden');
