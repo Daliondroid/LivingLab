@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MuDu - Pengumpulan Hasil Challenge</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-green': '#62a64a',
+            'primary-orange': '#ec7c0c',
+            'light-green': '#d7ebcd',
+            'cream': '#faf9e6',
+            'dark-green': '#28361c',
+            'text-gray': '#445a3b',
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'bounce-slow': 'bounce 2s infinite',
+            'wiggle': 'wiggle 1s ease-in-out infinite',
+            'pulse-glow': 'pulse-glow 2s ease-in-out infinite alternate',
+            'rotate-slow': 'rotate-slow 8s linear infinite',
+            'slide-up': 'slide-up 0.8s ease-out',
+            'fade-in': 'fade-in 1s ease-out',
+            'scale-bounce': 'scale-bounce 0.5s ease-out',
+            'loading-dots': 'loading-dots 1.5s ease-in-out infinite',
+            'progress-fill': 'progress-fill 3s ease-in-out',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            wiggle: {
+              '0%, 100%': { transform: 'rotate(-3deg)' },
+              '50%': { transform: 'rotate(3deg)' },
+            },
+            'pulse-glow': {
+              '0%': { boxShadow: '0 0 20px rgba(236, 124, 12, 0.4)' },
+              '100%': { boxShadow: '0 0 40px rgba(236, 124, 12, 0.8)' },
+            },
+            'rotate-slow': {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
+            },
+            'slide-up': {
+              '0%': { transform: 'translateY(50px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+            'fade-in': {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            'scale-bounce': {
+              '0%': { transform: 'scale(0.8)' },
+              '50%': { transform: 'scale(1.1)' },
+              '100%': { transform: 'scale(1)' },
+            },
+            'loading-dots': {
+              '0%, 20%': { opacity: '0' },
+              '50%': { opacity: '1' },
+              '100%': { opacity: '0' },
+            },
+            'progress-fill': {
+              '0%': { width: '0%' },
+              '33%': { width: '30%' },
+              '66%': { width: '70%' },
+              '100%': { width: '100%' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .food-waste-particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #ff6b35;
+      border-radius: 50%;
+      animation: fall 3s linear infinite;
+    }
+    
+    @keyframes fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    .loading-spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #ec7c0c;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Enhanced Loading Overlay */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(40, 54, 28, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      backdrop-filter: blur(10px);
+    }
+
+    .loading-content {
+      text-align: center;
+      color: white;
+      max-width: 400px;
+      padding: 2rem;
+    }
+
+    .loading-progress {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #62a64a, #ec7c0c);
+      border-radius: 4px;
+      animation: progress-fill 3s ease-in-out;
+    }
+
+    .loading-dots span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ec7c0c;
+      margin: 0 2px;
+      animation: loading-dots 1.5s ease-in-out infinite;
+    }
+
+    .loading-dots span:nth-child(1) { animation-delay: 0s; }
+    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    .loading-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    /* Photo preview styles */
+    .photo-preview {
+      max-width: 200px;
+      max-height: 200px;
+      border-radius: 10px;
+      margin-top: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .photo-upload-area {
+      border: 2px dashed #d1d5db;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .photo-upload-area:hover {
+      border-color: #ec7c0c;
+      background-color: #fef3e2;
+    }
+
+    .photo-upload-area.dragover {
+      border-color: #62a64a;
+      background-color: #f0f9ff;
+    }
+
+  </style>
+</head>
+<body class="bg-gradient-to-b from-light-green to-cream min-h-screen">
+  <!-- Overlay -->
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="loading-content">
+      <div class="loading-icon">
+        <i class="fas fa-leaf text-primary-green"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-4">Mengirim Hasil Challenge</h3>
+      <p id="loadingText" class="text-gray-300 mb-4">Memproses data pengumpulan hasil...</p>
+      
+      <div class="loading-progress">
+        <div class="progress-bar"></div>
+      </div>
+      
+      <div class="loading-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      
+      <div id="loadingSteps" class="mt-6 text-left text-sm text-gray-400">
+        <div id="step1" class="mb-2">
+          <i class="fas fa-circle-notch fa-spin mr-2"></i>
+          Validasi data pengumpulan...
+        </div>
+        <div id="step2" class="mb-2 opacity-50">
+          <i class="fas fa-circle mr-2"></i>
+          Upload foto ke Google Drive...
+        </div>
+        <div id="step3" class="mb-2 opacity-50">
+          <i class="fas fa-circle mr-2"></i>
+          Simpan data ke database...
+        </div>
+        <div id="step4" class="mb-2 opacity-50">
+          <i class="fas fa-circle mr-2"></i>
+          Kirim konfirmasi...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Food Waste Particles -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="food-waste-particle" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="food-waste-particle" style="left: 25%; animation-delay: 1s;"></div>
+    <div class="food-waste-particle" style="left: 40%; animation-delay: 2s;"></div>
+    <div class="food-waste-particle" style="left: 60%; animation-delay: 0.5s;"></div>
+    <div class="food-waste-particle" style="left: 80%; animation-delay: 1.5s;"></div>
+    <div class="food-waste-particle" style="left: 90%; animation-delay: 2.5s;"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-lg border-b-2 border-primary-orange/20 z-50">
+    <div class="container mx-auto px-4 py-3">
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <div class="logo-wrapper">
+          <img src="MuDu logo.png" alt="MuDu Logo" class="h-8 sm:h-10" />
+        </div>
+
+        <!-- Hamburger Button (mobile only) -->
+        <button id="menu-toggle" class="sm:hidden text-[#E98728] text-2xl focus:outline-none">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Desktop Menu -->
+        <div class="hidden sm:flex items-center space-x-8">
+          <a href="index.html" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Home</a>
+          <a href="education.html" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Education</a>
+          <a href="wastemap.html" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Waste Map</a>
+          <a href="challenge.html" class="font-bold underline underline-offset-4 text-[#E98728]">Challenge</a>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden sm:hidden flex flex-col items-center space-y-3 pt-3">
+        <a href="index.html" class="font-bold underline underline-offset-4 text-[#E98728] hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Home</a>
+        <a href="education.html" class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Education</a>
+        <a href="wastemap.html" class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Waste Map</a>
+        <a href="challenge.html" class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Challenge</a>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Form Pengumpulan Hasil MuDu Challenge -->
+  <section class="pt-32 pb-20 bg-gradient-to-b from-light-green to-cream">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-dark-green mb-6 text-center">📸 Pengumpulan Hasil MuDu Challenge</h2>
+
+        <!-- Challenge Info -->
+        <div class="bg-gradient-to-r from-light-green to-cream p-6 rounded-lg mb-6">
+          <h3 class="text-lg font-bold text-dark-green mb-3">🌱 Selamat datang kembali, Eco Warrior!</h3>
+          <p class="text-text-gray mb-4">
+            Waktunya mengumpulkan hasil challenge 3 hari Anda! Upload foto kantong plastik berisi sisa makanan yang sudah dikumpulkan dan ceritakan pengalaman Anda.
+            <br><br>
+            <strong>📅 Periode Pengumpulan:</strong> 11-12 Juli 2025<br>
+            <strong>🏆 Reward:</strong> Badge MuDu + Spotify Wrap Style Summary
+          </p>
+        </div>
+
+        <form id="submissionForm" class="space-y-6" enctype="multipart/form-data" method="post">
+          
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-semibold text-text-gray mb-2">📧 Email</label>
+            <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded-lg px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E98728] transition" placeholder="email@example.com">
+            <p class="text-xs text-gray-500 mt-1">Gunakan email yang sama saat pendaftaran</p>
+          </div>
+
+          <!-- Foto Kantong (Wajib) -->
+          <div>
+            <label for="photo_bag" class="block text-sm font-semibold text-text-gray mb-2">📸 Foto Kantong Plastik Berisi Sisa Makanan <span class="text-red-500">*</span></label>
+            
+            <div class="photo-upload-area" onclick="document.getElementById('photo_bag').click()">
+              <i class="fas fa-camera text-4xl text-gray-400 mb-2"></i>
+              <p class="text-gray-600 font-medium">Klik untuk upload foto kantong</p>
+              <p class="text-xs text-gray-500 mt-1">JPG, PNG, atau GIF. Maksimal 5MB.</p>
+            </div>
+            
+            <input type="file" id="photo_bag" name="photo_bag" accept="image/*" required class="hidden">
+            <div id="bagPreview" class="hidden mt-3">
+              <img id="bagImage" class="photo-preview" alt="Preview kantong">
+              <p class="text-sm text-green-600 mt-2"><i class="fas fa-check-circle mr-1"></i>Foto kantong berhasil dipilih</p>
+            </div>
+          </div>
+
+          <!-- Foto Pot Kompos (Opsional) -->
+          <div>
+            <label for="photo_compost" class="block text-sm font-semibold text-text-gray mb-2">🌱 Foto Pot Kompos <span class="text-gray-500">(Opsional)</span></label>
+            
+            <div class="photo-upload-area" onclick="document.getElementById('photo_compost').click()">
+              <i class="fas fa-seedling text-4xl text-gray-400 mb-2"></i>
+              <p class="text-gray-600 font-medium">Klik untuk upload foto pot kompos</p>
+              <p class="text-xs text-gray-500 mt-1">Jika Anda sudah membuat kompos dari sisa makanan</p>
+            </div>
+            
+            <input type="file" id="photo_compost" name="photo_compost" accept="image/*" class="hidden">
+            <div id="compostPreview" class="hidden mt-3">
+              <img id="compostImage" class="photo-preview" alt="Preview kompos">
+              <p class="text-sm text-green-600 mt-2"><i class="fas fa-check-circle mr-1"></i>Foto kompos berhasil dipilih</p>
+            </div>
+          </div>
+
+          <!-- Feedback -->
+          <div>
+            <label for="feedback" class="block text-sm font-semibold text-text-gray mb-2">💭 Feedback & Pengalaman Anda</label>
+            <textarea id="feedback" name="feedback" required rows="5" class="w-full border border-gray-300 rounded-lg px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#E98728] transition resize-none" placeholder="Ceritakan pengalaman Anda selama 3 hari mengumpulkan sisa makanan. Bagaimana perasaan Anda? Apa yang dipelajari? Apakah ada kesulitan? (Minimal 50 karakter)"></textarea>
+            <div class="flex justify-between mt-1">
+              <p class="text-xs text-gray-500">Minimal 50 karakter</p>
+              <p id="charCount" class="text-xs text-gray-500">0 karakter</p>
+            </div>
+          </div>
+
+          <!-- Agreement -->
+          <div class="space-y-4 mb-6">
+            <label class="inline-flex items-start">
+              <input type="checkbox" id="photo_agreement" name="photo_agreement" required class="form-checkbox text-primary-orange mt-1 mr-3">
+              <span class="text-sm text-text-gray">Foto yang dilampirkan adalah benar hasil challenge 3 hari saya dan saya memberikan izin untuk menggunakan foto ini untuk keperluan program MuDu</span>
+            </label>
+
+            <label class="inline-flex items-start">
+              <input type="checkbox" id="data_agreement" name="data_agreement" required class="form-checkbox text-primary-orange mt-1 mr-3">
+              <span class="text-sm text-text-gray">Saya setuju data dan feedback saya digunakan untuk evaluasi program MuDu Challenge</span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="flex justify-center">
+            <button id="submitBtn" type="button" onclick="submitForm()" class="bg-primary-orange hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-xl transition-all duration-300 hover:scale-105 flex items-center text-lg">
+              <i class="fas fa-paper-plane mr-2"></i>
+              <span id="submitText">Kirim Hasil Challenge</span>
+              <div id="submitSpinner" class="loading-spinner ml-2 hidden"></div>
+            </button>
+          </div>
+        </form>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="hidden mt-6 text-center">
+          <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+            <div class="flex items-center justify-center mb-4">
+              <div class="bg-green-100 rounded-full p-2">
+                <i class="fas fa-trophy text-green-600 text-2xl"></i>
+              </div>
+            </div>
+            <h3 class="text-lg font-bold text-green-800 mb-2">🎉 Hasil Challenge Berhasil Dikirim!</h3>
+            <p class="text-green-700 mb-4">Terima kasih telah menyelesaikan MuDu Challenge!</p>
+            
+            <div class="bg-white rounded-lg p-4 text-left">
+              <h4 class="font-semibold text-green-800 mb-2">Langkah Selanjutnya:</h4>
+              <ul class="text-sm text-green-700 space-y-1">
+                <li>✅ Tim kami akan mengevaluasi hasil Anda</li>
+                <li>🏆 Badge dan MuDu Wrap akan dikirim dalam 2-3 hari</li>
+                <li>📱 Jangan lupa tag @mudumulaidulu di Instagram stories</li>
+                <li>🌱 Lanjutkan kebiasaan baik mengelola sisa makanan!</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="hidden mt-6">
+          <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <i class="fas fa-exclamation-circle text-red-400"></i>
+              </div>
+              <div class="ml-3">
+                <h3 class="text-sm font-medium text-red-800">Terjadi Kesalahan</h3>
+                <div class="mt-2 text-sm text-red-700">
+                  <p id="errorText">Gagal mengirim data. Silakan coba lagi nanti.</p>
+                </div>
+                <div class="mt-4">
+                  <button onclick="hideError()" class="bg-red-100 px-3 py-1 text-sm text-red-800 rounded hover:bg-red-200">Tutup</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Footer -->
+  <footer class="bg-dark-green text-gray-300 border-t-4 border-primary-orange py-16 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="grid lg:grid-cols-3 gap-12">
+        <!-- Contact Information -->
+        <div class="lg:col-span-2">
+          <h6 class="text-gray-300 font-black text-lg uppercase tracking-wider mb-6">Contact Us</h6>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <a href="tel:+6281224017980" class="flex items-center text-[#E98728] hover:text-orange-400 transition-colors group">
+                <i class="fas fa-phone w-5 mr-3"></i>
+                +62 812-2401-7980
+              </a>
+              <a href="mailto:mudumulaidulu@gmail.com" class="flex items-center text-[#E98728] hover:text-orange-400 transition-colors group">
+                <i class="fas fa-envelope w-5 mr-3"></i>
+                mudumulaidulu@gmail.com
+              </a>
+            </div>
+            <div>
+              <div class="flex items-start text-[#E98728]">
+                <i class="fas fa-map-marker-alt w-5 mr-3 mt-1"></i>
+                <span>Jl. Gempol 1 No.40B, RT.6/RW.2, Ceger, Kec. Cipayung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13820</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Social Media -->
+        <div>
+          <h6 class="text-gray-300 font-black text-lg uppercase tracking-wider mb-6">Follow Us</h6>
+          <div class="space-y-3">
+            <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
+              <i class="fab fa-facebook w-5 mr-3"></i>Facebook
+            </a>
+            <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
+              <i class="fab fa-twitter w-5 mr-3"></i>Twitter
+            </a>
+            <a href="https://instagram.com/mudumulaidulu" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
+              <i class="fab fa-instagram w-5 mr-3"></i>Instagram
+            </a>
+            <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
+              <i class="fab fa-linkedin w-5 mr-3"></i>LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Copyright -->
+      <div class="text-center mt-12 pt-8 border-t border-gray-600">
+        <p class="text-sm font-black uppercase tracking-wider">
+          © 2025 MuDu — Leading The Future Of Sustainable Food Waste Management
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ========== ✅ APPS SCRIPT URL - PERLU DIKONFIGURASI! ==========
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwiuV4P7oll2Ilzx6fekYzs6ouMpH9sPIbwlqvLbOx_TPiFrXRI0iJOXg2upCK3_4CaWg/exec'; // Ganti dengan URL Apps Script yang baru
+
+    // ========== ENHANCED LOADING SYSTEM ==========
+    const loadingMessages = [
+      'Memproses data pengumpulan hasil...',
+      'Mengupload foto ke Google Drive...',
+      'Menyimpan data ke database...',
+      'Mengirim konfirmasi...',
+      'Menyelesaikan pengumpulan...'
+    ];
+
+    const loadingSteps = [
+      { id: 'step1', text: 'Validasi data pengumpulan...', icon: 'fas fa-circle-notch fa-spin' },
+      { id: 'step2', text: 'Upload foto ke Google Drive...', icon: 'fas fa-cloud-upload-alt' },
+      { id: 'step3', text: 'Simpan data ke database...', icon: 'fas fa-database' },
+      { id: 'step4', text: 'Kirim konfirmasi...', icon: 'fas fa-envelope' }
+    ];
+
+    function showLoadingOverlay() {
+      const overlay = document.getElementById('loadingOverlay');
+      overlay.classList.remove('hidden');
+      
+      let currentStep = 0;
+      let messageIndex = 0;
+      
+      // Update loading messages
+      const messageInterval = setInterval(() => {
+        if (messageIndex < loadingMessages.length) {
+          document.getElementById('loadingText').textContent = loadingMessages[messageIndex];
+          messageIndex++;
+        }
+      }, 800);
+
+      // Update steps
+      const stepInterval = setInterval(() => {
+        if (currentStep < loadingSteps.length) {
+          // Complete previous step
+          if (currentStep > 0) {
+            const prevStep = document.getElementById(loadingSteps[currentStep - 1].id);
+            prevStep.innerHTML = `<i class="fas fa-check-circle text-green-400 mr-2"></i>${loadingSteps[currentStep - 1].text.replace('...', ' ✅')}`;
+            prevStep.classList.remove('opacity-50');
+          }
+          
+          // Start current step
+          if (currentStep < loadingSteps.length) {
+            const currentStepEl = document.getElementById(loadingSteps[currentStep].id);
+            currentStepEl.innerHTML = `<i class="${loadingSteps[currentStep].icon} mr-2"></i>${loadingSteps[currentStep].text}`;
+            currentStepEl.classList.remove('opacity-50');
+          }
+          
+          currentStep++;
+        }
+      }, 1000);
+
+      // Store intervals for cleanup
+      overlay.messageInterval = messageInterval;
+      overlay.stepInterval = stepInterval;
+    }
+
+    function hideLoadingOverlay() {
+      const overlay = document.getElementById('loadingOverlay');
+      
+      // Clear intervals
+      if (overlay.messageInterval) clearInterval(overlay.messageInterval);
+      if (overlay.stepInterval) clearInterval(overlay.stepInterval);
+      
+      // Complete all steps
+      loadingSteps.forEach(step => {
+        const stepEl = document.getElementById(step.id);
+        stepEl.innerHTML = `<i class="fas fa-check-circle text-green-400 mr-2"></i>${step.text.replace('...', ' ✅')}`;
+        stepEl.classList.remove('opacity-50');
+      });
+
+      // Hide after a short delay to show completion
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+      }, 500);
+    }
+
+    // ========== PHOTO PREVIEW FUNCTIONALITY ==========
+    function setupPhotoPreview(inputId, previewId, imageId) {
+      const input = document.getElementById(inputId);
+      const preview = document.getElementById(previewId);
+      const image = document.getElementById(imageId);
+
+      input.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+          const maxSize = 5 * 1024 * 1024; // 5MB
+          const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+          
+          if (file.size > maxSize) {
+            this.style.borderColor = '#ef4444';
+            this.value = '';
+            showError('Ukuran foto terlalu besar. Maksimal 5MB.');
+            preview.classList.add('hidden');
+          } else if (!allowedTypes.includes(file.type)) {
+            this.style.borderColor = '#ef4444';
+            this.value = '';
+            showError('Format foto tidak didukung. Gunakan JPEG, PNG, atau GIF.');
+            preview.classList.add('hidden');
+          } else {
+            this.style.borderColor = '#22c55e';
+            hideError();
+            
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              image.src = e.target.result;
+              preview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+            
+            console.log('📸 Photo selected:', file.name, (file.size / 1024 / 1024).toFixed(2) + 'MB');
+          }
+        } else {
+          preview.classList.add('hidden');
+        }
+      });
+    }
+
+    // ========== CHARACTER COUNTER ==========
+    function setupCharacterCounter() {
+      const textarea = document.getElementById('feedback');
+      const charCount = document.getElementById('charCount');
+      
+      textarea.addEventListener('input', function() {
+        const length = this.value.length;
+        charCount.textContent = length + ' karakter';
+        
+        if (length < 50) {
+          charCount.style.color = '#ef4444';
+          textarea.style.borderColor = '#ef4444';
+        } else {
+          charCount.style.color = '#22c55e';
+          textarea.style.borderColor = '#22c55e';
+        }
+      });
+    }
+
+    // ========== FORM VALIDATION ==========
+    function validateForm() {
+      let isValid = true;
+      const errors = [];
+
+      // Email validation
+      const email = document.getElementById('email').value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email) {
+        errors.push('Email wajib diisi');
+        isValid = false;
+      } else if (!emailRegex.test(email)) {
+        errors.push('Format email tidak valid');
+        isValid = false;
+      }
+
+      // Photo bag validation (required)
+      const photoBag = document.getElementById('photo_bag').files[0];
+      if (!photoBag) {
+        errors.push('Foto kantong plastik berisi sisa makanan wajib diupload');
+        isValid = false;
+      } else {
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+        
+        if (photoBag.size > maxSize) {
+          errors.push('Ukuran foto kantong terlalu besar. Maksimal 5MB');
+          isValid = false;
+        } else if (!allowedTypes.includes(photoBag.type)) {
+          errors.push('Format foto kantong tidak didukung. Gunakan JPEG, PNG, atau GIF');
+          isValid = false;
+        }
+      }
+
+      // Photo compost validation (optional, but if uploaded must be valid)
+      const photoCompost = document.getElementById('photo_compost').files[0];
+      if (photoCompost) {
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+        
+        if (photoCompost.size > maxSize) {
+          errors.push('Ukuran foto kompos terlalu besar. Maksimal 5MB');
+          isValid = false;
+        } else if (!allowedTypes.includes(photoCompost.type)) {
+          errors.push('Format foto kompos tidak didukung. Gunakan JPEG, PNG, atau GIF');
+          isValid = false;
+        }
+      }
+
+      // Feedback validation
+      const feedback = document.getElementById('feedback').value.trim();
+      if (!feedback) {
+        errors.push('Feedback wajib diisi');
+        isValid = false;
+      } else if (feedback.length < 50) {
+        errors.push('Feedback minimal 50 karakter');
+        isValid = false;
+      }
+
+      // Agreement validation
+      const photoAgreement = document.getElementById('photo_agreement').checked;
+      const dataAgreement = document.getElementById('data_agreement').checked;
+      
+      if (!photoAgreement) {
+        errors.push('Persetujuan penggunaan foto harus dicentang');
+        isValid = false;
+      }
+      
+      if (!dataAgreement) {
+        errors.push('Persetujuan penggunaan data harus dicentang');
+        isValid = false;
+      }
+
+      if (!isValid) {
+        showError(errors.join('. '));
+      }
+
+      return isValid;
+    }
+
+    // ========== FORM SUBMISSION ==========
+    async function submitForm() {
+      if (!validateForm()) {
+        return;
+      }
+
+      const submitBtn = document.getElementById('submitBtn');
+      const submitText = document.getElementById('submitText');
+      const submitSpinner = document.getElementById('submitSpinner');
+
+      // Disable button and show local loading
+      submitBtn.disabled = true;
+      submitText.textContent = 'Mengirim...';
+      submitSpinner.classList.remove('hidden');
+
+      // Show enhanced loading overlay
+      showLoadingOverlay();
+
+      try {
+        const formData = new FormData();
+
+        // Add form fields
+        formData.append('email', document.getElementById('email').value.trim().toLowerCase());
+        formData.append('feedback', document.getElementById('feedback').value.trim());
+        formData.append('photo_agreement', document.getElementById('photo_agreement').checked.toString());
+        formData.append('data_agreement', document.getElementById('data_agreement').checked.toString());
+
+        // Handle photo bag upload with Base64 encoding
+        const photoBag = document.getElementById('photo_bag').files[0];
+        if (photoBag) {
+          const bagBase64 = await convertToBase64(photoBag);
+          formData.append("photo_bag_base64", bagBase64);
+          formData.append("photo_bag_filename", photoBag.name);
+          formData.append("photo_bag_mimetype", photoBag.type);
+          console.log('📸 Bag photo converted to Base64. Size:', bagBase64.length);
+        }
+
+        // Handle photo compost upload with Base64 encoding (optional)
+        const photoCompost = document.getElementById('photo_compost').files[0];
+        if (photoCompost) {
+          const compostBase64 = await convertToBase64(photoCompost);
+          formData.append("photo_compost_base64", compostBase64);
+          formData.append("photo_compost_filename", photoCompost.name);
+          formData.append("photo_compost_mimetype", photoCompost.type);
+          console.log('🌱 Compost photo converted to Base64. Size:', compostBase64.length);
+        } else {
+          formData.append("photo_compost_base64", "");
+          formData.append("photo_compost_filename", "");
+          formData.append("photo_compost_mimetype", "");
+        }
+
+        console.log('🚀 Submitting to Apps Script:', APPS_SCRIPT_URL);
+
+        // Submit to Google Apps Script
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          body: formData,
+          mode: 'cors'
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log('✅ Response:', result);
+
+        // Hide loading overlay
+        hideLoadingOverlay();
+
+        if (result.result === 'success') {
+          // Hide form and show success message
+          document.getElementById('submissionForm').classList.add('hidden');
+          document.getElementById('successMessage').classList.remove('hidden');
+
+          // Scroll to success message
+          document.getElementById('successMessage').scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+          });
+
+          // Optional: Confetti effect or celebration animation
+          setTimeout(() => {
+            console.log('🎉 Submission completed successfully!');
+          }, 500);
+
+        } else {
+          throw new Error(result.error || 'Gagal mengirim data');
+        }
+
+      } catch (error) {
+        console.error('❌ Submission error:', error);
+
+        // Hide loading overlay
+        hideLoadingOverlay();
+
+        let errorMessage = 'Gagal mengirim hasil challenge. ';
+
+        if (error.message.includes('Failed to fetch')) {
+          errorMessage += 'Periksa koneksi internet dan coba lagi.';
+        } else if (error.message.includes('405')) {
+          errorMessage += 'URL Google Apps Script tidak benar. Pastikan sudah deploy sebagai Web App.';
+        } else if (error.message.includes('CORS')) {
+          errorMessage += 'Masalah konfigurasi. Hubungi administrator.';
+        } else {
+          errorMessage += error.message;
+        }
+
+        showError(errorMessage);
+
+        // Reset button state
+        submitBtn.disabled = false;
+        submitText.textContent = 'Kirim Hasil Challenge';
+        submitSpinner.classList.add('hidden');
+      }
+    }
+
+    // ========== HELPER FUNCTIONS ==========
+    function convertToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          resolve(event.target.result.split(',')[1]); // Get Base64 part only
+        };
+        reader.onerror = function(error) {
+          reject(error);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // ========== ERROR HANDLING ==========
+    function showError(message) {
+      const errorElement = document.getElementById('errorMessage');
+      const errorText = document.getElementById('errorText');
+      
+      errorText.textContent = message;
+      errorElement.classList.remove('hidden');
+      
+      // Scroll to error
+      errorElement.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+
+      // Auto hide after 8 seconds
+      setTimeout(hideError, 8000);
+    }
+
+    function hideError() {
+      document.getElementById('errorMessage').classList.add('hidden');
+    }
+
+    // ========== MOBILE MENU ==========
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // ========== NAVBAR SCROLL EFFECT ==========
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('nav');
+      if (window.scrollY > 50) {
+        navbar.classList.add('bg-white/98', 'shadow-lg');
+        navbar.classList.remove('bg-white/95');
+      } else {
+        navbar.classList.remove('bg-white/98', 'shadow-lg');
+        navbar.classList.add('bg-white/95');
+      }
+    });
+
+    // ========== DRAG & DROP FUNCTIONALITY ==========
+    function setupDragAndDrop() {
+      const uploadAreas = document.querySelectorAll('.photo-upload-area');
+      
+      uploadAreas.forEach(area => {
+        area.addEventListener('dragover', function(e) {
+          e.preventDefault();
+          this.classList.add('dragover');
+        });
+
+        area.addEventListener('dragleave', function(e) {
+          e.preventDefault();
+          this.classList.remove('dragover');
+        });
+
+        area.addEventListener('drop', function(e) {
+          e.preventDefault();
+          this.classList.remove('dragover');
+          
+          const files = e.dataTransfer.files;
+          if (files.length > 0) {
+            const fileInput = this.parentElement.querySelector('input[type="file"]');
+            if (fileInput) {
+              fileInput.files = files;
+              fileInput.dispatchEvent(new Event('change'));
+            }
+          }
+        });
+      });
+    }
+
+    // ========== REAL-TIME VALIDATION ==========
+    function setupRealTimeValidation() {
+      // Email validation
+      document.getElementById('email').addEventListener('blur', function() {
+        const email = this.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (email && !emailRegex.test(email)) {
+          this.style.borderColor = '#ef4444';
+        } else {
+          this.style.borderColor = '#d1d5db';
+        }
+      });
+
+      // Feedback validation
+      document.getElementById('feedback').addEventListener('input', function() {
+        const feedback = this.value.trim();
+        
+        if (feedback.length >= 50) {
+          this.style.borderColor = '#22c55e';
+        } else if (feedback.length > 0) {
+          this.style.borderColor = '#f59e0b';
+        } else {
+          this.style.borderColor = '#d1d5db';
+        }
+      });
+    }
+
+    // ========== INITIALIZATION ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hide loading spinner initially
+      document.getElementById('submitSpinner').classList.add('hidden');
+      
+      // Setup photo previews
+      setupPhotoPreview('photo_bag', 'bagPreview', 'bagImage');
+      setupPhotoPreview('photo_compost', 'compostPreview', 'compostImage');
+      
+      // Setup character counter
+      setupCharacterCounter();
+      
+      // Setup drag and drop
+      setupDragAndDrop();
+      
+      // Setup real-time validation
+      setupRealTimeValidation();
+      
+      // Focus on first input
+      document.getElementById('email').focus();
+
+      console.log('🌱 MuDu Challenge submission form initialized');
+      console.log('🔗 Apps Script URL:', APPS_SCRIPT_URL);
+      console.log('📧 Email validation enabled');
+      console.log('📸 Photo preview enabled');
+      console.log('✅ Enhanced loading system ready!');
+    });
+
+  </script>
+</body>
+</html>
