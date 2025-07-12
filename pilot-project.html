@@ -35,6 +35,8 @@
             'slide-up': 'slide-up 0.8s ease-out',
             'fade-in': 'fade-in 1s ease-out',
             'scale-bounce': 'scale-bounce 0.5s ease-out',
+            'loading-dots': 'loading-dots 1.5s ease-in-out infinite',
+            'progress-fill': 'progress-fill 3s ease-in-out',
           },
           keyframes: {
             float: {
@@ -65,6 +67,17 @@
               '0%': { transform: 'scale(0.8)' },
               '50%': { transform: 'scale(1.1)' },
               '100%': { transform: 'scale(1)' },
+            },
+            'loading-dots': {
+              '0%, 20%': { opacity: '0' },
+              '50%': { opacity: '1' },
+              '100%': { opacity: '0' },
+            },
+            'progress-fill': {
+              '0%': { width: '0%' },
+              '33%': { width: '30%' },
+              '66%': { width: '70%' },
+              '100%': { width: '100%' },
             },
           }
         }
@@ -111,9 +124,107 @@
       100% { transform: rotate(360deg); }
     }
 
+    /* Enhanced Loading Overlay */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(40, 54, 28, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      backdrop-filter: blur(10px);
+    }
+
+    .loading-content {
+      text-align: center;
+      color: white;
+      max-width: 400px;
+      padding: 2rem;
+    }
+
+    .loading-progress {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #62a64a, #ec7c0c);
+      border-radius: 4px;
+      animation: progress-fill 3s ease-in-out;
+    }
+
+    .loading-dots span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ec7c0c;
+      margin: 0 2px;
+      animation: loading-dots 1.5s ease-in-out infinite;
+    }
+
+    .loading-dots span:nth-child(1) { animation-delay: 0s; }
+    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    .loading-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: float 2s ease-in-out infinite;
+    }
+
   </style>
 </head>
 <body class="bg-gradient-to-b from-light-green to-cream min-h-screen">
+  <!-- Enhanced Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="loading-content">
+      <div class="loading-icon">
+        <i class="fas fa-leaf text-primary-green"></i>
+      </div>
+      <h3 class="text-2xl font-bold mb-4">Mengirimkan Pendaftaran</h3>
+      <p id="loadingText" class="text-gray-300 mb-4">Memproses data pendaftaran Anda...</p>
+      
+      <div class="loading-progress">
+        <div class="progress-bar"></div>
+      </div>
+      
+      <div class="loading-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      
+      <div id="loadingSteps" class="mt-6 text-left text-sm text-gray-400">
+        <div id="step1" class="mb-2">
+          <i class="fas fa-circle-notch fa-spin mr-2"></i>
+          Validasi data pendaftaran...
+        </div>
+        <div id="step2" class="mb-2 opacity-50">
+          <i class="fas fa-circle mr-2"></i>
+          Upload foto ke Google Drive...
+        </div>
+        <div id="step3" class="mb-2 opacity-50">
+          <i class="fas fa-circle mr-2"></i>
+          Simpan data ke database...
+        </div>
+        <div id="step4" class="mb-2 opacity-50">
+          <i class="fas fa-circle mr-2"></i>
+          Kirim email konfirmasi...
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Floating Food Waste Particles -->
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
     <div class="food-waste-particle" style="left: 10%; animation-delay: 0s;"></div>
@@ -157,7 +268,6 @@
 
     </div>
   </nav>
-
 
   <!-- Form Multi-Halaman MuDu Pilot Project -->
   <section class="pt-32 pb-20 bg-gradient-to-b from-light-green to-cream">
@@ -298,6 +408,22 @@
             </div>
             <h3 class="text-lg font-bold text-green-800 mb-2">🎉 Pendaftaran Berhasil!</h3>
             <p class="text-green-700 mb-4">Terima kasih telah bergabung dengan MuDu Challenge!</p>
+            
+            <div id="emailStatus" class="mb-4">
+              <div id="emailSent" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-3">
+                <div class="flex items-center justify-center">
+                  <i class="fas fa-envelope text-blue-600 mr-2"></i>
+                  <span class="text-blue-700 text-sm">📧 Email konfirmasi telah dikirim!</span>
+                </div>
+              </div>
+              <div id="emailFailed" class="hidden bg-orange-50 border border-orange-200 rounded-lg p-3">
+                <div class="flex items-center justify-center">
+                  <i class="fas fa-exclamation-triangle text-orange-600 mr-2"></i>
+                  <span class="text-orange-700 text-sm">⚠️ Email konfirmasi gagal dikirim, namun pendaftaran tetap berhasil.</span>
+                </div>
+              </div>
+            </div>
+
             <div class="bg-white rounded-lg p-4 text-left">
               <h4 class="font-semibold text-green-800 mb-2">Langkah Selanjutnya:</h4>
               <ul class="text-sm text-green-700 space-y-1">
@@ -346,9 +472,9 @@
                 <i class="fas fa-phone w-5 mr-3"></i>
                 +62 812-2401-7980
               </a>
-              <a href="mailto:info@mudumulolion.id" class="flex items-center text-[#E98728] hover:text-orange-400 transition-colors group">
+              <a href="mailto:mudumulaidulu@gmail.com" class="flex items-center text-[#E98728] hover:text-orange-400 transition-colors group">
                 <i class="fas fa-envelope w-5 mr-3"></i>
-                INFO@MUDUMULOLION.ID
+                mudumulaidulu@gmail.com
               </a>
             </div>
             <div>
@@ -370,7 +496,7 @@
             <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
               <i class="fab fa-twitter w-5 mr-3"></i>Twitter
             </a>
-            <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
+            <a href="https://instagram.com/mudumulaidulu" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
               <i class="fab fa-instagram w-5 mr-3"></i>Instagram
             </a>
             <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
@@ -391,7 +517,84 @@
 
   <script>
     // ========== ✅ APPS SCRIPT URL - SUDAH DIKONFIGURASI! ==========
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyp_1HJknKfJGFxf-lB5n_IyV0oHKTHWVMYWLjoSFRK0RPXsQK5A6A3gUKFndwnSwrgiw/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwVJ_OeHI66ZChRma_JDZoYs5JugEMPn7roAt-dbpsijuynI3hUwD5ZCJm0kYALYYpX4A/exec';
+
+    // ========== ENHANCED LOADING SYSTEM ==========
+    const loadingMessages = [
+      'Memproses data pendaftaran Anda...',
+      'Mengupload foto ke Google Drive...',
+      'Menyimpan data ke database...',
+      'Mengirim email konfirmasi...',
+      'Menyelesaikan pendaftaran...'
+    ];
+
+    const loadingSteps = [
+      { id: 'step1', text: 'Validasi data pendaftaran...', icon: 'fas fa-circle-notch fa-spin' },
+      { id: 'step2', text: 'Upload foto ke Google Drive...', icon: 'fas fa-cloud-upload-alt' },
+      { id: 'step3', text: 'Simpan data ke database...', icon: 'fas fa-database' },
+      { id: 'step4', text: 'Kirim email konfirmasi...', icon: 'fas fa-envelope' }
+    ];
+
+    function showLoadingOverlay() {
+      const overlay = document.getElementById('loadingOverlay');
+      overlay.classList.remove('hidden');
+      
+      let currentStep = 0;
+      let messageIndex = 0;
+      
+      // Update loading messages
+      const messageInterval = setInterval(() => {
+        if (messageIndex < loadingMessages.length) {
+          document.getElementById('loadingText').textContent = loadingMessages[messageIndex];
+          messageIndex++;
+        }
+      }, 800);
+
+      // Update steps
+      const stepInterval = setInterval(() => {
+        if (currentStep < loadingSteps.length) {
+          // Complete previous step
+          if (currentStep > 0) {
+            const prevStep = document.getElementById(loadingSteps[currentStep - 1].id);
+            prevStep.innerHTML = `<i class="fas fa-check-circle text-green-400 mr-2"></i>${loadingSteps[currentStep - 1].text.replace('...', ' ✅')}`;
+            prevStep.classList.remove('opacity-50');
+          }
+          
+          // Start current step
+          if (currentStep < loadingSteps.length) {
+            const currentStepEl = document.getElementById(loadingSteps[currentStep].id);
+            currentStepEl.innerHTML = `<i class="${loadingSteps[currentStep].icon} mr-2"></i>${loadingSteps[currentStep].text}`;
+            currentStepEl.classList.remove('opacity-50');
+          }
+          
+          currentStep++;
+        }
+      }, 1000);
+
+      // Store intervals for cleanup
+      overlay.messageInterval = messageInterval;
+      overlay.stepInterval = stepInterval;
+    }
+
+    function hideLoadingOverlay() {
+      const overlay = document.getElementById('loadingOverlay');
+      
+      // Clear intervals
+      if (overlay.messageInterval) clearInterval(overlay.messageInterval);
+      if (overlay.stepInterval) clearInterval(overlay.stepInterval);
+      
+      // Complete all steps
+      loadingSteps.forEach(step => {
+        const stepEl = document.getElementById(step.id);
+        stepEl.innerHTML = `<i class="fas fa-check-circle text-green-400 mr-2"></i>${step.text.replace('...', ' ✅')}`;
+        stepEl.classList.remove('opacity-50');
+      });
+
+      // Hide after a short delay to show completion
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+      }, 500);
+    }
 
     // ========== CITY-DISTRICT MAPPING ==========
     const cityDistrictMap = {
@@ -599,7 +802,7 @@
       document.getElementById(`step-${step}`).classList.remove('hidden');
     }
 
-    // ========== FORM SUBMISSION ==========
+    // ========== ENHANCED FORM SUBMISSION ==========
     async function submitForm() {
       if (!nextStep('submit')) {
         return;
@@ -609,15 +812,18 @@
       const submitText = document.getElementById('submitText');
       const submitSpinner = document.getElementById('submitSpinner');
 
+      // Disable button and show local loading
       submitBtn.disabled = true;
       submitText.textContent = 'Mengirim...';
       submitSpinner.classList.remove('hidden');
 
+      // Show enhanced loading overlay
+      showLoadingOverlay();
+
       try {
-        const formData = new FormData(); // FormData kosong di awal
+        const formData = new FormData();
 
-        // Add all form fields (ini sama seperti sebelumnya)
-
+        // Add all form fields
         formData.append('name', document.getElementById('name').value.trim());
         formData.append('city', document.getElementById('city').value);
         formData.append('district', document.getElementById('district').value);
@@ -630,50 +836,43 @@
         formData.append('photo_agree', document.getElementById('photo_agree').checked.toString());
         formData.append('policy_agree', document.getElementById('policy_agree').checked.toString());
 
-        // --- Logic Baru untuk Mengelola Upload Foto (Base64) ---
+        // Handle photo upload with Base64 encoding
         const photoInput = document.getElementById('photo');
-        const photoFile = photoInput.files[0]; // Dapatkan file dari input
+        const photoFile = photoInput.files[0];
 
         if (photoFile) {
-            // Validasi ukuran file di sisi klien
-            const maxSize = 5 * 1024 * 1024; // Maksimal 5MB sesuai validasi Anda
-            if (photoFile.size > maxSize) {
-                showError('Ukuran foto terlalu besar. Maksimal 5MB.');
-                submitBtn.disabled = false;
-                submitText.textContent = 'Kirim Pendaftaran';
-                submitSpinner.classList.add('hidden');
-                return; // Berhenti jika file terlalu besar
-            }
+          // Validate file size
+          const maxSize = 5 * 1024 * 1024; // 5MB
+          if (photoFile.size > maxSize) {
+            throw new Error('Ukuran foto terlalu besar. Maksimal 5MB.');
+          }
 
-            const reader = new FileReader();
+          // Convert to Base64
+          const reader = new FileReader();
+          const base64Data = await new Promise((resolve, reject) => {
+            reader.onload = function(event) {
+              resolve(event.target.result.split(',')[1]); // Get Base64 part only
+            };
+            reader.onerror = function(error) {
+              reject(error);
+            };
+            reader.readAsDataURL(photoFile);
+          });
 
-            // Kembalikan Promise agar bisa menggunakan await
-            const base64Data = await new Promise((resolve, reject) => {
-                reader.onload = function(event) {
-                    resolve(event.target.result.split(',')[1]); // Ambil hanya bagian Base64
-                };
-                reader.onerror = function(error) {
-                    reject(error);
-                };
-                reader.readAsDataURL(photoFile); // Baca file sebagai Data URL (Base64)
-            });
-
-            formData.append("media_base64", base64Data); // Kirim data Base64 dengan nama field 'media_base64'
-            formData.append("media_filename", photoFile.name); // Kirim juga nama file asli
-            formData.append("media_mimetype", photoFile.type); // Kirim juga tipe MIME
-            console.log('HTML Debug: File dikonversi ke Base64 dan ditambahkan ke FormData. Ukuran Base64:', base64Data.length);
+          formData.append("media_base64", base64Data);
+          formData.append("media_filename", photoFile.name);
+          formData.append("media_mimetype", photoFile.type);
+          console.log('📸 Photo converted to Base64. Size:', base64Data.length);
 
         } else {
-            formData.append("media_base64", ""); // Kirim string kosong jika tidak ada file
-            formData.append("media_filename", "");
-            formData.append("media_mimetype", "");
-            console.log('HTML Debug: Tidak ada file foto yang dipilih.');
+          formData.append("media_base64", "");
+          formData.append("media_filename", "");
+          formData.append("media_mimetype", "");
         }
-        // --- Akhir Logic Baru untuk Upload Foto ---
 
         console.log('🚀 Submitting to Apps Script:', APPS_SCRIPT_URL);
 
-        // Submit ke Google Apps Script
+        // Submit to Google Apps Script
         const response = await fetch(APPS_SCRIPT_URL, {
           method: 'POST',
           body: formData,
@@ -687,10 +886,20 @@
         const result = await response.json();
         console.log('✅ Response:', result);
 
-        if (result.result === 'success') { // Perhatikan: hasil dari Apps Script contoh pakai 'result' bukan 'success'
+        // Hide loading overlay
+        hideLoadingOverlay();
+
+        if (result.result === 'success') {
           // Hide form and show success message
           document.getElementById('pilotForm').classList.add('hidden');
           document.getElementById('successMessage').classList.remove('hidden');
+
+          // Show email status
+          if (result.emailSent === true) {
+            document.getElementById('emailSent').classList.remove('hidden');
+          } else {
+            document.getElementById('emailFailed').classList.remove('hidden');
+          }
 
           // Scroll to success message
           document.getElementById('successMessage').scrollIntoView({ 
@@ -698,13 +907,20 @@
             block: 'center' 
           });
 
+          // Optional: Confetti effect or celebration animation
+          setTimeout(() => {
+            console.log('🎉 Registration completed successfully!');
+          }, 500);
+
         } else {
-          // Perhatikan: hasil error dari Apps Script contoh pakai 'error' bukan 'message'
-          throw new Error(result.error || 'Gagal mengirim data'); 
+          throw new Error(result.error || 'Gagal mengirim data');
         }
 
       } catch (error) {
         console.error('❌ Submission error:', error);
+
+        // Hide loading overlay
+        hideLoadingOverlay();
 
         let errorMessage = 'Gagal mengirim pendaftaran. ';
 
@@ -726,13 +942,6 @@
         submitSpinner.classList.add('hidden');
       }
     }
-
-
-
-
-
-
-
 
     // ========== ERROR HANDLING ==========
     function showError(message) {
@@ -776,8 +985,6 @@
 
     // ========== INITIALIZATION ==========
     document.addEventListener('DOMContentLoaded', function() {
-
-      
       // Hide loading spinner initially
       document.getElementById('submitSpinner').classList.add('hidden');
       
@@ -786,7 +993,8 @@
 
       console.log('🌱 MuDu Challenge form initialized');
       console.log('🔗 Apps Script URL:', APPS_SCRIPT_URL);
-      console.log('✅ Form ready to submit!');
+      console.log('📧 Email notifications enabled');
+      console.log('✅ Enhanced loading system ready!');
     });
 
     // ========== REAL-TIME VALIDATION ==========
@@ -836,6 +1044,69 @@
         }
       }
     });
+
+    // ========== ENHANCED USER EXPERIENCE ==========
+
+    // Add typing effect for success message
+    function typeWriterEffect(element, text, speed = 50) {
+      let i = 0;
+      element.innerHTML = '';
+      
+      function typeWriter() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+        }
+      }
+      
+      typeWriter();
+    }
+
+    // Add celebration effect when form is submitted successfully
+    function celebrateSuccess() {
+      // Create floating success icons
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+          const icon = document.createElement('div');
+          icon.innerHTML = '🎉';
+          icon.style.position = 'fixed';
+          icon.style.left = Math.random() * window.innerWidth + 'px';
+          icon.style.top = '-50px';
+          icon.style.fontSize = '2rem';
+          icon.style.zIndex = '10000';
+          icon.style.pointerEvents = 'none';
+          icon.style.animation = 'fall 3s linear forwards';
+          
+          document.body.appendChild(icon);
+          
+          setTimeout(() => {
+            document.body.removeChild(icon);
+          }, 3000);
+        }, i * 200);
+      }
+    }
+
+    // Add smooth transitions between steps
+    function smoothStepTransition(fromStep, toStep) {
+      const from = document.getElementById(`step-${fromStep}`);
+      const to = document.getElementById(`step-${toStep}`);
+      
+      from.style.opacity = '0';
+      from.style.transform = 'translateX(-20px)';
+      
+      setTimeout(() => {
+        from.classList.add('hidden');
+        to.classList.remove('hidden');
+        to.style.opacity = '0';
+        to.style.transform = 'translateX(20px)';
+        
+        setTimeout(() => {
+          to.style.opacity = '1';
+          to.style.transform = 'translateX(0)';
+        }, 50);
+      }, 200);
+    }
 
   </script>
 </body>
