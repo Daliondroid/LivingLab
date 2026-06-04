@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - CSR | MuDu</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-green': '#62a64a',
+            'primary-orange': '#ec7c0c',
+            'light-green': '#d7ebcd',
+            'cream': '#faf9e6',
+            'dark-green': '#28361c',
+            'text-gray': '#445a3b',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+
+<body class="bg-light-green min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-white/95 backdrop-blur-lg border-b-2 border-primary-orange/20">
+    <div class="container mx-auto px-4 py-3">
+      <div class="flex items-center justify-between">
+        <img src="../images/MuDu logo.png" alt="MuDu Logo" class="h-10" />
+        <a href="../index.html" class="text-text-gray font-semibold hover:text-[#E98728] transition">← Kembali</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-purple-600 to-purple-700 text-white py-8">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl font-bold mb-2">Dashboard CSR</h1>
+      <p class="text-purple-100">Kelola program sosial & dukungan CSR untuk MuDu</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container mx-auto px-4 py-8">
+    <!-- Stats Cards -->
+    <div class="grid md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-white rounded-lg p-6 shadow-md">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-sm">Total Dana CSR</p>
+            <p class="text-3xl font-bold text-purple-600">Rp 5.2M</p>
+          </div>
+          <i class="fas fa-wallet text-4xl text-purple-200"></i>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg p-6 shadow-md">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-sm">Dana Terpakai</p>
+            <p class="text-3xl font-bold text-green-600">Rp 3.8M</p>
+          </div>
+          <i class="fas fa-hand-holding-heart text-4xl text-green-200"></i>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg p-6 shadow-md">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-sm">Sisa Dana</p>
+            <p class="text-3xl font-bold text-blue-600">Rp 1.4M</p>
+          </div>
+          <i class="fas fa-chart-pie text-4xl text-blue-200"></i>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg p-6 shadow-md">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-sm">Program Aktif</p>
+            <p class="text-3xl font-bold text-purple-600">8</p>
+          </div>
+          <i class="fas fa-tasks text-4xl text-purple-200"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Left Section -->
+      <div class="lg:col-span-2 space-y-8">
+        <!-- Fitur 1: Memberikan CSR -->
+        <div class="bg-white rounded-lg p-6 shadow-md">
+          <div class="flex items-center gap-3 mb-4">
+            <i class="fas fa-donate text-2xl text-purple-600"></i>
+            <h2 class="text-2xl font-bold text-dark-green">Memberikan CSR</h2>
+          </div>
+          <p class="text-gray-600 mb-4">Alokasikan dana atau barang untuk program MuDu</p>
+          <div class="space-y-3">
+            <div class="border border-purple-200 rounded-lg p-4">
+              <div class="flex justify-between items-start mb-2">
+                <div>
+                  <p class="font-bold text-purple-600">Subsidi Voucher Reward (Jun 2025)</p>
+                  <p class="text-sm text-gray-600">Dana untuk reward peserta challenge</p>
+                </div>
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded text-xs font-bold">✓ Aktif</span>
+              </div>
+              <p class="text-lg font-bold text-dark-green">Rp 1.5M</p>
+            </div>
+            <div class="border border-purple-200 rounded-lg p-4">
+              <div class="flex justify-between items-start mb-2">
+                <div>
+                  <p class="font-bold text-purple-600">Donasi Bak Sampah ke RW (Jun 2025)</p>
+                  <p class="text-sm text-gray-600">Pemberian Bak Sampah gratis ke 5 RW</p>
+                </div>
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded text-xs font-bold">✓ Aktif</span>
+              </div>
+              <p class="text-lg font-bold text-dark-green">5 buah Bak Sampah</p>
+            </div>
+          </div>
+          <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition mt-4">+ Program CSR Baru</button>
+        </div>
+
+        <!-- Fitur 2: Mengelola CSR -->
+        <div class="bg-white rounded-lg p-6 shadow-md">
+          <div class="flex items-center gap-3 mb-4">
+            <i class="fas fa-folder-open text-2xl text-purple-600"></i>
+            <h2 class="text-2xl font-bold text-dark-green">Kelola Program CSR</h2>
+          </div>
+          <p class="text-gray-600 mb-4">Pantau implementasi & dampak program CSR</p>
+          <table class="w-full text-sm">
+            <thead class="bg-purple-50">
+              <tr>
+                <th class="text-left p-2">Program</th>
+                <th class="text-left p-2">Jenis</th>
+                <th class="text-left p-2">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-t">
+                <td class="p-2">Subsidi Voucher</td>
+                <td class="p-2">Dana</td>
+                <td class="p-2"><span class="text-green-600">✓ Berjalan</span></td>
+              </tr>
+              <tr class="border-t">
+                <td class="p-2">Donasi Bak Sampah</td>
+                <td class="p-2">Barang</td>
+                <td class="p-2"><span class="text-green-600">✓ Berjalan</span></td>
+              </tr>
+              <tr class="border-t">
+                <td class="p-2">Training RW</td>
+                <td class="p-2">Layanan</td>
+                <td class="p-2"><span class="text-yellow-600">⏳ Prep</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Fitur 3: Reporting & Impact -->
+        <div class="bg-white rounded-lg p-6 shadow-md">
+          <div class="flex items-center gap-3 mb-4">
+            <i class="fas fa-chart-line text-2xl text-purple-600"></i>
+            <h2 class="text-2xl font-bold text-dark-green">Reporting & Dampak</h2>
+          </div>
+          <p class="text-gray-600 mb-4">Laporan dampak sosial dari CSR yang diberikan</p>
+          <div class="space-y-3">
+            <div class="bg-purple-50 border border-purple-200 rounded-lg p-3">
+              <p class="font-bold text-dark-green">📊 Laporan Dampak (Mei 2025)</p>
+              <p class="text-sm text-gray-600 mt-1">• 450 peserta terlibat aktif</p>
+              <p class="text-sm text-gray-600">• 12.5 ton sampah organik terkelola</p>
+              <p class="text-sm text-gray-600">• 45 RW terdaftar dan aktif</p>
+              <button class="text-purple-600 text-sm mt-2 hover:underline">Download Laporan →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Section -->
+      <div class="space-y-8">
+        <!-- Fitur 4: Alokasi Budget -->
+        <div class="bg-white rounded-lg p-6 shadow-md">
+          <div class="flex items-center gap-3 mb-4">
+            <i class="fas fa-calculator text-2xl text-purple-600"></i>
+            <h2 class="text-2xl font-bold text-dark-green">Alokasi Budget</h2>
+          </div>
+          <p class="text-gray-600 mb-4">Rincian penggunaan dana CSR</p>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center text-sm">
+              <span>Reward & Insentif</span>
+              <span class="font-bold">45%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-green-500 h-2 rounded-full" style="width: 45%"></div>
+            </div>
+
+            <div class="flex justify-between items-center text-sm mt-4">
+              <span>Program Edukasi</span>
+              <span class="font-bold">30%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-blue-500 h-2 rounded-full" style="width: 30%"></div>
+            </div>
+
+            <div class="flex justify-between items-center text-sm mt-4">
+              <span>Donasi Barang</span>
+              <span class="font-bold">25%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-purple-500 h-2 rounded-full" style="width: 25%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fitur 5: Kolaborasi Partner -->
+        <div class="bg-white rounded-lg p-6 shadow-md">
+          <div class="flex items-center gap-3 mb-4">
+            <i class="fas fa-link text-2xl text-purple-600"></i>
+            <h2 class="text-2xl font-bold text-dark-green">Partner Kolaborasi</h2>
+          </div>
+          <p class="text-gray-600 mb-4">Daftar perusahaan yang berkolaborasi</p>
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 p-2">
+              <i class="fas fa-check text-green-600"></i>
+              <span class="text-sm text-gray-600">BUMD DKI (Jaya Ancol)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2">
+              <i class="fas fa-check text-green-600"></i>
+              <span class="text-sm text-gray-600">Unilever Indonesia</span>
+            </label>
+            <label class="flex items-center gap-2 p-2">
+              <i class="fas fa-check text-green-600"></i>
+              <span class="text-sm text-gray-600">WWF Indonesia</span>
+            </label>
+            <label class="flex items-center gap-2 p-2">
+              <i class="fas fa-check text-green-600"></i>
+              <span class="text-sm text-gray-600">Eco Enzyme Nusantara</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Dummy Image Area -->
+        <div class="bg-gradient-to-br from-purple-100 to-purple-50 rounded-lg p-8 flex items-center justify-center min-h-40">
+          <div class="text-center">
+            <i class="fas fa-image text-5xl text-purple-300 mb-2"></i>
+            <p class="text-gray-600">Area Program</p>
+            <p class="text-xs text-gray-500 mt-1">(Gambar dapat disesuaikan)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark-green text-white py-8 mt-16">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; 2025 MuDu. Kolaborasi Sampah Organik Jakarta.</p>
+    </div>
+  </footer>
+</body>
+
+</html>

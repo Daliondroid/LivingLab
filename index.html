@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MuDu - Smart Environment Solution</title>
+  <title>MuDu - Kolaborasi Sampah Organik Jakarta</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -93,109 +93,33 @@
         transform: translateY(-100vh) rotate(0deg);
         opacity: 1;
       }
-
       100% {
         transform: translateY(100vh) rotate(360deg);
         opacity: 0;
       }
     }
 
-    
-        .btn {
-            padding: 0.5rem 1.5rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-        
-        .btn-primary {
-            background: var(--primary-orange); /* Using Tailwind color */
-            color: rgb(0, 0, 0);
-            outline-style: solid;
-        }
-        
-        .btn-primary:hover {
-            background: #e55a2b; /* Slightly darker orange for hover */
-            color: antiquewhite;
-            transform: translateY(-2px);
-        }
-
-    .competitions-section {
-      padding: 80px 0;
-      background: transparent;
-      /* Let body gradient show through */
-    }
-
-    .competition-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-
-    .competition-card {
-      background: white;
-      border-radius: 15px;
-      padding: 2rem;
-      margin-left: 20%;
-      margin-right: 20%;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    .btn {
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
       text-align: center;
-      transition: transform 0.3s;
+      transition: all 0.3s;
+      font-weight: 600;
     }
 
-    .competition-card:hover {
-      transform: translateY(-5px);
+    .btn-primary {
+      background: var(--primary-orange);
+      color: white;
     }
 
-    .competition-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    .progress-bar {
-      background:  #e55a2b;
-      border-radius: 10px;
-      height: 8px;
-      margin: 1rem 0;
-    }
-
-    .progress-fill {
-      background: linear-gradient(90deg, var(--primary-green), #2e7d4f);
-      /* Using Tailwind color */
-      height: 100%;
-      border-radius: 10px;
-      transition: width 0.3s ease;
-    }
-
-    .composting-steam {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 50%;
-      animation: steam 2s ease-in-out infinite;
-    }
-
-    @keyframes steam {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.7;
-      }
-
-      100% {
-        transform: translateY(-40px) scale(0);
-        opacity: 0;
-      }
-    }
-
-    .leaf-float {
-      animation: float 4s ease-in-out infinite;
+    .btn-primary:hover {
+      background: #e55a2b;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(236, 124, 12, 0.3);
     }
 
     .text-glow {
@@ -213,47 +137,97 @@
 
     .organic-shape {
       border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-      animation: wiggle 3s ease-in-out infinite;
     }
 
-    @keyframes slideDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 40;
+    }
 
-      100% {
+    .modal-backdrop.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #menu-toggle {
+      transition: all 0.3s ease;
+    }
+
+    #menu-toggle.open {
+      transform: rotate(90deg);
+    }
+
+    #mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    #mobile-menu.show {
+      max-height: 200px;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .user-role-btn {
+      background: white;
+      border: 2px solid var(--primary-green);
+      color: var(--primary-green);
+      padding: 1.5rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .user-role-btn:hover {
+      background: var(--primary-green);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .user-role-btn.active {
+      background: var(--primary-orange);
+      border-color: var(--primary-orange);
+      color: white;
+      box-shadow: 0 8px 20px rgba(236, 124, 12, 0.3);
+    }
+
+    .role-info-container {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .role-info-container.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
         opacity: 1;
         transform: translateY(0);
-      }
-    }
-
-    .animate-slide-down {
-      animation: slideDown 0.3s ease-out forwards;
-    }
-
-    #mobile-menu-wrapper.show {
-      max-height: 150px;
-    }
-
-    #menu.fade-in {
-      opacity: 1;
-      transition-delay: 0.25s;
-      /* Tunggu animasi background selesai */
-    }
-
-    #menu.fade-out {
-      opacity: 0;
-      transition-delay: 0s;
-    }
-
-    @media (max-width: 639px) {
-      .logo-wrapper {
-        display: flex;
-        justify-content: flex-start;
-        width: 100%;
-        margin-bottom: 0.5rem;
-        /* agar ada jarak dengan menu */
       }
     }
   </style>
@@ -276,7 +250,7 @@
       <div class="flex items-center justify-between">
         <!-- Logo -->
         <div class="logo-wrapper">
-          <img src="MuDu logo.png" alt="MuDu Logo" class="h-8 sm:h-10" />
+          <img src="images/MuDu logo.png" alt="MuDu Logo" class="h-8 sm:h-10" />
         </div>
 
         <!-- Hamburger Button (mobile only) -->
@@ -286,40 +260,22 @@
 
         <!-- Desktop Menu -->
         <div class="hidden sm:flex items-center space-x-8">
-          <a href="index.html" class="font-bold underline underline-offset-4 text-[#E98728]">Home</a>
-          <a href="education.html"
-            class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Education</a>
-          <a href="wastemap.html"
-            class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Waste
-            Map</a>
-          <a href="challenge.html"
-            class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Challenge</a>
+          <a href="#home" class="font-bold text-[#E98728] hover:scale-110 transition-transform">Beranda</a>
+          <a href="#tentang" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Tentang</a>
+          <a href="#fitur" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Fitur</a>
+          <a href="#demo" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Demo</a>
         </div>
       </div>
 
       <!-- Mobile Menu -->
-      <div id="mobile-menu" class="hidden sm:hidden flex flex-col items-center space-y-3 pt-3">
-        <a href="index.html"
-          class="font-bold underline underline-offset-4 text-[#E98728] hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Home</a>
-        <a href="education.html"
-          class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Education</a>
-        <a href="wastemap.html"
-          class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Waste
-          Map</a>
-        <a href="challenge.html"
-          class="text-text-gray font-semibold hover:text-[#E98728] transition-all duration-300 hover:scale-110 whitespace-nowrap">Challenge</a>
+      <div id="mobile-menu" class="sm:hidden flex flex-col items-center space-y-3 pt-3 pb-3">
+        <a href="#home" class="font-bold text-[#E98728] hover:scale-110 transition-all">Beranda</a>
+        <a href="#tentang" class="text-text-gray font-semibold hover:text-[#E98728] transition-all hover:scale-110">Tentang</a>
+        <a href="#fitur" class="text-text-gray font-semibold hover:text-[#E98728] transition-all hover:scale-110">Fitur</a>
+        <a href="#demo" class="text-text-gray font-semibold hover:text-[#E98728] transition-all hover:scale-110">Demo</a>
       </div>
-
-
-
-
-
     </div>
   </nav>
-
-
-
-
 
   <!-- Hero Section -->
   <section id="home" class="pt-24 pb-16 relative">
@@ -327,42 +283,99 @@
       <div class="flex flex-col lg:flex-row items-center gap-8">
         <!-- Text Content -->
         <div class="lg:w-1/2 space-y-6 animate-slide-up">
-          <h1
-            class="text-6xl lg:text-7xl font-black italic text-dark-green text-glow leading-tight animate-scale-bounce">
+          <h1 class="text-6xl lg:text-7xl font-black italic text-dark-green text-glow leading-tight">
             Langkah kecil<br>
             <span class="text-[#E98728]">Dampak Besar</span>
           </h1>
           <p class="text-gray-600 text-lg leading-relaxed max-w-lg animate-fade-in">
-            Mengurangi food waste dimulai dari rumah dengan memilih dan mengolah sisa makanan secara tepat. MuDu hadir
-            untuk memudahkan perubahan kebiasaan ini menjadi gaya hidup berkelanjutan.
+            MuDu adalah wadah kolaborasi untuk mengatasi sampah organik rumah tangga di Jakarta melalui edukasi, mediasi dengan pengelola sampah, dan gamifikasi yang mengubah perilaku ramah lingkungan.
           </p>
           <button
+            onclick="document.getElementById('demoModal').classList.add('active')"
             class="bg-primary-orange hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-pulse-glow group">
-            <i class="fas fa-leaf mr-3 group-hover:animate-wiggle"></i>
-            Pelajari Lebih Lanjut, Coba Demo Sekarang!
+            <i class="fas fa-play mr-3 group-hover:animate-wiggle"></i>
+            Coba Demo Sekarang
           </button>
         </div>
 
-        <!-- Hero Image - Expanded to right edge -->
+        <!-- Hero Image -->
         <div class="lg:w-1/2 relative">
           <div class="relative overflow-hidden rounded-2xl border-4 border-primary-orange shadow-2xl animate-float">
-            <!-- Composting Steam Effects -->
-            <div class="absolute top-4 left-8 composting-steam" style="animation-delay: 0s;"></div>
-            <div class="absolute top-6 left-12 composting-steam" style="animation-delay: 0.5s;"></div>
-            <div class="absolute top-3 left-16 composting-steam" style="animation-delay: 1s;"></div>
-
-            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&h=400&fit=crop&crop=center"
-              alt="Composting food waste at home"
+            <img src="images/mengompos.jpg"
+              alt="Kolaborasi sampah organik"
               class="w-full h-96 object-cover transform hover:scale-105 transition-transform duration-500">
-            <div
-              class="absolute bottom-4 right-4 bg-dark-green/90 text-white px-4 py-2 rounded-lg text-sm font-semibold animate-bounce-slow">
-              <i class="fas fa-recycle mr-2 animate-rotate-slow"></i>
-              Composting at Home
+            <div class="absolute bottom-4 right-4 bg-dark-green/90 text-white px-4 py-2 rounded-lg text-sm font-semibold animate-bounce-slow">
+              <i class="fas fa-leaf mr-2 animate-rotate-slow"></i>
+              Edukasi & Kolaborasi
+            </div>
+            <div class="absolute top-8 right-8 text-green-500 text-2xl leaf-float" style="animation-delay: 0s;">🌱</div>
+            <div class="absolute bottom-16 left-8 text-green-400 text-xl leaf-float" style="animation-delay: 1s;">♻️</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tentang MuDu Section -->
+  <section id="tentang" class="py-16 relative">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 animate-slide-up">
+        <h2 class="text-5xl font-black text-dark-green mb-4 text-glow">Apa itu MuDu?</h2>
+      </div>
+
+      <div class="max-w-4xl mx-auto bg-white rounded-2xl p-8 lg:p-12 shadow-xl card-hover animate-slide-up">
+        <div class="space-y-6 text-gray-700 leading-relaxed text-lg">
+          <p>
+            <span class="font-bold text-[#E98728]">MuDu</span> adalah <span class="font-semibold">wadah kolaborasi bersama</span> terkait masalah <span class="font-semibold">sampah organik (food waste) / SOD (sampah organik dapur)</span> rumah tangga ibukota. Kami hadir dengan pendekatan komprehensif yang meliputi:
+          </p>
+
+          <div class="space-y-4">
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-primary-orange text-white">
+                  <i class="fas fa-megaphone"></i>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-bold text-primary-orange mb-2">Media Campaign & Edukasi</h4>
+                <p>Konten edukatif dan kolaborasi dengan influencer lingkungan untuk membangun kesadaran masyarakat secara persuasif</p>
+              </div>
             </div>
 
-            <!-- Floating Leaves -->
-            <div class="absolute top-8 right-8 text-green-500 text-2xl leaf-float" style="animation-delay: 0s;">🍃</div>
-            <div class="absolute bottom-16 left-8 text-green-400 text-xl leaf-float" style="animation-delay: 1s;">🌱
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-primary-green text-white">
+                  <i class="fas fa-handshake"></i>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-bold text-primary-green mb-2">Mediator & Penghubung</h4>
+                <p>Menjadi jembatan antara warga (lingkup RW) dengan fasilitas pengolahan sampah dan badan usaha kebersihan (Rumah Maggot, TPS3R, Waste4Change, dll)</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-orange-500 text-white">
+                  <i class="fas fa-trophy"></i>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-bold text-orange-500 mb-2">Gamifikasi & Trigger Perubahan</h4>
+                <p>Menerapkan gamifikasi sebagai pemicu perubahan budaya ramah lingkungan berdasarkan nilai ekonomis produk hasil pengomposan dan maggot BSF</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-10 w-10 rounded-full bg-blue-500 text-white">
+                  <i class="fas fa-network-wired"></i>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-bold text-blue-500 mb-2">Kolaborasi Bersama</h4>
+                <p>Melalui kolaborasi dengan CSR BUMD DKI, BUMN, serta pihak swasta untuk memperkuat ekosistem sampah organik yang berkelanjutan</p>
+              </div>
             </div>
           </div>
         </div>
@@ -370,428 +383,464 @@
     </div>
   </section>
 
-  <!-- Info Cards Section -->
-  <section id="education" class="py-16 relative">
-    <div class="container mx-auto px-4">
-      <div class="grid md:grid-cols-4 gap-8">
-        <!-- Card 1 -->
-        <div
-          class="bg-white rounded-2xl p-8 shadow-xl border-2 border-primary-green/20 card-hover group animate-slide-up"
-          style="animation-delay: 0.2s;">
-          <div class="text-center mb-6">
-            <div
-              class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:animate-wiggle organic-shape">
-              <i class="fas fa-users text-2xl text-white"></i>
-            </div>
-          </div>
-          <h5 class="text-xl font-bold text-[#E98728] mb-4 group-hover:text-orange-600 transition-colors">Tentang Kami
-          </h5>
-          <p class="text-gray-600 leading-relaxed">
-            MuDu adalah platform dan kampanye digital yang mengajak masyarakat memilah dan mengolah sampah makanan melalui edukasi, tantangan, dan kampanye media yang mendorong gaya hidup berkelanjutan.
-          </p>
-        </div>
-
-        <!-- Card 2 -->
-        <div
-          class="bg-white rounded-2xl p-8 shadow-xl border-2 border-primary-green/20 card-hover group animate-slide-up"
-          style="animation-delay: 0.4s;">
-          <div class="text-center mb-6">
-            <div
-              class="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:animate-bounce organic-shape">
-              <i class="fas fa-lightbulb text-2xl text-white"></i>
-            </div>
-          </div>
-          <h5 class="text-xl font-bold text-[#E98728] mb-4 group-hover:text-orange-600 transition-colors">Kenapa harus
-            ada MuDu?</h5>
-          <p class="text-gray-600 leading-relaxed">
-            Jakarta menghasilkan 6.500-7.000 ton sampah per hari, dengan 53% berupa sisa makanan dan 61% bersumber dari rumah tangga. Bisa dilihat sumber utamanya adalah rumah tangga dan foodwaste. MuDu hadir untuk mengatasi masalah ini.
-          </p>
-        </div>
-
-        <!-- Card 3 -->
-        <div
-          class="bg-white rounded-2xl p-8 shadow-xl border-2 border-primary-green/20 card-hover group animate-slide-up"
-          style="animation-delay: 0.6s;">
-          <div class="text-center mb-6">
-            <div
-              class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:animate-pulse organic-shape">
-              <i class="fas fa-cogs text-2xl text-white"></i>
-            </div>
-          </div>
-          <h5 class="text-xl font-bold text-[#E98728] mb-4 group-hover:text-orange-600 transition-colors">Cara kerja
-            MuDu</h5>
-          <p class="text-gray-600 leading-relaxed">
-            MuDu menyediakan platform edukasi interaktif, peta titik waste map, program challenge dengan habit tracker, dan menghubungkan masyarakat dengan DLH DKI Jakarta.
-          </p>
-        </div>
-
-        <!-- Card 4 -->
-        <div
-          class="bg-white rounded-2xl p-8 shadow-xl border-2 border-primary-green/20 card-hover group animate-slide-up"
-          style="animation-delay: 0.6s;">
-          <div class="text-center mb-6">
-            <div
-              class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:animate-pulse organic-shape">
-              <i class="fas fa-bullseye text-2xl text-white"></i>
-            </div>
-          </div>
-          <h5 class="text-xl font-bold text-[#E98728] mb-4 group-hover:text-orange-600 transition-colors">Tujuan MuDu
-          </h5>
-          <p class="text-gray-600 leading-relaxed">
-            
-Fokus pada Pencegahan Sampah dari Sumbernya, Mendorong Gaya Hidup Ekonomi Sirkular & Ramah Lingkungan, dan Trendsetter Gaya Hidup Anti Food Waste.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>  
-
+  <!-- Fitur MuDu Section -->
   <section id="fitur" class="py-16 relative">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16 animate-slide-up">
-        <h2 class="text-5xl font-black text-dark-green mb-4 text-glow">Fitur Unggulan MuDu</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Platform lengkap untuk pengelolaan food waste yang efektif
-        </p>
+        <h2 class="text-5xl font-black text-dark-green mb-4 text-glow">3 Fitur Unggulan MuDu</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Platform lengkap untuk pengelolaan food waste yang efektif dan berkelanjutan</p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Feature 1 -->
-        <div class="text-center group animate-slide-up" style="animation-delay: 0.3s;">
-          <div
-            class="w-20 h-20 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:animate-pulse transform hover:scale-110 transition-all duration-300 organic-shape">
-            <i class="fas fa-graduation-cap text-3xl text-white"></i>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Feature 1: Edukasi -->
+        <div class="feature-card animate-slide-up" style="animation-delay: 0.1s;">
+          <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mb-6 mx-auto organic-shape">
+            <i class="fas fa-book text-3xl text-white"></i>
           </div>
-          <a href="education.html">
-  <h5 class="text-xl font-bold text-dark-green mb-3 group-hover:text-[#E98728] transition-colors">
-    Edukasi Interaktif
-  </h5>
-</a>
-          <p class="text-gray-600">Pelajari cara pengelolaan sampah yang tepat melalui konten edukatif</p>
+          <h3 class="text-2xl font-bold text-dark-green mb-4 text-center">1. Fitur Edukasi & Konten Kreatif</h3>
+          <p class="text-gray-600 mb-4">Pusat edukasi digital untuk membangun kesadaran masyarakat secara persuasif:</p>
+          <ul class="space-y-2 text-gray-600 text-sm">
+            <li class="flex gap-2"><i class="fas fa-check text-primary-orange"></i> <span><strong>Integrasi Konten Influencer:</strong> Kampanye edukatif dari environmental influencers</span></li>
+            <li class="flex gap-2"><i class="fas fa-check text-primary-orange"></i> <span><strong>Media Edukasi Interaktif:</strong> Panduan digital pemilahan sampah rumah tangga</span></li>
+          </ul>
         </div>
 
-        <!-- Feature 2 -->
-        <div class="text-center group animate-slide-up" style="animation-delay: 0.1s;">
-          <div
-            class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:animate-bounce transform hover:scale-110 transition-all duration-300 organic-shape">
-            <i class="fas fa-map-marked-alt text-3xl text-white"></i>
+        <!-- Feature 2: Hub Digital -->
+        <div class="feature-card animate-slide-up" style="animation-delay: 0.2s;">
+          <div class="w-16 h-16 bg-gradient-to-r from-blue-400 to-green-500 rounded-full flex items-center justify-center mb-6 mx-auto organic-shape">
+            <i class="fas fa-network-wired text-3xl text-white"></i>
           </div>
-          <a href="wastemap.html">
-          <h5 class="text-xl font-bold text-dark-green mb-3 group-hover:text-[#E98728] transition-colors">Peta waste map
-            dan tracking truck</h5>
-            </a>
-          <p class="text-gray-600">Temukan lokasi terdekat untuk menyalurkan sampah makanan Anda</p>
+          <h3 class="text-2xl font-bold text-dark-green mb-4 text-center">2. Hub Digital & Manajemen Sampah</h3>
+          <p class="text-gray-600 mb-4">Jembatan interaktif menghubungkan hulu (warga) dan hilir (pengelola):</p>
+          <ul class="space-y-2 text-gray-600 text-sm">
+            <li class="flex gap-2"><i class="fas fa-check text-primary-orange"></i> <span><strong>Pencatatan & Penjadwalan:</strong> Organisir penyetoran sampah rumah tangga</span></li>
+            <li class="flex gap-2"><i class="fas fa-check text-primary-orange"></i> <span><strong>Dashboard Data:</strong> Laporan transparan dari mitra pengolah</span></li>
+          </ul>
         </div>
 
-        <!-- Feature 4 -->
-        <div class="text-center group animate-slide-up" style="animation-delay: 0.2s;">
-          <div
-            class="w-20 h-20 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:animate-wiggle transform hover:scale-110 transition-all duration-300 organic-shape">
-            <i class="fas fa-trophy text-3xl text-white"></i>
+        <!-- Feature 3: Gamifikasi -->
+        <div class="feature-card animate-slide-up" style="animation-delay: 0.3s;">
+          <div class="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center mb-6 mx-auto organic-shape">
+            <i class="fas fa-gamepad text-3xl text-white"></i>
           </div>
-          <a href="challenge.html">
-          <h5 class="text-xl font-bold text-dark-green mb-3 group-hover:text-[#E98728] transition-colors">Challenge &
-            Badge</h5>
-            </a>
-          <p class="text-gray-600">Raih pencapaian dan bagikan progress Anda di media sosial</p>
+          <h3 class="text-2xl font-bold text-dark-green mb-4 text-center">3. Sistem Gamifikasi & Reward</h3>
+          <p class="text-gray-600 mb-4">Trigger perubahan budaya melalui pendekatan yang menyenangkan:</p>
+          <ul class="space-y-2 text-gray-600 text-sm">
+            <li class="flex gap-2"><i class="fas fa-check text-primary-orange"></i> <span><strong>Sistem Poin & Tantangan:</strong> Dapatkan poin dan badge saat setor sampah</span></li>
+            <li class="flex gap-2"><i class="fas fa-check text-primary-orange"></i> <span><strong>Voucher & Benefit:</strong> Tukar poin dengan reward nyata dari sponsor</span></li>
+          </ul>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- Enhanced Features Section -->
-  <section id="challenge" class="py-16 relative">
+  <!-- Target User Section -->
+  <section id="users" class="py-16 relative">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16 animate-slide-up">
-        <h2 class="text-5xl font-black text-dark-green mb-4 text-glow">Ayo Ikuti MuDu Challenge!</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">MuDu Beta Test Challenge, tantangannya adalah memilah foodwaste dan jika bisa lebih baik lagi mengolah sampah sisa makanan menjadi kompos dalam pot. Edukasi lengkap tersedia di website MuDu. Kumpulkan sampah sisa makanan selama 3 hari berturut-turut! Lalu kirimkan hasilnya berupa foto dan data lengkap. </p>
+        <h2 class="text-5xl font-black text-dark-green mb-4 text-glow">MuDu untuk Siapa?</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Klik user role untuk melihat dashboard dan fitur yang tersedia</p>
       </div>
 
-      <div class="competition-card">
-        <div class="competition-icon">♻️🏆♻️</div>
-        <h3 class="text-dark-green">MuDu Beta Test Challenge</h3>
-        <p class="text-gray-700">Tantangan 9-10 Juli </p>
-        <div class="flex justify-between my-4">
-          <span>Progress</span>
-          <strong>9-10 Juli</strong>
-        </div>
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: 80%;"></div>
-        </div>
-        <div class="mt-2 text-gray-600">0 hari Tersisa</div>
-        <a href="#" class="btn w-full mt-4">Challenge Telah Usai!</a>
-
-      </div>
-
-      
-      <div class="text-center mb-16 animate-slide-up">
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto pt-10">Pendaftaran dibuka 9–10 Juli, dan pengumpulan hasil pada 11–12 Juli. Peserta akan dinilai berdasarkan foto dan mendapat badge serta wrap ala Spotify yang bisa dibagikan di Instagram Stories. Jangan lupa tag @mudumulaidulu ya! </p>
-      </div>
-    </div>
-    </div>
-  </section>
-
-  <!-- Enhanced Gem House Banner -->
-  <section id="pilotproject" class="py-16 relative overflow-hidden">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-16 animate-slide-up">
-        <h2 class="text-5xl font-black text-dark-green mb-4 text-glow">Pilot Project MuDu</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Langkah awal Kami dalam pengaplikasiaan MuDu dalam pemilahan
-          dan pengolahan food waste terpadu di wilayah Jakarta Timur</p>
-      </div>
-
-      <div class="max-w-6xl mx-auto">
-        <div
-          class="bg-white rounded-3xl shadow-2xl overflow-hidden transform hover:scale-105 transition-all duration-500 animate-slide-up">
-          <div class="flex flex-col lg:flex-row">
-            <div class="lg:w-3/5 relative group">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3774.5853153159205!2d106.89008707478449!3d-6.311170361761478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed124851232f%3A0x3bd1207c75e4c4d6!2sGem%20House!5e1!3m2!1sen!2sid!4v1751533464450!5m2!1sen!2sid"
-                width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade" class="w-full h-80 lg:h-96 object-cover"></iframe>
-              <div class="absolute top-6 left-6 text-3xl animate-float pointer-events-none"
-                style="animation-delay: 0s;">♻️</div>
-              <div class="absolute top-16 right-8 text-2xl animate-float pointer-events-none"
-                style="animation-delay: 1s;">🌱</div>
-              <div class="absolute bottom-12 left-12 text-2xl animate-float pointer-events-none"
-                style="animation-delay: 2s;">🍃</div>
-
-              <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
+      <!-- Interactive Users Section -->
+      <div class="grid lg:grid-cols-4 gap-6 mb-8">
+        <!-- Users List (Left) -->
+        <div class="space-y-4">
+          <!-- Petugas RW Button -->
+          <button onclick="showRoleInfo('petugas-rw')" class="user-role-btn active w-full text-left" data-role="petugas-rw">
+            <div class="flex items-center gap-3">
+              <div class="text-2xl">👷</div>
+              <div>
+                <h4 class="font-bold text-dark-green">Petugas RW</h4>
+                <p class="text-xs opacity-75">/ LPS</p>
+              </div>
             </div>
+          </button>
 
-            <div
-              class="lg:w-2/5 bg-gradient-to-br from-primary-orange to-orange-600 text-white p-8 lg:p-12 flex flex-col justify-center relative overflow-hidden">
-              <div class="absolute inset-0 opacity-10">
-                <div class="absolute bottom-8 left-4 text-4xl animate-wiggle">🌿</div>
+          <!-- DLH Button -->
+          <button onclick="showRoleInfo('dlh')" class="user-role-btn w-full text-left" data-role="dlh">
+            <div class="flex items-center gap-3">
+              <div class="text-2xl">🛡️</div>
+              <div>
+                <h4 class="font-bold text-dark-green">DLH</h4>
+                <p class="text-xs opacity-75">Pengawas</p>
               </div>
+            </div>
+          </button>
 
-              <div class="absolute top-4 right-4 z-20">
-                <img src="MuDu logo.png" alt="DLH Logo" class="h-12 w-auto" />
+          <!-- Mitra Pengelola Button -->
+          <button onclick="showRoleInfo('mitra')" class="user-role-btn w-full text-left" data-role="mitra">
+            <div class="flex items-center gap-3">
+              <div class="text-2xl">🏭</div>
+              <div>
+                <h4 class="font-bold text-dark-green">Mitra Pengelola</h4>
+                <p class="text-xs opacity-75">Pengelola Sampah</p>
               </div>
+            </div>
+          </button>
 
-              <div class="relative z-10">
-                <div class="flex items-center mb-4 animate-scale-bounce">
-                  <i class="fas fa-map-marker-alt text-3xl mr-4 animate-bounce-slow"></i>
-                  <h4 class="text-3xl font-black">Gem House</h4>
+          <!-- CSR Button -->
+          <button onclick="showRoleInfo('csr')" class="user-role-btn w-full text-left" data-role="csr">
+            <div class="flex items-center gap-3">
+              <div class="text-2xl">💼</div>
+              <div>
+                <h4 class="font-bold text-dark-green">CSR</h4>
+                <p class="text-xs opacity-75">Program Sosial</p>
+              </div>
+            </div>
+          </button>
+
+          <!-- Warga Button -->
+          <button onclick="showRoleInfo('warga')" class="user-role-btn w-full text-left" data-role="warga">
+            <div class="flex items-center gap-3">
+              <div class="text-2xl">👨‍👩‍👧‍👦</div>
+              <div>
+                <h4 class="font-bold text-dark-green">Warga</h4>
+                <p class="text-xs opacity-75">Publik</p>
+              </div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Info Container (Right) -->
+        <div class="lg:col-span-3">
+          <!-- Petugas RW Info -->
+          <div id="petugas-rw-info" class="role-info-container active">
+            <div class="bg-white rounded-2xl p-8 shadow-xl h-full">
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 class="text-3xl font-bold text-dark-green mb-4">Petugas RW / LPS</h3>
+                  <p class="text-gray-600 leading-relaxed mb-6">
+                    Petugas RW bertindak sebagai penghubung antara warga dan sistem MuDu. Mereka mengelola pengumpulan sampah organik, mencatat data, dan memverifikasi laporan dari warga.
+                  </p>
+                  <h4 class="font-bold text-primary-orange mb-3">📊 Fitur Dashboard:</h4>
+                  <ul class="space-y-2 text-gray-600 text-sm">
+                    <li><i class="fas fa-check text-primary-orange mr-2"></i>Pendaftaran RW menjadi mitra</li>
+                    <li><i class="fas fa-check text-primary-orange mr-2"></i>Pencarian & pemilihan mitra pengelola</li>
+                    <li><i class="fas fa-check text-primary-orange mr-2"></i>Monitoring dan input/CRUD data sampah organik</li>
+                    <li><i class="fas fa-check text-primary-orange mr-2"></i>Verifikasi data input dari warga</li>
+                    <li><i class="fas fa-check text-primary-orange mr-2"></i>Menerima gamifikasi (insentif) uang/benda</li>
+                  </ul>
                 </div>
-                <p class="text-lg leading-relaxed mb-6 animate-fade-in">
-                  Titik pengumpulan food waste dan lokasi edukasi pengelolaannya untuk masyarakat di Jakarta Timur.
-                </p>
-                <a href="https://maps.app.goo.gl/ZQWzPUa3YaT7SFoy7" target="_blank"
-                  class="inline-block bg-white text-[#E98728] font-bold px-6 py-3 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg group">
-                  <i class="fas fa-compass mr-2 group-hover:animate-wiggle"></i>
-                  Lihat Lokasi
-                </a>
+                <div class="bg-gradient-to-br from-green-100 to-green-50 rounded-xl p-6 flex items-center justify-center min-h-64">
+                  <div class="text-center">
+                    <div class="text-8xl mb-4">👷</div>
+                    <p class="text-gray-600 font-semibold">Dashboard Petugas RW</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DLH Info -->
+          <div id="dlh-info" class="role-info-container">
+            <div class="bg-white rounded-2xl p-8 shadow-xl h-full">
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 class="text-3xl font-bold text-dark-green mb-4">DLH (Dinas Lingkungan Hidup)</h3>
+                  <p class="text-gray-600 leading-relaxed mb-6">
+                    DLH berperan sebagai badan pengawas yang memantau seluruh kegiatan pengelolaan sampah organik di Jakarta, memastikan kesesuaian dengan regulasi, dan memberikan feedback kepada RW yang melanggar.
+                  </p>
+                  <h4 class="font-bold text-blue-600 mb-3">📊 Fitur Dashboard:</h4>
+                  <ul class="space-y-2 text-gray-600 text-sm">
+                    <li><i class="fas fa-check text-blue-600 mr-2"></i>Monitoring data sampah di seluruh Jakarta</li>
+                    <li><i class="fas fa-check text-blue-600 mr-2"></i>Analisis tren dan laporan pengolahan</li>
+                    <li><i class="fas fa-check text-blue-600 mr-2"></i>Memberikan surat/teguran ke RW yang melanggar</li>
+                    <li><i class="fas fa-check text-blue-600 mr-2"></i>Verifikasi mitra pengelola baru</li>
+                    <li><i class="fas fa-check text-blue-600 mr-2"></i>Manajemen regulasi dan compliance</li>
+                  </ul>
+                </div>
+                <div class="bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl p-6 flex items-center justify-center min-h-64">
+                  <div class="text-center">
+                    <div class="text-8xl mb-4">🛡️</div>
+                    <p class="text-gray-600 font-semibold">Dashboard DLH</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mitra Pengelola Info -->
+          <div id="mitra-info" class="role-info-container">
+            <div class="bg-white rounded-2xl p-8 shadow-xl h-full">
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 class="text-3xl font-bold text-dark-green mb-4">Mitra Pengelola</h3>
+                  <p class="text-gray-600 leading-relaxed mb-6">
+                    Mitra pengelola (TPS3R, Rumah Maggot, Waste4Change, dll) mengelola pengolahan sampah organik dari RW, memproses data, dan memberikan insentif berdasarkan hasil pengolahan.
+                  </p>
+                  <h4 class="font-bold text-orange-600 mb-3">📊 Fitur Dashboard:</h4>
+                  <ul class="space-y-2 text-gray-600 text-sm">
+                    <li><i class="fas fa-check text-orange-600 mr-2"></i>Pendaftaran sebagai mitra pengelola resmi</li>
+                    <li><i class="fas fa-check text-orange-600 mr-2"></i>List RW yang buka kerja sama</li>
+                    <li><i class="fas fa-check text-orange-600 mr-2"></i>Monitoring dan input/CRUD data sampah organik</li>
+                    <li><i class="fas fa-check text-orange-600 mr-2"></i>Verifikasi dan laporan pengolahan</li>
+                    <li><i class="fas fa-check text-orange-600 mr-2"></i>Memberikan insentif dari hasil pengolahan</li>
+                  </ul>
+                </div>
+                <div class="bg-gradient-to-br from-orange-100 to-orange-50 rounded-xl p-6 flex items-center justify-center min-h-64">
+                  <div class="text-center">
+                    <div class="text-8xl mb-4">🏭</div>
+                    <p class="text-gray-600 font-semibold">Dashboard Mitra Pengelola</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CSR Info -->
+          <div id="csr-info" class="role-info-container">
+            <div class="bg-white rounded-2xl p-8 shadow-xl h-full">
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 class="text-3xl font-bold text-dark-green mb-4">CSR (Corporate Social Responsibility)</h3>
+                  <p class="text-gray-600 leading-relaxed mb-6">
+                    CSR dari BUMD DKI, BUMN, dan perusahaan swasta memberikan dukungan finansial dan barang untuk program MuDu, termasuk reward dan insentif bagi peserta yang aktif.
+                  </p>
+                  <h4 class="font-bold text-purple-600 mb-3">📊 Fitur Dashboard:</h4>
+                  <ul class="space-y-2 text-gray-600 text-sm">
+                    <li><i class="fas fa-check text-purple-600 mr-2"></i>Memberikan CSR dengan uang atau barang</li>
+                    <li><i class="fas fa-check text-purple-600 mr-2"></i>Mengelola budget dan alokasi program</li>
+                    <li><i class="fas fa-check text-purple-600 mr-2"></i>Monitoring hasil dampak CSR</li>
+                    <li><i class="fas fa-check text-purple-600 mr-2"></i>Reporting dan transparansi</li>
+                    <li><i class="fas fa-check text-purple-600 mr-2"></i>Kolaborasi dengan mitra lainnya</li>
+                  </ul>
+                </div>
+                <div class="bg-gradient-to-br from-purple-100 to-purple-50 rounded-xl p-6 flex items-center justify-center min-h-64">
+                  <div class="text-center">
+                    <div class="text-8xl mb-4">💼</div>
+                    <p class="text-gray-600 font-semibold">Dashboard CSR</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Warga Info -->
+          <div id="warga-info" class="role-info-container">
+            <div class="bg-white rounded-2xl p-8 shadow-xl h-full">
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 class="text-3xl font-bold text-dark-green mb-4">Warga (Publik)</h3>
+                  <p class="text-gray-600 leading-relaxed mb-6">
+                    Warga adalah aktor utama dalam perubahan perilaku. Mereka dapat mengakses konten edukasi, mengikuti challenge, tracking progress mereka, dan berbagi pencapaian di media sosial.
+                  </p>
+                  <h4 class="font-bold text-green-600 mb-3">🎯 Fitur (Tanpa Login):</h4>
+                  <ul class="space-y-2 text-gray-600 text-sm">
+                    <li><i class="fas fa-check text-green-600 mr-2"></i>Akses konten edukasi dan literasi sampah organik</li>
+                    <li><i class="fas fa-check text-green-600 mr-2"></i>Melihat progress gamifikasi RW mereka</li>
+                    <li><i class="fas fa-check text-green-600 mr-2"></i>Monitoring data pengolahan sampah RW</li>
+                    <li><i class="fas fa-check text-green-600 mr-2"></i>Menerima award ketika mencapai milestone</li>
+                    <li><i class="fas fa-check text-green-600 mr-2"></i>Berbagi pencapaian di media sosial</li>
+                  </ul>
+                </div>
+                <div class="bg-gradient-to-br from-green-100 to-green-50 rounded-xl p-6 flex items-center justify-center min-h-64">
+                  <div class="text-center">
+                    <div class="text-8xl mb-4">👨‍👩‍👧‍👦</div>
+                    <p class="text-gray-600 font-semibold">Halaman Warga (Public)</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-        <div class="mt-16 text-center animate-slide-up">
-          <h3 class="text-3xl font-bold text-dark-green mb-6">Dokumentasi Pilot Project</h3>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div
-            class="rounded-2xl overflow-hidden shadow-xl border-2 border-primary-green/20 card-hover animate-slide-up"
-            style="animation-delay: 0.1s;">
-            <img src="dokum1.jpg"
-              alt="Uji Coba Pilot Project Pemilahan Sampah di DKI Jakarta dengan MuDu Hari kedua, 25 Juni 2025"
-              class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500">
-          </div>
-          <div
-            class="rounded-2xl overflow-hidden shadow-xl border-2 border-primary-green/20 card-hover animate-slide-up"
-            style="animation-delay: 0.2s;">
-            <img src="dokum2.jpg"
-              alt="Seorang pria dengan sarung tangan sedang berkebun di tanah, terlihat kucing di sampingnya."
-              class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500">
-          </div>
-          <div
-            class="rounded-2xl overflow-hidden shadow-xl border-2 border-primary-green/20 card-hover animate-slide-up"
-            style="animation-delay: 0.3s;">
-            <img src="dokum3.jpg"
-              alt="Dua orang berdiri di depan pintu gerbang rumah dengan dua kantong sampah bertuliskan 'Food Waste' dan 'Sampah Anorganik'."
-              class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500">
-          </div>
-          <div
-            class="rounded-2xl overflow-hidden shadow-xl border-2 border-primary-green/20 card-hover animate-slide-up"
-            style="animation-delay: 0.4s;">
-            <img src="dokum4.jpg"
-              alt="Dua orang pria, satu memegang laptop dan dua kantong sampah bertuliskan 'Food Waste' dan 'Sampah Anorganik', berdiri di depan rumah."
-              class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500">
-          </div>
-        </div>
-      </div>
-      <div class="text-center mt-10 animate-slide-up">
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Kegiatan kami dalam pilot project, mengedukasi masyarakat
-          untuk memilah, kami juga mengolah sampah makanan untuk menjadi kompos</p>
       </div>
     </div>
   </section>
 
-  <!-- Gallery Section -->
-  <section id="gallery" class="py-16 relative">
+  <!-- Ekosistem MuDu Section -->
+  <section id="ekosistem" class="py-16 relative bg-gradient-to-r from-light-green/50 to-cream/50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto bg-white rounded-2xl p-8 lg:p-12 shadow-xl card-hover animate-slide-up">
+        <div class="space-y-6">
+          <h2 class="text-4xl font-black text-dark-green mb-6 text-glow">Ekosistem MuDu yang Terintegrasi</h2>
+          <p class="text-gray-600 leading-relaxed">
+            Setiap pengguna memiliki peran penting dalam ekosistem MuDu yang saling terhubung. Dari petugas RW yang mengelola pengumpulan, DLH sebagai pengawas, mitra pengelola yang memproses sampah, CSR yang memberikan dukungan, hingga warga yang menjadi aktor utama dalam perubahan perilaku.
+          </p>
+          <p class="text-gray-600 leading-relaxed">
+            Semua data terintegrasi dalam satu platform yang transparan, memudahkan monitoring, memastikan akuntabilitas, dan memberikan insentif nyata bagi mereka yang berkontribusi dalam pengelolaan sampah organik. Kolaborasi ini menciptakan ekosistem yang berkelanjutan dan memberikan nilai ekonomis dari hasil pengomposan dan maggot BSF.
+          </p>
+
+          <!-- Ecosystem Flow -->
+          <div class="mt-8 grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div class="bg-gradient-to-br from-green-100 to-green-50 rounded-lg p-4 text-center">
+              <div class="text-3xl mb-2">👨‍👩‍👧‍👦</div>
+              <p class="font-bold text-sm text-dark-green">Warga</p>
+              <p class="text-xs text-gray-600 mt-1">Sumber Sampah</p>
+            </div>
+            <div class="flex items-center justify-center">
+              <i class="fas fa-arrow-right text-primary-orange text-2xl"></i>
+            </div>
+            <div class="bg-gradient-to-br from-green-100 to-green-50 rounded-lg p-4 text-center">
+              <div class="text-3xl mb-2">👷</div>
+              <p class="font-bold text-sm text-dark-green">Petugas RW</p>
+              <p class="text-xs text-gray-600 mt-1">Kumpulkan & Catat</p>
+            </div>
+            <div class="flex items-center justify-center">
+              <i class="fas fa-arrow-right text-primary-orange text-2xl"></i>
+            </div>
+            <div class="bg-gradient-to-br from-orange-100 to-orange-50 rounded-lg p-4 text-center">
+              <div class="text-3xl mb-2">🏭</div>
+              <p class="font-bold text-sm text-dark-green">Mitra Pengelola</p>
+              <p class="text-xs text-gray-600 mt-1">Proses & Insentif</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section id="demo" class="py-16 relative">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16 animate-slide-up">
-        <h2 class="text-5xl font-black text-dark-green mb-4 text-glow">Galeri Kami</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Melihat lebih dekat kegiatan kami</p>
+        <h2 class="text-5xl font-black text-dark-green mb-4 text-glow">Jelajahi MuDu Sekarang</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Coba demo platform MuDu untuk peran yang berbeda</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="rounded-2xl overflow-hidden shadow-xl border-2 border-primary-green/20 card-hover animate-slide-up"
-          style="animation-delay: 0.1s;">
-          <img src="Gallery1.jpg" alt="Jakarta Recycle Centre building"
-            class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500">
-        </div>
-        <div class="rounded-2xl overflow-hidden shadow-xl border-2 border-primary-green/20 card-hover animate-slide-up"
-          style="animation-delay: 0.2s;">
-          <img src="Gallery2.jpg" alt="People holding bags of waste"
-            class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500">
-        </div>
-        <div class="rounded-2xl overflow-hidden shadow-xl border-2 border-primary-green/20 card-hover animate-slide-up"
-          style="animation-delay: 0.3s;">
-          <img src="Gallery3.jpg" alt="Jakarta Sadar Sampah sign"
-            class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500">
-        </div>
-        <div class="rounded-2xl overflow-hidden shadow-xl border-2 border-primary-green/20 card-hover animate-slide-up"
-          style="animation-delay: 0.4s;">
-          <img src="Gallery4.jpg" alt="Officials at an event"
-            class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500">
-        </div>
-        <div class="rounded-2xl overflow-hidden shadow-xl border-2 border-primary-green/20 card-hover animate-slide-up"
-          style="animation-delay: 0.1s;">
-          <img src="Gallery5.png" alt="Jakarta Recycle Centre building"
-            class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500">
-        </div>
-        <div class="rounded-2xl overflow-hidden shadow-xl border-2 border-primary-green/20 card-hover animate-slide-up"
-          style="animation-delay: 0.2s;">
-          <img src="Gallery6.png" alt="People holding bags of waste"
-            class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500">
-        </div>
-        <div class="rounded-2xl overflow-hidden shadow-xl border-2 border-primary-green/20 card-hover animate-slide-up"
-          style="animation-delay: 0.3s;">
-          <img src="Gallery7.png" alt="Jakarta Sadar Sampah sign"
-            class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500">
-        </div>
-        <div class="rounded-2xl overflow-hidden shadow-xl border-2 border-primary-green/20 card-hover animate-slide-up"
-          style="animation-delay: 0.4s;">
-          <img src="Gallery8.png" alt="Officials at an event"
-            class="w-full h-64 object-cover transform hover:scale-110 transition-transform duration-500">
-        </div>
+      <div class="flex justify-center">
+        <button
+          onclick="document.getElementById('demoModal').classList.add('active')"
+          class="bg-primary-orange hover:bg-orange-600 text-white font-bold px-10 py-5 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-lg animate-pulse-glow group">
+          <i class="fas fa-play mr-3 group-hover:animate-wiggle"></i>
+          Coba Demo
+        </button>
       </div>
     </div>
   </section>
 
-
-  <footer class="bg-dark-green text-gray-300 border-t-4 border-primary-orange py-16 relative overflow-hidden">
-    <div class="absolute inset-0 opacity-5">
-      <div class="absolute top-8 left-8 text-6xl animate-float">🌿</div>
-      <div class="absolute bottom-16 right-16 text-8xl animate-rotate-slow">♻️</div>
-      <div class="absolute top-1/2 left-1/3 text-4xl animate-wiggle">🍃</div>
-    </div>
-
-    <div class="container mx-auto px-4 relative z-10">
-      <div class="grid lg:grid-cols-3 gap-12">
-        <div class="lg:col-span-2 animate-slide-up">
-          <h6 class="text-gray-300 font-black text-lg uppercase tracking-wider mb-6">Contact Us</h6>
-          <div class="grid md:grid-cols-2 gap-6">
-            <div class="space-y-4">
-              <!-- <a href="tel:+6281224017980" class="flex items-center text-[#E98728] hover:text-orange-400 transition-colors group">
-                <i class="fas fa-phone w-5 mr-3 group-hover:animate-wiggle"></i>
-                +62 8
-              </a> -->
-              <a href="mailto:mudumulaidulu@gmail.com" class="flex items-center text-[#E98728] hover:text-orange-400 transition-colors group">
-                <i class="fas fa-envelope w-5 mr-3 group-hover:animate-bounce"></i>
-                mudumulaidulu@gmail.com
-              </a>
-            </div>
-            <div>
-              <div class="flex items-start text-[#E98728]">
-                <i class="fas fa-map-marker-alt w-5 mr-3 mt-1"></i>
-                <span>Jl. Gempol 1 No.40B, RT.6/RW.2, Ceger, Kec. Cipayung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13820</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="animate-slide-up" style="animation-delay: 0.2s;">
-          <h6 class="text-gray-300 font-black text-lg uppercase tracking-wider mb-6">Follow Us</h6>
-          <div class="space-y-3">
-            <!-- <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
-              <i class="fab fa-facebook w-5 mr-3 group-hover:animate-bounce"></i>Facebook
-            </a> -->
-            <!-- <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
-              <i class="fab fa-twitter w-5 mr-3 group-hover:animate-wiggle"></i>Twitter
-            </a> -->
-            <a href="https://www.instagram.com/mudumulaidulu?utm_source=qr&igsh=bzd0bXByaGxudGty" target="_blank" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
-              <i class="fab fa-instagram w-5 mr-3 group-hover:animate-pulse"></i>Instagram
-            <!-- </a>
-            <a href="#" class="flex items-center text-[#E98728] hover:text-orange-400 transition-all duration-300 hover:scale-105 group">
-              <i class="fab fa-linkedin w-5 mr-3 group-hover:animate-bounce-slow"></i>LinkedIn
-            </a> -->
-          </div>
-        </div>
+  <!-- Demo Modal -->
+  <div id="demoModal" class="modal-backdrop">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 max-h-96 overflow-y-auto animate-scale-bounce">
+      <div class="sticky top-0 bg-gradient-to-r from-primary-orange to-orange-600 text-white p-6 flex justify-between items-center">
+        <h2 class="text-2xl font-bold">Pilih Versi Demo</h2>
+        <button
+          onclick="document.getElementById('demoModal').classList.remove('active')"
+          class="text-2xl hover:scale-110 transition-transform">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
 
-      <div class="text-center mt-12 pt-8 border-t border-gray-600 animate-fade-in">
-        <p class="text-sm font-black uppercase tracking-wider">
-          © 2026 MuDu — Leading The Future Of Sustainable Food Waste Management
-        </p>
+      <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Demo Options -->
+        <a href="pages/demo-petugas-rw.html" class="user-role-btn group">
+          <div class="text-4xl mb-3 group-hover:animate-bounce">👷</div>
+          <h3 class="font-bold mb-2">Petugas RW</h3>
+          <p class="text-sm">Kelola pengumpulan & monitoring sampah organik di RW Anda</p>
+        </a>
+
+        <a href="pages/demo-dlh.html" class="user-role-btn group">
+          <div class="text-4xl mb-3 group-hover:animate-bounce">🛡️</div>
+          <h3 class="font-bold mb-2">DLH (Pengawas)</h3>
+          <p class="text-sm">Monitor dan supervisi data sampah di seluruh Jakarta</p>
+        </a>
+
+        <a href="pages/demo-mitra-pengelola.html" class="user-role-btn group">
+          <div class="text-4xl mb-3 group-hover:animate-bounce">🏭</div>
+          <h3 class="font-bold mb-2">Mitra Pengelola</h3>
+          <p class="text-sm">Kelola kerjasama dengan RW & input data pengolahan sampah</p>
+        </a>
+
+        <a href="pages/demo-csr.html" class="user-role-btn group">
+          <div class="text-4xl mb-3 group-hover:animate-bounce">💼</div>
+          <h3 class="font-bold mb-2">CSR</h3>
+          <p class="text-sm">Berikan dukungan CSR dan kelola program sosial</p>
+        </a>
+
+        <a href="pages/demo-warga.html" class="user-role-btn group md:col-span-2">
+          <div class="text-4xl mb-3 group-hover:animate-bounce">👨‍👩‍👧‍👦</div>
+          <h3 class="font-bold mb-2">Warga</h3>
+          <p class="text-sm">Jelajahi edukasi, ikuti challenge, lihat progress gamifikasi</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark-green text-white py-12 mt-16">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <img src="images/MuDu logo.png" alt="MuDu Logo" class="h-10 mb-4 brightness-0 invert" />
+          <p class="text-gray-300 text-sm">Wadah kolaborasi untuk mengatasi sampah organik Jakarta</p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Platform</h4>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li><a href="#" class="hover:text-white transition">Tentang Kami</a></li>
+            <li><a href="#" class="hover:text-white transition">Fitur</a></li>
+            <li><a href="#" class="hover:text-white transition">Demo</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Pengguna</h4>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li><a href="#" class="hover:text-white transition">Petugas RW</a></li>
+            <li><a href="#" class="hover:text-white transition">DLH</a></li>
+            <li><a href="#" class="hover:text-white transition">Mitra Pengelola</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Hubungi Kami</h4>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li><a href="mailto:info@mudu.com" class="hover:text-white transition">Email</a></li>
+            <li><a href="#" class="hover:text-white transition">Instagram</a></li>
+            <li><a href="#" class="hover:text-white transition">Twitter</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 pt-8 text-center text-gray-400 text-sm">
+        <p>&copy; 2025 MuDu. Kolaborasi Sampah Organik Jakarta. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
   <script>
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', function () {
+      mobileMenu.classList.toggle('show');
+      menuToggle.classList.toggle('open');
     });
 
-    // Enhanced navbar background on scroll
-    window.addEventListener('scroll', function () {
-      const navbar = document.querySelector('nav');
-      if (window.scrollY > 50) {
-        navbar.classList.add('bg-white/98', 'shadow-lg');
-        navbar.classList.remove('bg-white/95');
-      } else {
-        navbar.classList.remove('bg-white/98', 'shadow-lg');
-        navbar.classList.add('bg-white/95');
+    // Close modal when clicking outside
+    document.getElementById('demoModal').addEventListener('click', function (e) {
+      if (e.target === this) {
+        this.classList.remove('active');
       }
     });
 
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-slide-up');
-        }
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', function () {
+        mobileMenu.classList.remove('show');
+        menuToggle.classList.remove('open');
       });
-    }, observerOptions);
-
-    // Observe elements for animation
-    document.querySelectorAll('section').forEach(section => {
-      observer.observe(section);
     });
 
-    document.getElementById('menu-toggle').addEventListener('click', function () {
-      const mobileMenu = document.getElementById('mobile-menu');
-      mobileMenu.classList.toggle('hidden');
-    });
+    // Show Role Info Function
+    function showRoleInfo(role) {
+      // Hide all info containers
+      document.querySelectorAll('.role-info-container').forEach(el => {
+        el.classList.remove('active');
+      });
+
+      // Remove active class from all buttons
+      document.querySelectorAll('[data-role]').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // Show selected info container
+      const infoContainer = document.getElementById(role + '-info');
+      if (infoContainer) {
+        infoContainer.classList.add('active');
+      }
+
+      // Add active class to clicked button
+      document.querySelector('[data-role="' + role + '"]').classList.add('active');
+    }
   </script>
 </body>
 

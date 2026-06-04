@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MuDu Demo - [ROLE]</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-green': '#62a64a',
+            'primary-orange': '#ec7c0c',
+            'light-green': '#d7ebcd',
+            'cream': '#faf9e6',
+            'dark-green': '#28361c',
+            'text-gray': '#445a3b',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-light-green min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-white/95 backdrop-blur-lg border-b-2 border-primary-orange/20">
+    <div class="container mx-auto px-4 py-3">
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <div class="logo-wrapper">
+          <img src="../images/MuDu logo.png" alt="MuDu Logo" class="h-10" />
+        </div>
+
+        <!-- Menu -->
+        <div class="flex items-center space-x-8">
+          <a href="../index.html" class="text-text-gray font-semibold hover:text-[#E98728] transition">← Kembali</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container mx-auto px-4 py-8">
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+      <h1 class="text-5xl font-black text-dark-green mb-4">Demo MuDu - [ROLE]</h1>
+      <p class="text-gray-600 text-lg mb-8">
+        Halaman demo untuk role: <span class="font-bold text-primary-orange">[ROLE]</span>
+      </p>
+
+      <!-- Template Content -->
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-light-green rounded-xl p-6">
+          <h2 class="text-2xl font-bold text-dark-green mb-4">Fitur 1</h2>
+          <p class="text-gray-600">Deskripsi fitur untuk role ini</p>
+        </div>
+        <div class="bg-light-green rounded-xl p-6">
+          <h2 class="text-2xl font-bold text-dark-green mb-4">Fitur 2</h2>
+          <p class="text-gray-600">Deskripsi fitur untuk role ini</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark-green text-white py-8 mt-16">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; 2025 MuDu. Kolaborasi Sampah Organik Jakarta.</p>
+    </div>
+  </footer>
+</body>
+
+</html>
