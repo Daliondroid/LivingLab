@@ -165,7 +165,7 @@
       <div class="flex items-center justify-between">
         <!-- Logo -->
         <div class="logo-wrapper">
-          <img src="MuDu logo.png" alt="MuDu Logo" class="h-8 sm:h-10" />
+          <img src="images/MuDu logo.png" alt="MuDu Logo" class="h-8 sm:h-10" />
         </div>
 
         <!-- Hamburger Button (mobile only) -->
@@ -318,12 +318,12 @@
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    fetch('/data/tps_data.json')
+    fetch('tps_data.json')
       .then(res => res.json())
       .then(json => {
         Object.values(json).forEach(region => {
           const iconFile = region.icon || 'trash1.png'; // fallback kalau tidak ada
-          const iconPath = `/assets/${iconFile}`;
+          const iconPath = `assets/${iconFile}`;
 
           const customIcon = L.icon({
             iconUrl: iconPath,

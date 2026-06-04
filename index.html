@@ -16,6 +16,14 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+  <!-- Gesture Handling Plugin -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" />
+  <script src="https://unpkg.com/leaflet-gesture-handling"></script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -263,6 +271,8 @@
           <a href="#home" class="font-bold text-[#E98728] hover:scale-110 transition-transform">Beranda</a>
           <a href="#tentang" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Tentang</a>
           <a href="#fitur" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Fitur</a>
+          <a href="#users" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Pengguna</a>
+          <a href="#ekosistem" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Ekosistem</a>
           <a href="#demo" class="text-text-gray font-semibold hover:text-[#E98728] transition duration-300 hover:scale-110">Demo</a>
         </div>
       </div>
@@ -277,44 +287,44 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section id="home" class="pt-24 pb-16 relative">
-    <div class="container mx-auto px-4">
-      <div class="flex flex-col lg:flex-row items-center gap-8">
-        <!-- Text Content -->
-        <div class="lg:w-1/2 space-y-6 animate-slide-up">
-          <h1 class="text-6xl lg:text-7xl font-black italic text-dark-green text-glow leading-tight">
-            Langkah kecil<br>
-            <span class="text-[#E98728]">Dampak Besar</span>
-          </h1>
-          <p class="text-gray-600 text-lg leading-relaxed max-w-lg animate-fade-in">
-            MuDu adalah wadah kolaborasi untuk mengatasi sampah organik rumah tangga di Jakarta melalui edukasi, mediasi dengan pengelola sampah, dan gamifikasi yang mengubah perilaku ramah lingkungan.
-          </p>
-          <button
-            onclick="document.getElementById('demoModal').classList.add('active')"
-            class="bg-primary-orange hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-pulse-glow group">
-            <i class="fas fa-play mr-3 group-hover:animate-wiggle"></i>
-            Coba Demo Sekarang
-          </button>
-        </div>
+<!-- Hero Section -->
+<section id="home" class="pt-24 pb-16 relative">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col lg:flex-row items-center gap-8">
+      
+      <!-- Text Content (Tambahkan w-full di sini) -->
+      <div class="w-full lg:w-1/2 space-y-6 animate-slide-up">
+        <h1 class="text-6xl lg:text-7xl font-black italic text-dark-green text-glow leading-tight">
+          Langkah kecil<br>
+          <span class="text-[#E98728]">Dampak Besar</span>
+        </h1>
+        <p class="text-gray-600 text-lg leading-relaxed max-w-lg animate-fade-in">
+          MuDu adalah wadah kolaborasi untuk mengatasi sampah organik rumah tangga di Jakarta melalui edukasi, mediasi dengan pengelola sampah, dan gamifikasi yang mengubah perilaku ramah lingkungan.
+        </p>
+        <button
+          onclick="document.getElementById('demoModal').classList.add('active')"
+          class="bg-primary-orange hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-pulse-glow group">
+          <i class="fas fa-play mr-3 group-hover:animate-wiggle"></i>
+          Coba Demo Sekarang
+        </button>
+      </div>
 
-        <!-- Hero Image -->
-        <div class="lg:w-1/2 relative">
-          <div class="relative overflow-hidden rounded-2xl border-4 border-primary-orange shadow-2xl animate-float">
-            <img src="images/mengompos.jpg"
-              alt="Kolaborasi sampah organik"
-              class="w-full h-96 object-cover transform hover:scale-105 transition-transform duration-500">
-            <div class="absolute bottom-4 right-4 bg-dark-green/90 text-white px-4 py-2 rounded-lg text-sm font-semibold animate-bounce-slow">
-              <i class="fas fa-leaf mr-2 animate-rotate-slow"></i>
-              Edukasi & Kolaborasi
-            </div>
+<!-- Hero Image -->
+        <div class="w-full lg:w-1/2 relative">
+          <!-- TAMBAHKAN w-full DI SINI -->
+          <div class="w-full relative overflow-hidden rounded-2xl border-4 border-primary-orange shadow-2xl animate-float">
+            
+            <!-- Sesuaikan height untuk mobile (opsional tapi disarankan) -->
+            <div id="map" class="w-full h-[350px] lg:h-[500px] rounded-xl shadow-lg overflow-hidden"></div>
+            
             <div class="absolute top-8 right-8 text-green-500 text-2xl leaf-float" style="animation-delay: 0s;">🌱</div>
             <div class="absolute bottom-16 left-8 text-green-400 text-xl leaf-float" style="animation-delay: 1s;">♻️</div>
           </div>
         </div>
-      </div>
+      
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Tentang MuDu Section -->
   <section id="tentang" class="py-16 relative">
@@ -333,7 +343,7 @@
             <div class="flex gap-4">
               <div class="flex-shrink-0">
                 <div class="flex items-center justify-center h-10 w-10 rounded-full bg-primary-orange text-white">
-                  <i class="fas fa-megaphone"></i>
+                  <i class="fas fa-bullhorn"></i>
                 </div>
               </div>
               <div>
@@ -443,9 +453,9 @@
       </div>
 
       <!-- Interactive Users Section -->
-      <div class="grid lg:grid-cols-4 gap-6 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <!-- Users List (Left) -->
-        <div class="space-y-4">
+        <div class="space-y-4 grid grid-cols-2 md:grid-cols-1 lg:grid-cols-1 gap-4 lg:col-span-1">
           <!-- Petugas RW Button -->
           <button onclick="showRoleInfo('petugas-rw')" class="user-role-btn active w-full text-left" data-role="petugas-rw">
             <div class="flex items-center gap-3">
@@ -460,7 +470,7 @@
           <!-- DLH Button -->
           <button onclick="showRoleInfo('dlh')" class="user-role-btn w-full text-left" data-role="dlh">
             <div class="flex items-center gap-3">
-              <div class="text-2xl">🛡️</div>
+              <div class="text-2xl"><img src="images/DLHlogo.png" alt="DLH" class="h-8 w-8 object-contain"></div>
               <div>
                 <h4 class="font-bold text-dark-green">DLH</h4>
                 <p class="text-xs opacity-75">Pengawas</p>
@@ -471,7 +481,7 @@
           <!-- Mitra Pengelola Button -->
           <button onclick="showRoleInfo('mitra')" class="user-role-btn w-full text-left" data-role="mitra">
             <div class="flex items-center gap-3">
-              <div class="text-2xl">🏭</div>
+              <div class="text-2xl">♻️</div>
               <div>
                 <h4 class="font-bold text-dark-green">Mitra Pengelola</h4>
                 <p class="text-xs opacity-75">Pengelola Sampah</p>
@@ -503,7 +513,7 @@
         </div>
 
         <!-- Info Container (Right) -->
-        <div class="lg:col-span-3">
+        <div class="lg:col-span-3 md:col-span-1">
           <!-- Petugas RW Info -->
           <div id="petugas-rw-info" class="role-info-container active">
             <div class="bg-white rounded-2xl p-8 shadow-xl h-full">
@@ -552,7 +562,7 @@
                 </div>
                 <div class="bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl p-6 flex items-center justify-center min-h-64">
                   <div class="text-center">
-                    <div class="text-8xl mb-4">🛡️</div>
+                    <div class="text-8xl mb-4"><img src="images/DLHlogo.png" alt="DLH"></div>
                     <p class="text-gray-600 font-semibold">Dashboard DLH</p>
                   </div>
                 </div>
@@ -580,7 +590,7 @@
                 </div>
                 <div class="bg-gradient-to-br from-orange-100 to-orange-50 rounded-xl p-6 flex items-center justify-center min-h-64">
                   <div class="text-center">
-                    <div class="text-8xl mb-4">🏭</div>
+                    <div class="text-8xl mb-4">♻</div>
                     <p class="text-gray-600 font-semibold">Dashboard Mitra Pengelola</p>
                   </div>
                 </div>
@@ -651,9 +661,27 @@
   <!-- Ekosistem MuDu Section -->
   <section id="ekosistem" class="py-16 relative bg-gradient-to-r from-light-green/50 to-cream/50">
     <div class="container mx-auto px-4">
+      <div class="text-center mb-16 animate-slide-up">
+        <h2 class="text-5xl font-black text-dark-green mb-4 text-glow">Kenapa MuDu?</h2>
+      </div>
+
       <div class="max-w-4xl mx-auto bg-white rounded-2xl p-8 lg:p-12 shadow-xl card-hover animate-slide-up">
+        <!-- Subtitle -->
+        <h3 class="text-2xl font-bold text-primary-green mb-6">Ekosistem MuDu yang Terintegrasi</h3>
+        
+        <!-- Image Container -->
+        <div class="mb-8 rounded-xl overflow-hidden">
+          <img src="images/MuDuJFF.png" alt="MuDu Ecosystem" class="w-full h-auto object-cover">
+        </div>
+        
         <div class="space-y-6">
-          <h2 class="text-4xl font-black text-dark-green mb-6 text-glow">Ekosistem MuDu yang Terintegrasi</h2>
+          <!-- New Opening Text -->
+          <p class="text-gray-600 leading-relaxed text-lg">
+            <span class="font-bold text-dark-green">MuDu membuat ekosistem yang terintegrasi yang sebelumnya seakan-akan berdiri sendiri.</span> 
+            <span class="text-gray-600">MuDu ibarat Gojek di bidang persampahan, membuat konektifitas antara warga dan fasilitas pengolahan sampah yang seharusnya sudah dilaksanakan sejalan dengan peraturan gubernur.</span>
+          </p>
+
+          <!-- Original 2 Paragraphs -->
           <p class="text-gray-600 leading-relaxed">
             Setiap pengguna memiliki peran penting dalam ekosistem MuDu yang saling terhubung. Dari petugas RW yang mengelola pengumpulan, DLH sebagai pengawas, mitra pengelola yang memproses sampah, CSR yang memberikan dukungan, hingga warga yang menjadi aktor utama dalam perubahan perilaku.
           </p>
@@ -661,30 +689,12 @@
             Semua data terintegrasi dalam satu platform yang transparan, memudahkan monitoring, memastikan akuntabilitas, dan memberikan insentif nyata bagi mereka yang berkontribusi dalam pengelolaan sampah organik. Kolaborasi ini menciptakan ekosistem yang berkelanjutan dan memberikan nilai ekonomis dari hasil pengomposan dan maggot BSF.
           </p>
 
-          <!-- Ecosystem Flow -->
-          <div class="mt-8 grid grid-cols-1 md:grid-cols-5 gap-4">
-            <div class="bg-gradient-to-br from-green-100 to-green-50 rounded-lg p-4 text-center">
-              <div class="text-3xl mb-2">👨‍👩‍👧‍👦</div>
-              <p class="font-bold text-sm text-dark-green">Warga</p>
-              <p class="text-xs text-gray-600 mt-1">Sumber Sampah</p>
-            </div>
-            <div class="flex items-center justify-center">
-              <i class="fas fa-arrow-right text-primary-orange text-2xl"></i>
-            </div>
-            <div class="bg-gradient-to-br from-green-100 to-green-50 rounded-lg p-4 text-center">
-              <div class="text-3xl mb-2">👷</div>
-              <p class="font-bold text-sm text-dark-green">Petugas RW</p>
-              <p class="text-xs text-gray-600 mt-1">Kumpulkan & Catat</p>
-            </div>
-            <div class="flex items-center justify-center">
-              <i class="fas fa-arrow-right text-primary-orange text-2xl"></i>
-            </div>
-            <div class="bg-gradient-to-br from-orange-100 to-orange-50 rounded-lg p-4 text-center">
-              <div class="text-3xl mb-2">🏭</div>
-              <p class="font-bold text-sm text-dark-green">Mitra Pengelola</p>
-              <p class="text-xs text-gray-600 mt-1">Proses & Insentif</p>
-            </div>
-          </div>
+          <!-- New Closing Paragraph -->
+          <p class="text-gray-600 leading-relaxed">
+            Kami yakin MuDu dapat mendorong masyarakat dengan edukasi, koneksi, dan insentif. Pengolahan sampah menjadi terpadu dan akan menjawab masalah minimnya fasilitas juga memperbaiki kondisi kesehatan, lingkungan, dan ekonomi.
+          </p>
+
+
         </div>
       </div>
     </div>
@@ -730,13 +740,13 @@
         </a>
 
         <a href="pages/demo-dlh.html" class="user-role-btn group">
-          <div class="text-4xl mb-3 group-hover:animate-bounce">🛡️</div>
+          <div class="text-4xl mb-3 group-hover:animate-bounce"><img src="images/DLHlogo.png" alt="DLH" class="h-12 w-12 object-contain mx-auto"></div>
           <h3 class="font-bold mb-2">DLH (Pengawas)</h3>
           <p class="text-sm">Monitor dan supervisi data sampah di seluruh Jakarta</p>
         </a>
 
         <a href="pages/demo-mitra-pengelola.html" class="user-role-btn group">
-          <div class="text-4xl mb-3 group-hover:animate-bounce">🏭</div>
+          <div class="text-4xl mb-3 group-hover:animate-bounce">♻️</div>
           <h3 class="font-bold mb-2">Mitra Pengelola</h3>
           <p class="text-sm">Kelola kerjasama dengan RW & input data pengolahan sampah</p>
         </a>
@@ -759,33 +769,20 @@
   <!-- Footer -->
   <footer class="bg-dark-green text-white py-12 mt-16">
     <div class="container mx-auto px-4">
-      <div class="grid md:grid-cols-4 gap-8 mb-8">
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
         <div>
           <img src="images/MuDu logo.png" alt="MuDu Logo" class="h-10 mb-4 brightness-0 invert" />
           <p class="text-gray-300 text-sm">Wadah kolaborasi untuk mengatasi sampah organik Jakarta</p>
         </div>
         <div>
-          <h4 class="font-bold mb-4">Platform</h4>
-          <ul class="space-y-2 text-sm text-gray-300">
-            <li><a href="#" class="hover:text-white transition">Tentang Kami</a></li>
-            <li><a href="#" class="hover:text-white transition">Fitur</a></li>
-            <li><a href="#" class="hover:text-white transition">Demo</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-bold mb-4">Pengguna</h4>
-          <ul class="space-y-2 text-sm text-gray-300">
-            <li><a href="#" class="hover:text-white transition">Petugas RW</a></li>
-            <li><a href="#" class="hover:text-white transition">DLH</a></li>
-            <li><a href="#" class="hover:text-white transition">Mitra Pengelola</a></li>
-          </ul>
-        </div>
-        <div>
           <h4 class="font-bold mb-4">Hubungi Kami</h4>
           <ul class="space-y-2 text-sm text-gray-300">
-            <li><a href="mailto:info@mudu.com" class="hover:text-white transition">Email</a></li>
-            <li><a href="#" class="hover:text-white transition">Instagram</a></li>
-            <li><a href="#" class="hover:text-white transition">Twitter</a></li>
+            <li>
+              <a href="https://www.instagram.com/mudumulaidulu/?hl=en" target="_blank" rel="noopener noreferrer" class="hover:text-orange-400 transition flex items-center gap-2">
+                <i class="fab fa-instagram"></i>
+                Instagram
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -841,6 +838,46 @@
       // Add active class to clicked button
       document.querySelector('[data-role="' + role + '"]').classList.add('active');
     }
+
+    
+
+    const map = L.map('map', {
+      gestureHandling: true
+    }).setView([-6.2, 106.8], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    fetch('/data/tps_data.json')
+      .then(res => res.json())
+      .then(json => {
+        Object.values(json).forEach(region => {
+          const iconFile = region.icon || 'trash1.png'; // fallback kalau tidak ada
+          const iconPath = `/assets/${iconFile}`;
+
+          const customIcon = L.icon({
+            iconUrl: iconPath,
+            iconSize: [30, 35],
+            iconAnchor: [15, 35],
+            popupAnchor: [0, -35]
+          });
+
+          Object.values(region.data).forEach(tps => {
+            const lat = parseFloat(tps.lat);
+            const lng = parseFloat(tps.lng);
+            if (!isNaN(lat) && !isNaN(lng)) {
+              const popup = `
+                <strong>${tps.tps}</strong><br>
+                ${tps.kel}, ${tps.kec}, ${tps.kab}<br>
+                <em>Koordinator:</em> ${tps.koordinator || '-'}</em><br>
+                <em>No HP:</em> ${tps.no_hp || '-'}</em>
+              `;
+              L.marker([lat, lng], { icon: customIcon }).addTo(map).bindPopup(popup);
+            }
+          });
+        });
+      });
+
   </script>
 </body>
 
